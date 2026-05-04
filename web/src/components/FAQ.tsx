@@ -90,13 +90,13 @@ export default function FAQ() {
           {faqs.map((faq, index) => (
             <div 
               key={index}
-              className="border border-white/10 rounded-2xl overflow-hidden bg-white/5 backdrop-blur-md transition-all hover:bg-white/10"
+              className="border border-white/10 rounded-2xl overflow-hidden bg-white/5 backdrop-blur-md transition-all duration-300 hover:bg-white group"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
                 className="w-full flex items-center justify-between p-6 text-left"
               >
-                <span className="text-sm md:text-base font-bold text-white leading-tight pr-4">{faq.question}</span>
+                <span className="text-sm md:text-base font-bold text-white group-hover:text-black transition-colors leading-tight pr-4">{faq.question}</span>
                 <div className="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center text-secondary shrink-0">
                   {openIndex === index ? <Minus size={16} /> : <Plus size={16} />}
                 </div>
@@ -110,7 +110,7 @@ export default function FAQ() {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <div className="p-6 pt-0 text-white/60 text-sm leading-relaxed">
+                    <div className="p-6 pt-0 text-white/60 group-hover:text-black/70 transition-colors text-sm leading-relaxed">
                       {faq.answer}
                     </div>
                   </motion.div>
