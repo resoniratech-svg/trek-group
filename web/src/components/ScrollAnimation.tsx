@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useScroll, useTransform, useSpring } from "framer-motion";
+import { useScroll, useTransform, useSpring, MotionValue } from "framer-motion";
 
 interface ScrollAnimationProps {
-  progress?: any;
+  progress?: MotionValue<number>;
 }
 
 export default function ScrollAnimation({ progress }: ScrollAnimationProps) {

@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useScroll, useTransform, useSpring } from "framer-motion";
+import { useScroll, useTransform, useSpring, MotionValue } from "framer-motion";
 
 interface HomeScrollAnimationProps {
-  progress?: any;
+  progress?: MotionValue<number>;
 }
 
 export default function HomeScrollAnimation({ progress }: HomeScrollAnimationProps) {
