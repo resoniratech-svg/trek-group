@@ -90,7 +90,7 @@ export default function FAQ() {
           {faqs.map((faq, index) => (
             <div 
               key={index}
-              className="border border-white/10 rounded-2xl overflow-hidden bg-white/5 backdrop-blur-md transition-all duration-300 hover:bg-white group hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:scale-[1.01]"
+              className="border border-white/10 rounded-2xl overflow-hidden bg-white/5 backdrop-blur-md transition-all duration-300 hover:bg-white group"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
