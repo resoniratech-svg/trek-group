@@ -45,7 +45,7 @@ export default function ContactPage() {
           </div>
           <div className="h-[400px] md:h-auto w-full relative bg-gray-100">
             <img 
-              src="/qatar_office.png" 
+              src="/images/qatar_office.png" 
               alt="Handshake" 
               className="absolute inset-0 w-full h-full object-cover"
               onError={(e) => {
@@ -54,6 +54,7 @@ export default function ContactPage() {
               }}
             />
           </div>
+
         </div>
       </section>
 
@@ -98,16 +99,17 @@ export default function ContactPage() {
       {/* Section 3: Contact Form */}
       <section className="py-24 md:py-32 bg-[#F8FAFC]">
         <div className="container mx-auto px-6 max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-16 lg:gap-24 items-start">
             <div>
-              <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-black text-[#0A2540] mb-8 leading-[1.1] tracking-tight">
+              <h2 className="text-4xl md:text-6xl lg:text-[5rem] font-black text-[#0A2540] mb-12 leading-[1] tracking-tighter">
                 Feel free to <span className="text-[#0EA5E9]">get in touch</span> or visit our location.
               </h2>
+              <div className="w-24 h-2 bg-[#0EA5E9] rounded-full hidden lg:block" />
             </div>
             
-            <div className="bg-transparent mt-4 lg:mt-0">
+            <div className="bg-transparent mt-8 lg:mt-0 w-full">
               <form 
-                className="space-y-10"
+                className="space-y-16 md:space-y-24 w-full"
                 onSubmit={(e) => {
                   e.preventDefault();
                   const formData = new FormData(e.currentTarget);
@@ -121,43 +123,76 @@ export default function ContactPage() {
                   window.location.href = `mailto:info@trekgroups.com?subject=Website Contact: ${name}&body=${body}`;
                 }}
               >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                  <div className="space-y-3 border-b border-gray-300 pb-3">
-                    <label className="text-sm font-semibold text-gray-500 block">Full name</label>
-                    <input name="name" type="text" required className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg font-bold" />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12 md:gap-y-16">
+                  <div className="space-y-4 border-b-2 border-gray-300 pb-4 transition-all duration-500 focus-within:border-[#0EA5E9] group/field">
+                    <label className="text-sm md:text-base font-black text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors">Full name</label>
+                    <input 
+                      name="name" 
+                      type="text" 
+                      required 
+                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-400" 
+                      placeholder="Your Name" 
+                    />
                   </div>
-                  <div className="space-y-3 border-b border-gray-300 pb-3">
-                    <label className="text-sm font-semibold text-gray-500 block">Email address</label>
-                    <input name="email" type="email" required className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg font-bold" />
+                  <div className="space-y-4 border-b-2 border-gray-300 pb-4 transition-all duration-500 focus-within:border-[#0EA5E9] group/field">
+                    <label className="text-sm md:text-base font-black text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors">Email address</label>
+                    <input 
+                      name="email" 
+                      type="email" 
+                      required 
+                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-400" 
+                      placeholder="Email@Address.com" 
+                    />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-10">
-                  <div className="space-y-3 border-b border-gray-300 pb-3">
-                    <label className="text-sm font-semibold text-gray-500 block">Phone number</label>
-                    <input name="phone" type="tel" required className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg font-bold" />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12 md:gap-y-16">
+                  <div className="space-y-4 border-b-2 border-gray-300 pb-4 transition-all duration-500 focus-within:border-[#0EA5E9] group/field">
+                    <label className="text-sm md:text-base font-black text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors">Phone number</label>
+                    <input 
+                      name="phone" 
+                      type="tel" 
+                      required 
+                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-400" 
+                      placeholder="+974 0000 0000" 
+                    />
                   </div>
-                  <div className="space-y-3 border-b border-gray-300 pb-3">
-                    <label className="text-sm font-semibold text-gray-500 block">Location</label>
-                    <input name="location" type="text" placeholder="" className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg font-bold" />
+                  <div className="space-y-4 border-b-2 border-gray-300 pb-4 transition-all duration-500 focus-within:border-[#0EA5E9] group/field">
+                    <label className="text-sm md:text-base font-black text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors">Location</label>
+                    <input 
+                      name="location" 
+                      type="text" 
+                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-400" 
+                      placeholder="Doha, Qatar" 
+                    />
                   </div>
                 </div>
 
-                <div className="space-y-3 border-b border-gray-300 pb-3 mt-10">
-                  <label className="text-sm font-bold text-[#0EA5E9] block">Type your message...</label>
-                  <textarea name="message" rows={3} required className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg font-bold resize-none leading-relaxed"></textarea>
+                <div className="space-y-4 border-b-2 border-gray-300 pb-4 transition-all duration-500 focus-within:border-[#0EA5E9] group/field">
+                  <label className="text-sm md:text-base font-black text-[#0EA5E9] block">Type your message...</label>
+                  <textarea 
+                    name="message" 
+                    rows={4} 
+                    required 
+                    className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold resize-none leading-tight" 
+                  ></textarea>
                 </div>
 
-                <div className="pt-10">
-                  <button type="submit" className="bg-[#0EA5E9] hover:bg-[#0284C7] text-white px-10 py-4 rounded-full font-black text-base transition-all flex items-center gap-4 hover:shadow-lg hover:shadow-[#0EA5E9]/30 hover:-translate-y-1">
-                    <div className="bg-white rounded-full p-1.5 text-[#0EA5E9]">
-                      <ArrowRight size={18} />
+                <div className="pt-8">
+                  <button 
+                    type="submit" 
+                    className="w-full md:w-auto bg-[#0EA5E9] hover:bg-[#0284C7] text-white px-16 py-8 rounded-[2rem] font-black text-2xl transition-all flex items-center justify-center gap-8 hover:shadow-3xl hover:shadow-[#0EA5E9]/50 hover:-translate-y-2 group"
+                  >
+                    <div className="bg-white rounded-full p-3 text-[#0EA5E9] transition-transform group-hover:translate-x-3">
+                      <ArrowRight size={32} />
                     </div>
                     Send message
                   </button>
                 </div>
               </form>
             </div>
+
+
           </div>
         </div>
       </section>

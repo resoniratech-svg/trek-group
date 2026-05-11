@@ -70,14 +70,14 @@ export default function FAQ() {
     <section id="faq" className="py-20 bg-transparent">
       <div className="container mx-auto px-6">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <motion.span 
+          <motion.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             className="text-secondary font-bold tracking-widest uppercase text-xs"
           >
             Frequently Asked Questions
           </motion.span>
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-5xl font-black text-white mt-4"
@@ -88,7 +88,7 @@ export default function FAQ() {
 
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
           {faqs.map((faq, index) => (
-            <div 
+            <div
               key={index}
               className="border border-white/10 rounded-2xl overflow-hidden bg-white/5 backdrop-blur-md transition-all duration-300 hover:bg-white group"
             >
@@ -101,7 +101,7 @@ export default function FAQ() {
                   {openIndex === index ? <Minus size={16} /> : <Plus size={16} />}
                 </div>
               </button>
-              
+
               <AnimatePresence>
                 {openIndex === index && (
                   <motion.div

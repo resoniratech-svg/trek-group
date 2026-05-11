@@ -47,6 +47,8 @@ export default function Home() {
           <OpportunitySection />
           <ContactExpert />
           <CompanyRegistrationPart />
+          <FAQ />
+
 
           {/* CTA Section */}
           <section id="contact" className="py-24 bg-transparent relative overflow-hidden">

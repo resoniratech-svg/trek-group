@@ -27,58 +27,70 @@ const steps = [
 
 export default function FormationSteps() {
   return (
-    <section className="py-24 bg-white relative">
-      <div className="container mx-auto px-6">
+    <section className="py-24 bg-transparent relative overflow-hidden">
+      {/* Background Decorative Element */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-secondary/5 blur-[120px] rounded-full pointer-events-none" />
+
+      <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-7xl mx-auto">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-6xl font-black text-black mb-20 text-center"
+            className="text-4xl md:text-7xl font-black text-white mb-20 text-center leading-tight"
           >
-            4 Steps to <span className="text-secondary italic">Company Formation</span> in Qatar
+            4 Simple Steps to <span className="text-secondary italic underline decoration-secondary/30">Success</span> in Qatar
           </motion.h2>
 
-          <div className="flex flex-col lg:flex-row gap-16 items-start">
-            {/* Left Side: Sticky Image */}
-            <div className="lg:w-1/2">
+          <div className="flex flex-col lg:flex-row gap-20 items-center">
+            {/* Left Side: Image with Frame */}
+            <div className="lg:w-1/2 relative group">
               <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-                className="rounded-[3rem] overflow-hidden shadow-2xl border border-gray-100 h-full"
+                transition={{ duration: 1 }}
+                className="rounded-[3.5rem] overflow-hidden shadow-2xl border border-white/10 relative"
               >
                 <img 
                   id="formation-image"
                   src="/futuristic_stairs_process.png" 
                   alt="Company Formation Steps" 
-                  className="w-full h-full object-cover min-h-[600px] lg:min-h-[750px]"
+                  className="w-full h-full object-cover min-h-[500px] lg:min-h-[700px] transition-transform duration-700 group-hover:scale-110"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent opacity-60" />
               </motion.div>
+              
+              {/* Decorative Element */}
+              <div className="absolute -top-10 -left-10 w-40 h-40 bg-secondary/20 rounded-full blur-3xl -z-10" />
             </div>
 
             {/* Right Side: Scrolling Steps Container */}
             <div className="lg:w-1/2 relative">
-              <div className="h-[600px] lg:h-[750px] overflow-y-auto pr-6 custom-scrollbar scroll-smooth rounded-[3rem]">
+              <div className="h-[600px] lg:h-[700px] overflow-y-auto pr-6 custom-scrollbar scroll-smooth">
                 <div className="space-y-8 py-4">
                   {steps.map((step, index) => (
                     <motion.div
                       key={index}
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: false, margin: "-50px" }}
-                      transition={{ duration: 0.5 }}
-                      className="bg-gray-50/80 backdrop-blur-sm p-8 md:p-10 rounded-[2.5rem] border border-gray-100 hover:shadow-xl transition-all duration-300"
+                      initial={{ opacity: 0, x: 30 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: false, margin: "-100px" }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                      className="bg-white/5 backdrop-blur-xl p-10 rounded-[3rem] border border-white/10 hover:border-secondary/50 hover:bg-white/10 transition-all duration-500 group"
                     >
-                      <div className="flex flex-col gap-4">
-                        <span className="text-secondary font-black text-xl tracking-widest uppercase">
-                          {step.number}
-                        </span>
-                        <h3 className="text-2xl md:text-3xl font-black text-black leading-tight">
+                      <div className="flex flex-col gap-6">
+                        <div className="flex items-center justify-between">
+                          <span className="text-secondary font-black text-2xl tracking-[0.2em] uppercase">
+                            {step.number}
+                          </span>
+                          <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center border border-secondary/20 text-secondary group-hover:bg-secondary group-hover:text-white transition-all duration-300">
+                            <span className="font-black text-lg">{index + 1}</span>
+                          </div>
+                        </div>
+                        <h3 className="text-3xl md:text-4xl font-black text-white leading-tight">
                           {step.title}
                         </h3>
-                        <p className="text-[#0EA5E9] text-base md:text-lg leading-relaxed font-medium">
+                        <p className="text-white/60 text-lg leading-relaxed font-medium group-hover:text-white/80 transition-colors">
                           {step.description}
                         </p>
                       </div>
@@ -87,13 +99,14 @@ export default function FormationSteps() {
                 </div>
               </div>
               
-              {/* Optional: Gradient fade at top and bottom to show "hiding" effect */}
-              <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-white to-transparent pointer-events-none z-10 rounded-t-[3rem]" />
-              <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white to-transparent pointer-events-none z-10 rounded-b-[3rem]" />
+              {/* Edge Fades */}
+              <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none z-10" />
+              <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-primary/5 to-transparent pointer-events-none z-10" />
             </div>
           </div>
         </div>
       </div>
     </section>
+
   );
 }
