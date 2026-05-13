@@ -24,41 +24,38 @@ export default function ImageCarousel() {
         </h2>
       </div>
 
-      <div className="relative flex overflow-hidden">
-        {/* Infinite scrolling container */}
-        <motion.div
-          className="flex gap-4 py-4 px-2"
-          animate={{
-            x: [0, -3000], 
-          }}
-          transition={{
-            x: {
-              repeat: Infinity,
-              repeatType: "loop",
-              duration: 30,
-              ease: "linear",
-            },
-          }}
-        >
+      <style>{`
+        @keyframes scrollCarousel {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(calc(-50% - 0.5rem)); }
+        }
+        .animate-carousel {
+          animation: scrollCarousel 30s linear infinite;
+          width: max-content;
+        }
+      `}</style>
+
+      <div className="relative flex overflow-hidden group/carousel py-8">
+        {/* Infinite scrolling container using CSS to allow pause on hover */}
+        <div className="flex gap-4 px-2 animate-carousel hover:[animation-play-state:paused]">
           {doubledImages.map((src, index) => (
-            <motion.div
+            <div
               key={index}
-              whileHover={{ 
-                scale: 1.02, 
-                boxShadow: "0 25px 50px rgba(212,175,55,0.3)",
-              }}
-              className="relative flex-shrink-0 h-[300px] rounded-xl overflow-hidden shadow-2xl border border-white/10 group cursor-pointer"
+              className="relative flex-shrink-0 h-[300px] rounded-2xl overflow-hidden shadow-2xl border border-white/10 cursor-pointer transition-all duration-500 ease-out 
+              group-hover/carousel:opacity-50
+              hover:!opacity-100 hover:-translate-y-4 hover:z-20 hover:border-secondary hover:shadow-[0_20px_50px_rgba(212,175,55,0.4)]"
             >
               <img
                 src={src}
                 alt={`Trek Group Moment ${index + 1}`}
-                className="h-full w-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                className="h-full w-auto object-cover transition-transform duration-500 group-hover:scale-105"
+                style={{ imageRendering: "high-quality", WebkitFontSmoothing: "antialiased" }}
               />
-              {/* Glow Overlay */}
-              <div className="absolute inset-0 bg-secondary/0 group-hover:bg-secondary/5 transition-colors duration-300" />
-            </motion.div>
+              {/* Subtle Gold Glow Overlay on Hover */}
+              <div className="absolute inset-0 bg-transparent hover:bg-secondary/10 transition-colors duration-300" />
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

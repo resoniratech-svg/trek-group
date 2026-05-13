@@ -14,12 +14,12 @@ const navLinks = [
     name: "Services",
     href: "/services",
     subItems: [
+      { name: "Company Registration", href: "/services?service=company-registration" },
       { name: "Company Formation", href: "/services?service=company-formation" },
-      { name: "PRO Service", href: "/services?service=pro-service" },
-      { name: "Translation and Attestation", href: "/services?service=translation-and-attestation" },
-      { name: "Branding Services", href: "/services?service=branding-services" },
-      { name: "International Business Events", href: "/services?service=international-business-events" },
+      { name: "PRO Services in Qatar", href: "/services?service=pro-services-in-qatar" },
       { name: "Software Services", href: "/services?service=software-services" },
+      { name: "Certificate Attestation", href: "/services?service=certificate-attestation" },
+      { name: "View More", href: "/services", isViewMore: true },
     ]
   },
   { name: "Blog", href: "/blog" },
@@ -59,8 +59,8 @@ export default function Navbar() {
               className="w-18 md:w-24 h-18 md:h-24 object-contain transition-transform group-hover:scale-105"
             />
             <div className="flex items-center">
-              <span className="text-2xl md:text-5xl font-black tracking-tighter hidden sm:block">
-                <span className="text-[#0EA5E9]">TREK</span>
+              <span className="text-xl md:text-2xl font-black tracking-tighter hidden sm:block">
+                <span className="text-black">TREK</span>
                 <span className="text-[#d4af37]">GROUP</span>
               </span>
             </div>
@@ -68,7 +68,7 @@ export default function Navbar() {
         </div>
 
         {/* Middle: Desktop Nav */}
-        <div className="hidden lg:flex flex-1 justify-center items-center gap-8">
+        <div className="hidden lg:flex flex-1 justify-center items-center gap-4 xl:gap-8">
           {navLinks.map((link) => {
             const isActive = pathname === link.href || (link.href !== "/" && pathname?.startsWith(link.href));
 
@@ -77,7 +77,7 @@ export default function Navbar() {
                 <Link
                   href={link.href}
                   className={cn(
-                    "flex items-center gap-1 text-base font-bold transition-all py-4 relative",
+                    "flex items-center gap-1 text-lg font-bold transition-all py-4 px-2 relative whitespace-nowrap",
                     isActive ? "text-secondary-dark" : "text-black hover:text-secondary"
                   )}
                 >
@@ -100,9 +100,15 @@ export default function Navbar() {
                         <Link
                           key={subItem.name}
                           href={subItem.href}
-                          className="px-4 py-3 text-sm font-bold text-gray-700 hover:bg-gray-50 hover:text-secondary transition-colors"
+                          className={cn(
+                            "px-4 py-3 text-sm font-bold transition-colors",
+                            subItem.isViewMore
+                              ? "text-secondary bg-secondary/5 hover:bg-secondary hover:text-white mt-1 border-t border-gray-100 flex justify-between items-center rounded-b-xl"
+                              : "text-gray-700 hover:bg-gray-50 hover:text-secondary"
+                          )}
                         >
                           {subItem.name}
+                          {subItem.isViewMore && <ChevronRight size={14} />}
                         </Link>
                       ))}
                     </div>
@@ -162,10 +168,14 @@ export default function Navbar() {
                           <Link
                             key={subItem.name}
                             href={subItem.href}
-                            className="text-base font-bold text-black/60 hover:text-secondary"
+                            className={cn(
+                              "text-base font-bold",
+                              subItem.isViewMore ? "text-secondary flex items-center gap-1 mt-2" : "text-black/60 hover:text-secondary"
+                            )}
                             onClick={() => setIsMobileMenuOpen(false)}
                           >
                             {subItem.name}
+                            {subItem.isViewMore && <ChevronRight size={16} />}
                           </Link>
                         ))}
                       </div>

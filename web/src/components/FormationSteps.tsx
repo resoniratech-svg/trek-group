@@ -6,22 +6,82 @@ const steps = [
   {
     number: "Step 01",
     title: "Choose Your Business Activity and Legal Structure",
-    description: "Before applying, select the business activity and the legal entity type (such as LLC, branch, or sole establishment). This determines the approvals required, the trade license category, and the ministry under which your activity will be regulated."
+    description: (
+      <div className="space-y-4">
+        <p>The first step in setting up a company in Qatar is selecting the right business activity and legal structure. This decision determines the approvals, licensing requirements, ownership eligibility, and the government authorities involved in the registration process.</p>
+        <p>Foreign investors can choose from several legal entity types, including:</p>
+        <ul className="list-disc pl-5 space-y-1 text-white/80 group-hover:text-white transition-colors">
+          <li>Limited Liability Company (LLC)</li>
+          <li>Branch Office</li>
+          <li>Sole Establishment</li>
+          <li>Free Zone Company</li>
+          <li>Representative Office</li>
+        </ul>
+        <p>Choosing the correct structure is essential for ensuring legal compliance, operational flexibility, and eligibility for 100% foreign ownership in Qatar.</p>
+      </div>
+    )
   },
   {
     number: "Step 02",
     title: "Apply for Commercial Registration (CR) with MOCI",
-    description: "Submit your trade name, Articles of Association, and required documents to the Ministry of Commerce and Industry (MOCI). Once approved, the company receives its Commercial Registration (CR), the official document that legally establishes your company formation in Qatar. No company can proceed to licensing or hiring without a CR. With the CR issued, you can proceed to mandatory proceedings such as Qatar Chamber of Commerce Registration and Corporate bank account opening."
+    description: (
+      <div className="space-y-4">
+        <p>After finalizing the business structure, the next step is applying for Commercial Registration (CR) through the Ministry of Commerce and Industry (MOCI).</p>
+        <p>This process includes:</p>
+        <ul className="list-disc pl-5 space-y-1 text-white/80 group-hover:text-white transition-colors">
+          <li>Trade name reservation</li>
+          <li>Submission of Articles of Association</li>
+          <li>Shareholder and company documentation</li>
+          <li>Approval from relevant authorities</li>
+        </ul>
+        <p>Once approved, the Commercial Registration certificate is issued, officially establishing your company in Qatar. The CR is a mandatory legal requirement for proceeding with licensing, banking, immigration, and operational activities.</p>
+        <p>After obtaining the CR, businesses can move forward with:</p>
+        <ul className="list-disc pl-5 space-y-1 text-white/80 group-hover:text-white transition-colors">
+          <li>Qatar Chamber of Commerce Registration</li>
+          <li>Corporate bank account opening</li>
+          <li>Government portal activation</li>
+        </ul>
+      </div>
+    )
   },
   {
     number: "Step 03",
     title: "Apply for the Trade License",
-    description: "Using your approved Commercial Registration and bank details, apply for your Qatar trade license through the Municipality. This includes providing office/virtual office documentation, property approvals, municipal inspections (when required) and any additional ministry clearances based on your business activity. The trade license legally authorizes your business to operate in Qatar."
+    description: (
+      <div className="space-y-4">
+        <p>With the Commercial Registration approved, businesses must apply for a Trade License through the Municipality and relevant government departments.</p>
+        <p>The trade license application generally requires:</p>
+        <ul className="list-disc pl-5 space-y-1 text-white/80 group-hover:text-white transition-colors">
+          <li>Valid Commercial Registration (CR)</li>
+          <li>Office or virtual office agreement</li>
+          <li>Municipality approvals</li>
+          <li>Property documentation</li>
+          <li>Safety and inspection clearances (if applicable)</li>
+          <li>Additional ministry approvals based on business activity</li>
+        </ul>
+        <p>The Trade License legally authorizes your company to conduct commercial operations in Qatar.</p>
+      </div>
+    )
   },
   {
     number: "Step 04",
     title: "Obtain Establishment ID and Tax Registration",
-    description: "Once the trade license is issued, apply for your Establishment ID through the Ministry of Interior. This enables access to immigration and labour services, allowing your company to hire employees and issue work permits. Companies must also complete tax registration with the General Tax Authority (GTA) to meet Qatar’s financial and reporting requirements. Once these steps are completed, your company becomes fully operational and compliant with Qatar’s regulatory framework."
+    description: (
+      <div className="space-y-4">
+        <p>Once the Trade License is issued, the company must complete additional compliance procedures to become fully operational.</p>
+        <p><strong className="text-white font-bold">Establishment ID Registration</strong><br />
+          Apply for the Establishment ID through the Ministry of Interior (MOI). This enables the company to:</p>
+        <ul className="list-disc pl-5 space-y-1 text-white/80 group-hover:text-white transition-colors">
+          <li>Hire employees</li>
+          <li>Apply for work permits</li>
+          <li>Process residency visas</li>
+          <li>Access immigration and labor services</li>
+        </ul>
+        <p><strong className="text-white font-bold">Tax Registration</strong><br />
+          Businesses are also required to register with the General Tax Authority (GTA) to comply with Qatar’s taxation and financial reporting regulations.</p>
+        <p>Completing these registrations ensures your company operates legally, efficiently, and in full compliance with Qatar’s regulatory framework.</p>
+      </div>
+    )
   }
 ];
 
@@ -33,7 +93,7 @@ export default function FormationSteps() {
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-7xl mx-auto">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -52,15 +112,15 @@ export default function FormationSteps() {
                 transition={{ duration: 1 }}
                 className="rounded-[3.5rem] overflow-hidden shadow-2xl border border-white/10 relative"
               >
-                <img 
+                <img
                   id="formation-image"
-                  src="/futuristic_stairs_process.png" 
-                  alt="Company Formation Steps" 
+                  src="/futuristic_stairs_process.png"
+                  alt="Company Formation Steps"
                   className="w-full h-full object-cover min-h-[500px] lg:min-h-[700px] transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent opacity-60" />
               </motion.div>
-              
+
               {/* Decorative Element */}
               <div className="absolute -top-10 -left-10 w-40 h-40 bg-secondary/20 rounded-full blur-3xl -z-10" />
             </div>
@@ -90,15 +150,15 @@ export default function FormationSteps() {
                         <h3 className="text-3xl md:text-4xl font-black text-white leading-tight">
                           {step.title}
                         </h3>
-                        <p className="text-white/60 text-lg leading-relaxed font-medium group-hover:text-white/80 transition-colors">
+                        <div className="text-white/60 text-lg leading-relaxed font-medium group-hover:text-white/80 transition-colors">
                           {step.description}
-                        </p>
+                        </div>
                       </div>
                     </motion.div>
                   ))}
                 </div>
               </div>
-              
+
               {/* Edge Fades */}
               <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none z-10" />
               <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-primary/5 to-transparent pointer-events-none z-10" />

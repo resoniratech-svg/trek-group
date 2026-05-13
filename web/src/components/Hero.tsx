@@ -49,7 +49,7 @@ export default function Hero() {
             className="flex flex-col sm:flex-row items-center justify-center gap-6"
           >
             <Link href="/contact" className="w-full sm:w-auto">
-              <button className="w-full bg-gradient-to-r from-secondary-light via-secondary to-secondary-dark text-primary px-10 py-4 md:py-5 rounded-full font-black text-base md:text-lg transition-all transform hover:scale-105 flex items-center justify-center gap-3 shadow-2xl shadow-secondary/40 group border border-white/20">
+              <button className="w-full bg-gradient-to-r from-secondary-light via-secondary to-secondary-dark text-black px-10 py-4 md:py-5 rounded-full font-black text-base md:text-lg transition-all transform hover:scale-105 flex items-center justify-center gap-3 shadow-2xl shadow-secondary/40 group border border-white/20">
                 Launch Your Business
                 <ArrowRight size={22} className="transition-transform group-hover:translate-x-2" />
               </button>

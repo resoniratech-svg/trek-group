@@ -7,32 +7,32 @@ const factors = [
   {
     number: "01",
     title: "Investment Reforms",
-    description: "Qatar permits full ownership in Agriculture, IT, Healthcare, Tourism, and more, eliminating local partner needs."
+    description: "Qatar’s progressive investment policies allow up to 100% foreign ownership across key sectors including Information Technology, Healthcare, Tourism, Agriculture, Consulting, and Industrial Services. These reforms create a favorable environment for international entrepreneurs and global investors looking to establish a strong business presence in Qatar without requiring a local sponsor in eligible sectors."
   },
   {
     number: "02",
-    title: "Legal Structure",
-    description: "Choosing LLC or professional setups requires expert guidance to navigate the path to 100% foreign ownership."
+    title: "Business Legal Structure",
+    description: "Selecting the right legal entity is one of the most important decisions when establishing a company in Qatar. Whether forming a Limited Liability Company (LLC), branch office, professional firm, or free zone entity, expert consultation ensures your business structure aligns with your operational goals, ownership requirements, and regulatory compliance standards."
   },
   {
     number: "03",
-    title: "Licensing Framework",
-    description: "Your trade activity must match MOCI's eligibility list to qualify for full ownership rights in Qatar."
+    title: "Licensing & Commercial Activities",
+    description: "Every business activity in Qatar must comply with the Ministry of Commerce and Industry (MOCI) regulations. Choosing the correct commercial activity and securing the appropriate trade license are critical for obtaining approvals and maintaining smooth business operations. Proper licensing ensures your company remains fully compliant with Qatar’s business laws and ownership policies."
   },
   {
     number: "04",
-    title: "CR Process",
-    description: "A compliant Commercial Registration involves Trade Name, AOA, and meeting capital requirements correctly."
+    title: "Commercial Registration (CR) Process",
+    description: "Commercial Registration (CR) is the foundation of every legally operating business in Qatar. The process includes trade name reservation, Articles of Association (AOA), office documentation, shareholder agreements, and capital requirement compliance. Professional assistance helps streamline the registration process while avoiding delays and documentation errors."
   },
   {
     number: "05",
-    title: "Ministry Approvals",
-    description: "Managing approvals across departments ensures no compliance gaps impact your 100% ownership status."
+    title: "Government & Ministry Approvals",
+    description: "Business setup in Qatar often requires approvals from multiple government departments and regulatory authorities. Efficient coordination with ministries and compliance authorities helps businesses avoid operational delays, legal complications, and approval rejections. Our experts ensure every requirement is handled accurately from start to finish."
   },
   {
     number: "06",
-    title: "PRO Support",
-    description: "End-to-end PRO services ensure every document and attestation is accurate to avoid costly rejections."
+    title: "Professional PRO Services",
+    description: "Reliable PRO (Public Relations Officer) services play a vital role in managing legal documentation, attestations, visa processing, immigration procedures, labor approvals, and government submissions. End-to-end PRO support ensures faster processing, reduced compliance risks, and seamless communication with all relevant authorities in Qatar."
   }
 ];
 
@@ -41,8 +41,8 @@ export default function KeySetupFactors() {
     <section className="py-24 bg-white relative overflow-hidden">
       <InsightsBackground />
 
-      <div className="max-w-[1800px] mx-auto px-4 md:px-8 relative z-10">
-        <div className="text-center max-w-4xl mx-auto mb-16">
+      <div className="max-w-[1400px] mx-auto px-4 md:px-8 relative z-10">
+        <div className="text-center max-w-5xl mx-auto mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -51,17 +51,17 @@ export default function KeySetupFactors() {
             <span className="text-secondary font-black tracking-[0.3em] uppercase text-xs md:text-sm mb-4 block">
               Essential Insights
             </span>
-            <h2 className="text-3xl md:text-5xl font-black text-primary leading-tight">
+            <h2 className="text-3xl md:text-5xl font-black text-black leading-tight mb-6">
               Successful <span className="text-secondary italic">Business Setup</span> Factors
             </h2>
+            <p className="text-black/80 font-medium leading-relaxed max-w-4xl mx-auto text-base md:text-lg">
+              Setting up a business in Qatar offers exceptional opportunities for foreign investors seeking growth in one of the Middle East’s fastest-growing economies. Understanding the legal framework, licensing procedures, and regulatory requirements is essential for establishing a compliant and successful company. Our experts provide end-to-end guidance to simplify the entire company formation process while helping businesses achieve long-term operational success.
+            </p>
           </motion.div>
         </div>
 
         <div className="relative">
-          {/* Main Flowing Line (Desktop) */}
-          <div className="absolute top-20 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-secondary/20 to-transparent hidden lg:block" />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 relative">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative">
             {factors.map((factor, index) => (
               <motion.div
                 key={index}
@@ -72,12 +72,12 @@ export default function KeySetupFactors() {
                 className="relative group flex flex-col items-center"
               >
                 {/* Step Circle & Glow */}
-                <div className="mb-10 flex justify-center relative">
+                <div className="mb-8 flex justify-center relative">
                   <motion.div 
                     whileHover={{ scale: 1.1 }}
                     className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white border-2 border-secondary/20 shadow-xl flex items-center justify-center relative z-20 transition-all group-hover:border-secondary"
                   >
-                    <span className="text-xl md:text-2xl font-black text-primary group-hover:text-secondary transition-colors">
+                    <span className="text-xl md:text-2xl font-black text-black group-hover:text-secondary transition-colors">
                       {factor.number}
                     </span>
                     <div className="absolute inset-0 rounded-full bg-secondary/5 blur-lg opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -85,18 +85,18 @@ export default function KeySetupFactors() {
                 </div>
 
                 {/* Content Card */}
-                <div className="bg-white/60 backdrop-blur-md border border-gray-100 rounded-[1.5rem] p-5 md:p-6 text-center shadow-xl shadow-gray-200/30 hover:border-secondary/30 transition-all duration-500 group-hover:-translate-y-2 w-full h-full flex flex-col justify-center min-h-[180px]">
-                  <h3 className="text-sm md:text-base xl:text-lg font-black text-primary mb-3 group-hover:text-secondary transition-colors leading-tight">
+                <div className="bg-white/60 backdrop-blur-md border border-gray-100 rounded-[1.5rem] p-6 md:p-8 text-center shadow-xl shadow-gray-200/30 hover:border-secondary/30 transition-all duration-500 group-hover:-translate-y-2 w-full h-full flex flex-col justify-start">
+                  <h3 className="text-base md:text-lg xl:text-xl font-black text-black mb-4 group-hover:text-secondary transition-colors leading-tight">
                     {factor.title}
                   </h3>
-                  <p className="text-primary/80 text-xs md:text-sm leading-relaxed font-medium">
+                  <p className="text-black/80 text-sm leading-relaxed font-medium">
                     {factor.description}
                   </p>
                 </div>
 
                 {/* Mobile Connector */}
                 {index < factors.length - 1 && (
-                  <div className="absolute bottom-[-1.5rem] left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 xl:hidden">
+                  <div className="absolute bottom-[-2rem] left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 lg:hidden">
                     <div className="w-1 h-1 rounded-full bg-secondary/30" />
                     <div className="w-1 h-1 rounded-full bg-secondary/30" />
                   </div>

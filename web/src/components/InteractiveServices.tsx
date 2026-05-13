@@ -33,7 +33,7 @@ const services: ServiceCard[] = [
 
 export default function InteractiveServices() {
   return (
-    <section className="py-24 bg-white overflow-hidden relative min-h-[1100px] flex flex-col items-center justify-center">
+    <section className="py-24 bg-[#0B1B3D] overflow-hidden relative min-h-[1100px] flex flex-col items-center justify-center">
       {/* Background with Grid */}
       <ServicesBackground />
 
@@ -48,7 +48,7 @@ export default function InteractiveServices() {
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="text-4xl md:text-6xl font-black text-primary leading-tight"
+          className="text-4xl md:text-6xl font-black text-white leading-tight"
         >
           Our <span className="text-secondary italic">End-to-End</span> Services
         </motion.h2>
@@ -74,17 +74,33 @@ export default function InteractiveServices() {
 
         {/* Central Figure */}
         <motion.div
-          initial={{ scale: 0, opacity: 0 }}
+          initial={{ scale: 0.95, opacity: 0 }}
           whileInView={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.8, type: "spring" }}
-          className="relative z-20 w-80 h-80 md:w-[500px] md:h-[500px]"
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          className="relative z-20 w-[90%] max-w-[550px] h-[500px] md:h-[850px] flex items-center justify-center"
         >
-          <div className="absolute inset-0 bg-secondary/10 rounded-full blur-[120px] animate-pulse" />
-          <img
-            src="/expert_businessman_multi_arms_1777724379082.png"
-            alt="Trek Group Expert"
-            className="w-full h-full object-contain relative z-10 drop-shadow-[0_0_50px_rgba(212,175,55,0.3)]"
-          />
+          {/* Elegant Ambient Shadows & Glow for Light UI */}
+          <div className="absolute inset-0 bg-secondary/15 rounded-full blur-[120px] animate-pulse" />
+          <div className="absolute inset-0 bg-white/40 rounded-full blur-[80px]" />
+
+          {/* Image Container with Soft Feathering */}
+          <div
+            className="relative w-full h-full z-10"
+            style={{
+              WebkitMaskImage: 'radial-gradient(ellipse at 50% 50%, black 40%, transparent 90%)',
+              maskImage: 'radial-gradient(ellipse at 50% 50%, black 40%, transparent 90%)'
+            }}
+          >
+            <img
+              src="/imageServices.jpeg"
+              alt="Trek Group Expert"
+              className="w-full h-full object-cover"
+            />
+            {/* Smooth Light Overlays for Premium Depth and Edge Harmonization */}
+            <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-transparent to-white/40" />
+            <div className="absolute inset-0 shadow-[inset_0_0_120px_rgba(255,255,255,0.9)] pointer-events-none" />
+            <div className="absolute inset-0 bg-secondary/5 mix-blend-multiply pointer-events-none" />
+          </div>
         </motion.div>
 
         {/* Floating Service Cards */}
@@ -107,13 +123,13 @@ export default function InteractiveServices() {
             className="absolute z-30 group"
           >
             <Link href={`/services?service=${service.id}`} className="block">
-              <div className="bg-white border border-gray-100 p-5 rounded-2xl flex items-center gap-4 shadow-2xl hover:border-secondary/50 transition-all cursor-pointer min-w-[220px]">
+              <div className="bg-white/80 backdrop-blur-md border border-gray-100 p-5 rounded-2xl flex items-center gap-4 shadow-2xl hover:border-secondary/50 transition-all cursor-pointer min-w-[220px]">
                 <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-white transition-colors">
                   <service.icon size={24} />
                 </div>
                 <div className="text-left">
-                  <div className="text-primary font-bold text-sm leading-tight">{service.title}</div>
-                  <div className="text-primary/40 text-[10px] uppercase tracking-wider mt-1">Expert Service</div>
+                  <div className="text-black font-black text-lg leading-tight drop-shadow-sm">{service.title}</div>
+                  <div className="text-black/60 text-[10px] uppercase tracking-wider mt-1">Expert Service</div>
                 </div>
               </div>
             </Link>

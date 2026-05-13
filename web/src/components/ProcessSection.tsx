@@ -44,7 +44,7 @@ export default function ProcessSection() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-3xl md:text-5xl font-black text-primary mt-4"
+            className="text-3xl md:text-5xl font-black text-black mt-4"
           >
             Simplified <span className="text-secondary italic">Business Formation</span>
           </motion.h2>
@@ -70,7 +70,7 @@ export default function ProcessSection() {
                     whileHover={{ scale: 1.1 }}
                     className="w-16 h-16 rounded-full bg-white border-2 border-secondary/20 shadow-xl flex items-center justify-center relative z-20 transition-colors group-hover:border-secondary"
                   >
-                    <span className="text-xl font-black text-primary group-hover:text-secondary transition-colors">
+                    <span className="text-xl font-black text-black group-hover:text-secondary transition-colors">
                       {step.number}
                     </span>
                     <div className="absolute inset-0 rounded-full bg-secondary/5 blur-lg opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -79,10 +79,10 @@ export default function ProcessSection() {
 
                 {/* Content Card (Smaller) */}
                 <div className="bg-white/60 backdrop-blur-md border border-gray-100 rounded-[1.5rem] p-5 text-center shadow-xl shadow-gray-200/30 hover:border-secondary/30 transition-all duration-500 group-hover:-translate-y-2 w-full max-w-[280px]">
-                  <h3 className="text-sm md:text-base font-black text-primary mb-2 group-hover:text-secondary transition-colors">
+                  <h3 className="text-sm md:text-base font-black text-black mb-2 group-hover:text-secondary transition-colors">
                     {step.title}
                   </h3>
-                  <p className="text-primary/60 text-[10px] md:text-xs leading-relaxed font-medium">
+                  <p className="text-black/60 text-[10px] md:text-xs leading-relaxed font-medium">
                     {step.description}
                   </p>
                 </div>

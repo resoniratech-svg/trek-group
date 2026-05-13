@@ -37,7 +37,7 @@ export default function CorporateGlobeBackground() {
         this.speedX = (Math.random() - 0.5) * 0.2;
         this.speedY = (Math.random() - 0.5) * 0.2;
         this.opacity = Math.random() * 0.3 + 0.1;
-        
+
         const colors = ["#d4af37", "#0EA5E9", "#a6892a", "#f4e9ff"];
         this.color = colors[Math.floor(Math.random() * colors.length)];
       }

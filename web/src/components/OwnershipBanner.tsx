@@ -16,7 +16,7 @@ export default function OwnershipBanner() {
           {/* Background Decorative Element (Seal) */}
           <div className="absolute right-[-20px] top-1/2 -translate-y-1/2 opacity-[0.03] pointer-events-none hidden lg:block">
             <div className="relative w-96 h-96 border-[12px] border-primary rounded-full flex items-center justify-center rotate-12">
-              <div className="text-center font-black uppercase leading-none text-primary">
+              <div className="text-center font-black uppercase leading-none text-black">
                 <div className="text-4xl">Most</div>
                 <div className="text-6xl my-2">Trusted</div>
                 <div className="text-4xl">Brand</div>
@@ -45,7 +45,7 @@ export default function OwnershipBanner() {
           </div>
 
           {/* Mobile version of the seal or just a badge */}
-          <div className="mt-8 flex lg:hidden items-center gap-4 text-primary/10">
+          <div className="mt-8 flex lg:hidden items-center gap-4 text-black/10">
             <Award size={48} />
             <div className="text-sm font-bold uppercase tracking-tighter">
               100% Foreign Ownership <br /> Qatar Business Setup

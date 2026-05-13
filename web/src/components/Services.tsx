@@ -10,7 +10,14 @@ import {
   Plane,
   ShieldCheck,
   Globe2,
-  ChevronRight
+  ChevronRight,
+  Code2,
+  FileText,
+  Award,
+  Landmark,
+  Calculator,
+  Palette,
+  ArrowRight
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ProcessFlowBackground from "./ProcessFlowBackground";
@@ -20,40 +27,41 @@ import ScrollAnimation from "./ScrollAnimation";
 
 const services = [
   {
-    title: "Company Formation",
-    description: "End-to-end support for LLC, 100% foreign ownership, and Free Zone setup.",
+    title: "Company Registration",
+    description: "Streamlined business registration across all sectors in Qatar with full regulatory compliance.",
     icon: Building2,
     color: "bg-blue-500",
   },
   {
-    title: "PRO Services",
+    title: "Company Formation",
+    description: "End-to-end support for LLC, 100% foreign ownership, and Free Zone setup.",
+    icon: Building2,
+    color: "bg-indigo-500",
+  },
+  {
+    title: "PRO Services in Qatar",
     description: "Expert handling of government documents, labor cards, and trade licenses.",
     icon: UserCheck,
     color: "bg-purple-500",
   },
   {
-    title: "Attestation",
+    title: "Software Services",
+    description: "Custom digital solutions, enterprise software, and innovative IT infrastructure.",
+    icon: Code2,
+    color: "bg-cyan-500",
+  },
+  {
+    title: "Certificate Attestation",
     description: "Document legalization from MOFA, Embassies, and Chamber of Commerce.",
     icon: FileCheck,
     color: "bg-amber-500",
   },
   {
-    title: "Visa & Immigration",
-    description: "Seamless processing for family, work, and investor visas in Qatar.",
-    icon: Plane,
-    color: "bg-emerald-500",
-  },
-  {
-    title: "Legal Consultancy",
-    description: "Corporate law guidance and contract drafting for your enterprise.",
-    icon: ShieldCheck,
-    color: "bg-rose-500",
-  },
-  {
-    title: "Translation Services",
-    description: "Certified Arabic-English translation for all legal and official documents.",
-    icon: Globe2,
-    color: "bg-cyan-500",
+    title: "View All Services",
+    description: "Explore our full range of 13+ professional business solutions tailored for you.",
+    icon: ArrowRight,
+    color: "bg-secondary",
+    isViewMore: true,
   },
 ];
 
@@ -93,10 +101,10 @@ export default function Services() {
                 </div>
 
                 <div className="flex flex-col justify-center bg-white/80 backdrop-blur-xl p-10 rounded-[3rem] border border-white shadow-2xl">
-                  <h2 className="text-2xl md:text-4xl font-black text-primary leading-[1.2] mb-6">
+                  <h2 className="text-2xl md:text-4xl font-black text-black leading-[1.2] mb-6">
                     Company Formation in Qatar Made Easy and <span className="text-secondary italic">Investor-ready</span>
                   </h2>
-                  <p className="text-primary text-sm md:text-base leading-relaxed mb-6 font-semibold">
+                  <p className="text-black text-sm md:text-base leading-relaxed mb-6 font-semibold">
                     Setting up a business in Qatar shouldn’t feel like going through a maze. We simplify company formation by guiding you through every requirement, from choosing the right structure to securing all ministry approvals essential for a smooth market entry.
                   </p>
                   <Link href="/about">
@@ -118,10 +126,10 @@ export default function Services() {
                 className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center p-8 md:p-12 max-w-6xl mx-auto"
               >
                 <div className="flex flex-col justify-center bg-white/80 backdrop-blur-xl p-10 rounded-[3rem] border border-white shadow-2xl order-2 lg:order-1">
-                  <h3 className="text-2xl md:text-4xl font-black text-primary leading-tight mb-6">
+                  <h3 className="text-2xl md:text-4xl font-black text-black leading-tight mb-6">
                     Here Your <span className="text-secondary italic">Qatar Business Journey</span> Feels Stress-Free
                   </h3>
-                  <p className="text-primary text-sm md:text-base leading-relaxed mb-6 font-semibold">
+                  <p className="text-black text-sm md:text-base leading-relaxed mb-6 font-semibold">
                     Our experts know that every business comes with its own set of challenges. We listen, understand, and guide you through every step with clarity and care, making your company formation stress-free and easy.
                   </p>
                   <Link href="/services">
@@ -143,7 +151,7 @@ export default function Services() {
                       <div className="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary">
                         <ShieldCheck size={20} />
                       </div>
-                      <div className="text-primary font-black text-sm">Expert Guidance</div>
+                      <div className="text-black font-black text-sm">Expert Guidance</div>
                     </div>
                   </div>
                 </div>
@@ -168,7 +176,7 @@ export default function Services() {
                 className="inline-block relative"
               >
                 <div className="absolute -inset-4 bg-secondary/10 blur-2xl rounded-full -z-10" />
-                <h2 className="text-3xl md:text-5xl font-black text-primary leading-tight">
+                <h2 className="text-3xl md:text-5xl font-black text-black leading-tight">
                   Our <span className="text-secondary italic">Services</span>
                 </h2>
                 <div className="mt-4 flex gap-2">
@@ -213,6 +221,7 @@ export default function Services() {
                   }}
                   className="group relative p-6 rounded-[2rem] bg-white/80 backdrop-blur-sm border border-gray-100 hover:border-secondary/50 transition-all duration-500 shadow-xl shadow-gray-200/20 overflow-hidden flex flex-col justify-between"
                 >
+                  <Link href={service.isViewMore ? "/services" : `/services?service=${service.title.toLowerCase().replace(/\s+/g, '-')}`} className="absolute inset-0 z-20" />
                   <div className="relative z-10">
                     <div className={cn(
                       "w-12 h-12 rounded-xl flex items-center justify-center mb-5 text-white transition-all duration-500 shadow-lg group-hover:scale-110 group-hover:rotate-6",
@@ -220,19 +229,19 @@ export default function Services() {
                     )}>
                       <service.icon size={24} />
                     </div>
-                    <h3 className="text-lg md:text-xl font-black text-primary mb-3 group-hover:text-secondary transition-colors duration-300">
+                    <h3 className="text-lg md:text-xl font-black text-black mb-3 group-hover:text-secondary transition-colors duration-300">
                       {service.title}
                     </h3>
-                    <p className="text-primary/60 leading-relaxed mb-6 text-xs md:text-sm font-medium">
+                    <p className={cn("leading-relaxed mb-6 text-xs md:text-sm font-medium", service.isViewMore ? "text-black/80" : "text-black/60")}>
                       {service.description}
                     </p>
                   </div>
 
                   <div className="relative z-10">
-                    <button className="flex items-center gap-2 text-secondary font-black text-xs group/btn">
-                      <span>Learn More</span>
+                    <div className="flex items-center gap-2 text-secondary font-black text-xs group/btn pointer-events-none">
+                      <span>{service.isViewMore ? "Explore Services" : "Learn More"}</span>
                       <ChevronRight size={16} className="transition-transform group-hover/btn:translate-x-2" />
-                    </button>
+                    </div>
                   </div>
 
                   <div className="absolute bottom-0 left-0 h-1 bg-secondary w-0 group-hover:w-full transition-all duration-700 ease-in-out rounded-b-[2rem]" />

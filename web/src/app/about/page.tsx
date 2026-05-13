@@ -22,9 +22,9 @@ export default function AboutPage() {
         {/* About Hero Section */}
         <section className="pt-32 pb-16 md:pt-40 md:pb-24 px-6 relative overflow-hidden">
           <div className="container mx-auto max-w-6xl">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-              <div className="py-4">
-                <div className="mb-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start relative">
+              <div className="py-4 space-y-8">
+                <div>
                   <h1 className="text-4xl md:text-5xl font-black text-white leading-tight mb-4">
                     Best in Class Company <br className="hidden md:block" />
                     Formation Experts
@@ -32,49 +32,106 @@ export default function AboutPage() {
                   <div className="w-16 h-1 bg-secondary" />
                 </div>
 
-                <div className="space-y-6">
-                  <p className="text-white text-base md:text-lg font-medium leading-relaxed drop-shadow-md">
-                    Trek Group is a Qatar-based business setup and corporate solutions provider built on one simple thought:
+                <div className="space-y-6 text-white/90 text-base md:text-lg font-medium leading-relaxed drop-shadow-md">
+                  <p>
+                    Trek Group is a trusted Qatar-based business setup and corporate solutions company dedicated to helping entrepreneurs, startups, and international investors establish and grow their businesses with ease.
                   </p>
 
-                  <div className="bg-white/10 border-l-4 border-secondary p-5 md:p-6 rounded-r-2xl backdrop-blur-md shadow-lg">
+                  <div className="bg-white/10 border-l-4 border-secondary p-5 md:p-6 rounded-r-2xl backdrop-blur-md shadow-lg my-8">
                     <p className="text-white font-black text-lg md:text-xl italic drop-shadow-sm">
-                      “Entrepreneurs should not struggle to start or run their business.”
+                      “Entrepreneurs should not struggle to start or run their business”
                     </p>
                   </div>
 
-                  <p className="text-white/95 text-base md:text-lg leading-relaxed font-medium drop-shadow-md">
-                    For more than a decade, we&apos;ve been guiding investors, startups, and growing companies through every stage of business formation in Qatar like documentation, right legal structure, government approvals, commercial registration (CR), trade license processing, branding, visa services and long-term operational support.
+                  <p>
+                    Built on a simple vision, Trek Group has spent more than a decade delivering reliable, efficient, and fully compliant business setup solutions across Qatar.
                   </p>
 
-                  <p className="text-white/95 text-base md:text-lg leading-relaxed font-medium drop-shadow-md">
-                    What started as a small advisory unit has grown into a trusted business setup consultancy with <span className="font-black text-secondary">10+ years of experience</span>, a <span className="font-black text-secondary">1,000+ client portfolio</span>, and a reputation for simplifying even the most complex processes of business setup in Qatar.
+                  <div className="bg-black/30 rounded-[2rem] p-8 border border-white/10 shadow-2xl my-10 backdrop-blur-sm">
+                    <h3 className="text-2xl font-black text-white mb-6">With 10+ years of industry experience, we specialize in:</h3>
+                    <ul className="space-y-4">
+                      {[
+                        "Company Formation in Qatar",
+                        "Commercial Registration (CR) Services",
+                        "Trade License Processing",
+                        "PRO & Government Liaison Services",
+                        "Visa & Immigration Support",
+                        "Document Attestation & Legal Documentation",
+                        "Corporate Branding & Business Support Solutions"
+                      ].map((item, i) => (
+                        <li key={i} className="flex items-center gap-3">
+                          <div className="bg-secondary/20 p-1.5 rounded-full text-secondary">
+                            <CheckCircle2 size={18} className="shrink-0" />
+                          </div>
+                          <span className="text-white/90">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <p>
+                    Our experienced consultants guide clients through every stage of the business setup process, from choosing the right legal structure and preparing documentation to securing government approvals and ensuring smooth operational setup.
                   </p>
                 </div>
               </div>
 
-              <div className="relative mt-8 lg:mt-0">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8 }}
-                  className="aspect-square rounded-[2rem] overflow-hidden shadow-2xl relative z-10 border border-white/10 bg-white/5 backdrop-blur-md"
-                >
-                  <img
-                    src="/ladder_support_final.png"
-                    alt="Business Support and Growth"
-                    className="w-full h-full object-cover"
-                  />
-                </motion.div>
+              <div className="relative mt-8 lg:mt-0 space-y-12">
+                <div className="relative">
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                    className="aspect-square rounded-[2rem] overflow-hidden shadow-2xl relative z-10 border border-white/10 bg-white/5 backdrop-blur-md"
+                  >
+                    <img
+                      src="/ladder_support_final.png"
+                      alt="Business Support and Growth"
+                      className="w-full h-full object-cover"
+                    />
+                  </motion.div>
 
-                {/* Decorative background grid pattern similar to image */}
-                <div className="absolute -inset-10 -z-10 opacity-20" style={{ backgroundImage: 'radial-gradient(#2D1B69 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
-                
-                {/* Floating Badge */}
-                <div className="absolute -bottom-6 -left-6 bg-[#050816] p-6 rounded-2xl shadow-2xl z-20 hidden md:block border border-white/10 backdrop-blur-xl">
-                  <div className="text-white font-black text-3xl mb-1">1000+</div>
-                  <div className="text-secondary text-[10px] font-black uppercase tracking-[0.2em]">Clients Supported</div>
+                  {/* Decorative background grid pattern similar to image */}
+                  <div className="absolute -inset-10 -z-10 opacity-20" style={{ backgroundImage: 'radial-gradient(#2D1B69 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
+
+                  {/* Floating Badge */}
+                  <div className="absolute -bottom-6 -left-6 bg-[#050816] p-6 rounded-2xl shadow-2xl z-20 hidden md:block border border-white/10 backdrop-blur-xl">
+                    <div className="text-white font-black text-3xl mb-1">1000+</div>
+                    <div className="text-secondary text-[10px] font-black uppercase tracking-[0.2em]">Clients Supported</div>
+                  </div>
+                </div>
+
+                <div className="space-y-6 text-white/90 text-base md:text-lg font-medium leading-relaxed drop-shadow-md pt-4">
+                  <p>
+                    Over the years, Trek Group has grown from a small advisory unit into one of Qatar’s trusted business consultancy firms, proudly serving 1,000+ clients across multiple industries. Our reputation is built on professionalism, transparency, fast processing, and a commitment to simplifying even the most complex business formation procedures in Qatar.
+                  </p>
+
+                  <div className="bg-gradient-to-br from-primary/20 to-secondary/10 rounded-[2rem] p-8 border border-secondary/20 shadow-2xl my-10 backdrop-blur-md">
+                    <h3 className="text-2xl font-black text-white mb-6">Why Businesses Choose Trek Group</h3>
+                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {[
+                        "10+ Years of Business Setup Experience in Qatar",
+                        "Trusted by 1,000+ Entrepreneurs & Companies",
+                        "Fast & Reliable Government Processing",
+                        "End-to-End Business Formation Solutions",
+                        "Expert Knowledge of Qatar Business Regulations",
+                        "Dedicated Client Support & Consultation"
+                      ].map((item, i) => (
+                        <li key={i} className="flex items-start gap-3">
+                          <div className="bg-secondary p-1 rounded-full text-white mt-1 shrink-0">
+                            <CheckCircle2 size={14} />
+                          </div>
+                          <span className="text-white text-sm md:text-base leading-tight">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="border-l-4 border-secondary pl-6 py-2">
+                    <p className="text-lg md:text-xl text-white font-bold italic leading-relaxed">
+                      Whether you are launching a startup, expanding your company into Qatar, or looking for reliable PRO and corporate support services, Trek Group provides professional, growth-focused solutions tailored to your business goals.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -87,34 +144,34 @@ export default function AboutPage() {
           <div className="container mx-auto px-6 max-w-6xl">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               {/* Vision Card */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 className="bg-white rounded-[2rem] overflow-hidden shadow-2xl border border-gray-100 flex flex-col group relative"
               >
                 <div className="h-64 overflow-hidden relative">
-                  <img 
-                    src="/vision_image.png" 
-                    alt="Our Vision" 
+                  <img
+                    src="/vision_image.png"
+                    alt="Our Vision"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors duration-500" />
                 </div>
-                
+
                 <div className="p-10 pt-12 relative flex flex-col flex-grow">
                   {/* Icon Badge */}
                   <div className="absolute -top-8 left-10 w-16 h-16 bg-white rounded-2xl shadow-xl flex items-center justify-center border border-gray-50">
-                    <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600">
+                    <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-black">
                       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                       </svg>
                     </div>
                   </div>
-                  
-                  <h3 className="text-2xl font-black text-primary mb-6 tracking-tight uppercase">OUR VISION</h3>
-                  <p className="text-primary/70 leading-relaxed text-base font-medium">
+
+                  <h3 className="text-2xl font-black text-black mb-6 tracking-tight uppercase">OUR VISION</h3>
+                  <p className="text-black/70 leading-relaxed text-base font-medium">
                     To become Qatar&apos;s most trusted partner for company formation and corporate solutions, enabling entrepreneurs from around the world to build, scale, and succeed in the region.
                   </p>
                 </div>
@@ -123,7 +180,7 @@ export default function AboutPage() {
               </motion.div>
 
               {/* Mission Card */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -131,14 +188,14 @@ export default function AboutPage() {
                 className="bg-white rounded-[2rem] overflow-hidden shadow-2xl border border-gray-100 flex flex-col group relative"
               >
                 <div className="h-64 overflow-hidden relative">
-                  <img 
-                    src="/mission_image.png" 
-                    alt="Our Mission" 
+                  <img
+                    src="/mission_image.png"
+                    alt="Our Mission"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors duration-500" />
                 </div>
-                
+
                 <div className="p-10 pt-12 relative flex flex-col flex-grow">
                   {/* Icon Badge */}
                   <div className="absolute -top-8 left-10 w-16 h-16 bg-white rounded-2xl shadow-xl flex items-center justify-center border border-gray-50">
@@ -148,9 +205,9 @@ export default function AboutPage() {
                       </svg>
                     </div>
                   </div>
-                  
-                  <h3 className="text-2xl font-black text-primary mb-6 tracking-tight uppercase">OUR MISSION</h3>
-                  <p className="text-primary/70 leading-relaxed text-base font-medium">
+
+                  <h3 className="text-2xl font-black text-black mb-6 tracking-tight uppercase">OUR MISSION</h3>
+                  <p className="text-black/70 leading-relaxed text-base font-medium">
                     To simplify business formation and empower companies through reliable consultancy, faultless documentation support, transparent guidance, and innovative corporate solutions.
                   </p>
                 </div>
@@ -172,9 +229,9 @@ export default function AboutPage() {
               ))}
             </div>
           </div>
-          
+
           <div className="absolute right-[-5%] top-1/2 -translate-y-1/2 opacity-[0.03] select-none pointer-events-none">
-            <span className="text-[40rem] font-black text-primary leading-none">0</span>
+            <span className="text-[40rem] font-black text-black leading-none">0</span>
           </div>
 
           <div className="container mx-auto px-6 max-w-6xl relative z-10">
@@ -182,7 +239,7 @@ export default function AboutPage() {
               {/* Heading Column */}
               <div className="lg:col-span-4">
                 <div className="w-48 h-1 bg-secondary mb-6" />
-                <h2 className="text-4xl md:text-5xl font-black text-primary tracking-tighter leading-none">
+                <h2 className="text-4xl md:text-5xl font-black text-black tracking-tighter leading-none">
                   OUR <br />
                   PURPOSE
                 </h2>
@@ -191,19 +248,16 @@ export default function AboutPage() {
               {/* Content Column */}
               <div className="lg:col-span-8 pt-2">
                 <div className="space-y-6">
-                  <h3 className="text-xl md:text-2xl font-black text-primary leading-tight">
+                  <h3 className="text-xl md:text-2xl font-black text-black leading-tight">
                     Businesses come to us with an idea. We become their business setup <br className="hidden md:block" />
-                    <span className="bg-[#FFF7ED] px-4 py-1 rounded-lg text-secondary inline-block mt-2 md:mt-0">
-                      &ldquo;Painkiller&rdquo;
-                    </span>.
                   </h3>
 
                   <div className="space-y-5">
-                    <p className="text-primary/70 text-sm md:text-[15px] leading-relaxed font-medium">
+                    <p className="text-black/70 text-sm md:text-[15px] leading-relaxed font-medium">
                       We help them avoid the hassle of the backend process and turn it into a registered, licensed, operational business in Qatar......without delays, confusion, or unnecessary costs.
                     </p>
 
-                    <p className="text-primary/70 text-sm md:text-[15px] leading-relaxed font-medium">
+                    <p className="text-black/70 text-sm md:text-[15px] leading-relaxed font-medium">
                       We provide relief to them beyond paperwork. We work as strategic partners offering end-to-end guidance, clarity, and accountability, so entrepreneurs can focus on growth while we handle the groundwork.
                     </p>
                   </div>
@@ -220,9 +274,9 @@ export default function AboutPage() {
           <div className="absolute inset-0 z-0">
             {/* Dark gradient overlay for readability */}
             <div className="absolute inset-0 bg-gray-900/80 z-10" />
-            <img 
-              src="/expert_businessman_multi_arms_1777724379082.png" 
-              alt="Business Approach Background" 
+            <img
+              src="/expert_businessman_multi_arms_1777724379082.png"
+              alt="Business Approach Background"
               className="w-full h-full object-cover opacity-40 grayscale"
             />
           </div>
@@ -269,7 +323,7 @@ export default function AboutPage() {
                     <div className="w-full md:w-[55%] bg-white/10 backdrop-blur-md border border-white/20 p-8 rounded-2xl shadow-2xl hover:bg-white/15 transition-all duration-300 relative group overflow-hidden">
                       {/* Subtle hover effect light */}
                       <div className="absolute inset-0 bg-gradient-to-r from-secondary/0 via-secondary/10 to-secondary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-                      
+
                       <div className="flex items-start gap-5 relative z-10">
                         <div className="w-12 h-12 shrink-0 rounded-xl bg-gradient-to-br from-secondary to-orange-400 text-white flex items-center justify-center font-black text-xl shadow-lg">
                           {index + 1}

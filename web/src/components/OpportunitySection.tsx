@@ -20,14 +20,14 @@ export default function OpportunitySection() {
           <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch">
             {/* Left Content */}
             <div className="p-8 md:p-12 relative z-10 flex flex-col justify-center">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-primary mb-2 leading-tight">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-black mb-2 leading-tight">
                 Strategic <span className="text-secondary italic">Advantage</span>
               </h2>
               <div className="text-secondary font-bold tracking-widest uppercase text-xs mb-6 flex items-center gap-2">
                 <div className="w-8 h-[1px] bg-secondary" />
                 Your Opportunity
               </div>
-              <p className="text-primary/80 text-sm md:text-lg leading-relaxed mb-8">
+              <p className="text-black/80 text-sm md:text-lg leading-relaxed mb-8">
                 Qatar offers a high potential paradise for entrepreneurs. We provide the ultimate expertise to help you make the most of it.
               </p>
 
@@ -44,18 +44,18 @@ export default function OpportunitySection() {
                     <TrendingUp size={24} />
                   </div>
                   <div>
-                    <div className="text-xl font-black text-primary">10+</div>
-                    <div className="text-primary/50 text-[10px] font-bold uppercase tracking-widest leading-none">Years Experience</div>
+                    <div className="text-xl font-black text-black">10+</div>
+                    <div className="text-black/50 text-[10px] font-bold uppercase tracking-widest leading-none">Years Experience</div>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-black">
                     <Users size={24} />
                   </div>
                   <div>
-                    <div className="text-xl font-black text-primary">1000+</div>
-                    <div className="text-primary/50 text-[10px] font-bold uppercase tracking-widest leading-none">Happy Clients</div>
+                    <div className="text-xl font-black text-black">1000+</div>
+                    <div className="text-black/50 text-[10px] font-bold uppercase tracking-widest leading-none">Happy Clients</div>
                   </div>
                 </div>
               </div>
@@ -80,7 +80,7 @@ export default function OpportunitySection() {
                 transition={{ delay: 0.4 }}
                 className="absolute bottom-4 right-4 bg-white/80 backdrop-blur-md border border-gray-100 p-3 rounded-xl hidden md:block shadow-lg"
               >
-                <div className="text-primary/60 font-bold text-[8px] mb-0.5 uppercase tracking-widest">Growth Potential</div>
+                <div className="text-black/60 font-bold text-[8px] mb-0.5 uppercase tracking-widest">Growth Potential</div>
                 <div className="text-secondary text-base font-black">Unlimited</div>
               </motion.div>
             </div>

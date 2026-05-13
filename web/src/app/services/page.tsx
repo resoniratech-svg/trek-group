@@ -9,11 +9,17 @@ import {
   UserCheck,
   FileCheck,
   Palette,
-  Globe,
+  Globe2,
   Code2,
   ChevronDown,
   CheckCircle2,
-  ArrowRight
+  ArrowRight,
+  FileText,
+  Award,
+  ShieldCheck,
+  Landmark,
+  Calculator,
+  Plane
 } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -21,6 +27,22 @@ import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 
 const services = [
+  {
+    title: "Company Registration",
+    id: "company-registration",
+    description: "Streamlined business registration across all sectors in Qatar with full regulatory compliance.",
+    details: [
+      "Commercial Registration (CR)",
+      "Municipality License",
+      "Tax Card Issuance",
+      "Computer Card Registration",
+      "Chamber of Commerce Registration"
+    ],
+    icon: Building2,
+    color: "bg-blue-500",
+    lightColor: "bg-blue-500/10",
+    textColor: "text-black"
+  },
   {
     title: "Company Formation",
     id: "company-formation",
@@ -33,13 +55,13 @@ const services = [
       "Trade License Issuance, Renewal, and Amendments"
     ],
     icon: Building2,
-    color: "bg-blue-500",
-    lightColor: "bg-blue-500/10",
-    textColor: "text-blue-500"
+    color: "bg-indigo-500",
+    lightColor: "bg-indigo-500/10",
+    textColor: "text-indigo-500"
   },
   {
-    title: "PRO Service",
-    id: "pro-service",
+    title: "PRO Services in Qatar",
+    id: "pro-services-in-qatar",
     description: "Expert handling of government documents, labor cards, trade licenses, and all essential compliance paperwork.",
     details: [
       "Visa Processing, Stamping, and Renewals",
@@ -52,54 +74,6 @@ const services = [
     color: "bg-purple-500",
     lightColor: "bg-purple-500/10",
     textColor: "text-purple-500"
-  },
-  {
-    title: "Translation and Attestation",
-    id: "translation-and-attestation",
-    description: "Certified translation and document legalization from MOFA, Embassies, and the Chamber of Commerce.",
-    details: [
-      "Legal and Corporate Document Translation",
-      "MOFA (Ministry of Foreign Affairs) Attestation",
-      "Embassy and Consulate Attestation",
-      "Educational Certificate Attestation",
-      "Commercial Document Legalization"
-    ],
-    icon: FileCheck,
-    color: "bg-amber-500",
-    lightColor: "bg-amber-500/10",
-    textColor: "text-amber-500"
-  },
-  {
-    title: "Branding Services",
-    id: "branding-services",
-    description: "Comprehensive brand identity creation, strategic positioning, and marketing solutions for market impact.",
-    details: [
-      "Corporate Identity and Logo Design",
-      "Brand Strategy and Market Positioning",
-      "Company Profile and Brochure Creation",
-      "Marketing Collateral and Print Design",
-      "Digital Brand Guidelines and Assets"
-    ],
-    icon: Palette,
-    color: "bg-rose-500",
-    lightColor: "bg-rose-500/10",
-    textColor: "text-rose-500"
-  },
-  {
-    title: "International Business Events",
-    id: "international-business-events",
-    description: "Seamless planning and execution of corporate events, conferences, and international exhibitions.",
-    details: [
-      "Corporate Conferences and Seminars Planning",
-      "Exhibition Stand Design and Management",
-      "Product Launch Events",
-      "B2B Networking Event Organization",
-      "End-to-end Event Logistics and VIP Support"
-    ],
-    icon: Globe,
-    color: "bg-emerald-500",
-    lightColor: "bg-emerald-500/10",
-    textColor: "text-emerald-500"
   },
   {
     title: "Software Services",
@@ -117,6 +91,150 @@ const services = [
     lightColor: "bg-cyan-500/10",
     textColor: "text-cyan-500"
   },
+  {
+    title: "Certificate Attestation",
+    id: "certificate-attestation",
+    description: "Document legalization from MOFA, Embassies, and Chamber of Commerce.",
+    details: [
+      "Educational Certificate Attestation",
+      "Marriage and Birth Certificate Legalization",
+      "Commercial Document Legalization",
+      "MOFA (Ministry of Foreign Affairs) Attestation",
+      "Embassy and Consulate Attestation"
+    ],
+    icon: FileCheck,
+    color: "bg-amber-500",
+    lightColor: "bg-amber-500/10",
+    textColor: "text-amber-500"
+  },
+  {
+    title: "Notary Services",
+    id: "notary-services",
+    description: "Professional notarization of legal documents, contracts, and agreements.",
+    details: [
+      "Power of Attorney Notarization",
+      "Contract and Agreement Witnessing",
+      "Affidavit Swearing",
+      "Legal Document Verification",
+      "Certified Copies"
+    ],
+    icon: FileText,
+    color: "bg-rose-500",
+    lightColor: "bg-rose-500/10",
+    textColor: "text-rose-500"
+  },
+  {
+    title: "Classification Certificate",
+    id: "classification-certificate",
+    description: "Assistance in obtaining government classification certificates for contracting and consulting companies.",
+    details: [
+      "Contractor Classification",
+      "Consultant Classification",
+      "Tender Eligibility Assessment",
+      "Documentation Preparation",
+      "Government Liaison"
+    ],
+    icon: Award,
+    color: "bg-emerald-500",
+    lightColor: "bg-emerald-500/10",
+    textColor: "text-emerald-500"
+  },
+  {
+    title: "Police Clearance Certificate",
+    id: "police-clearance-certificate",
+    description: "Smooth processing of Police Clearance Certificates (PCC) for employment or immigration.",
+    details: [
+      "Qatar PCC Application",
+      "Overseas PCC Assistance",
+      "Fingerprint Processing Guidance",
+      "Document Translation for PCC",
+      "Ministry of Interior Follow-up"
+    ],
+    icon: ShieldCheck,
+    color: "bg-blue-600",
+    lightColor: "bg-blue-600/10",
+    textColor: "text-black"
+  },
+  {
+    title: "Corporate Bank Account",
+    id: "corporate-bank-account",
+    description: "Expert guidance in opening and managing corporate bank accounts in Qatar's leading banks.",
+    details: [
+      "Bank Selection Consultation",
+      "Document Preparation and Verification",
+      "Application Submission",
+      "Liaison with Bank Managers",
+      "Account Activation Support"
+    ],
+    icon: Landmark,
+    color: "bg-purple-600",
+    lightColor: "bg-purple-600/10",
+    textColor: "text-purple-600"
+  },
+  {
+    title: "Auditing Services",
+    id: "auditing-services",
+    description: "Comprehensive financial auditing, bookkeeping, and tax compliance services.",
+    details: [
+      "Annual Financial Audits",
+      "Internal Auditing",
+      "VAT Registration and Filing",
+      "Bookkeeping Services",
+      "Financial Feasibility Studies"
+    ],
+    icon: Calculator,
+    color: "bg-amber-600",
+    lightColor: "bg-amber-600/10",
+    textColor: "text-amber-600"
+  },
+  {
+    title: "Visa & Immigration",
+    id: "visa-and-immigration",
+    description: "Seamless processing for family, work, and investor visas in Qatar.",
+    details: [
+      "Employment Visa Processing",
+      "Family Residence Visas",
+      "Investor and Partner Visas",
+      "Visa Renewals and Cancellations",
+      "Immigration Status Adjustments"
+    ],
+    icon: Plane,
+    color: "bg-emerald-600",
+    lightColor: "bg-emerald-600/10",
+    textColor: "text-emerald-600"
+  },
+  {
+    title: "Business & Tourist Visas",
+    id: "business-and-tourist-visas",
+    description: "Efficient handling of short-term business visas and tourist visas for visitors to Qatar.",
+    details: [
+      "Business Visa Applications",
+      "Tourist Visa Processing",
+      "Visa Extension Services",
+      "Conference and Event Visas",
+      "On-arrival Visa Assistance"
+    ],
+    icon: Globe2,
+    color: "bg-cyan-600",
+    lightColor: "bg-cyan-600/10",
+    textColor: "text-cyan-600"
+  },
+  {
+    title: "Designing & Branding",
+    id: "designing-and-branding",
+    description: "Comprehensive brand identity creation, strategic positioning, and marketing solutions for market impact.",
+    details: [
+      "Corporate Identity and Logo Design",
+      "Brand Strategy and Market Positioning",
+      "Company Profile and Brochure Creation",
+      "Marketing Collateral and Print Design",
+      "Digital Brand Guidelines and Assets"
+    ],
+    icon: Palette,
+    color: "bg-rose-600",
+    lightColor: "bg-rose-600/10",
+    textColor: "text-rose-600"
+  }
 ];
 
 function ServicesContent() {
@@ -156,10 +274,10 @@ function ServicesContent() {
 
         <div className="container mx-auto max-w-4xl text-center relative z-20">
           <span className="text-secondary font-bold tracking-widest uppercase text-xs">Our Expertise</span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-primary mt-4 mb-6 leading-tight">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-black mt-4 mb-6 leading-tight">
             Comprehensive <span className="text-secondary italic">Services</span>
           </h1>
-          <p className="text-primary/80 text-base md:text-lg leading-relaxed max-w-2xl mx-auto font-medium">
+          <p className="text-black/80 text-base md:text-lg leading-relaxed max-w-2xl mx-auto font-medium">
             Explore our wide range of professional solutions designed to streamline your operations and accelerate your business growth in Qatar and beyond.
           </p>
         </div>
@@ -231,10 +349,10 @@ function ServicesContent() {
 
                         {/* Title & Desc */}
                         <div>
-                          <h3 className="text-2xl md:text-3xl font-black text-primary mb-3 tracking-tight">
+                          <h3 className="text-2xl md:text-3xl font-black text-black mb-3 tracking-tight">
                             {service.title}
                           </h3>
-                          <p className="text-primary/70 text-sm md:text-base leading-relaxed font-medium">
+                          <p className="text-black/70 text-sm md:text-base leading-relaxed font-medium">
                             {service.description}
                           </p>
                         </div>
@@ -244,7 +362,7 @@ function ServicesContent() {
                           onClick={() => toggleService(service.id)}
                           className={cn(
                             "flex items-center gap-2 font-bold text-sm px-6 py-3 rounded-full transition-all duration-300",
-                            isExpanded ? "bg-secondary text-white shadow-lg" : "bg-gray-100 text-primary hover:bg-gray-200"
+                            isExpanded ? "bg-secondary text-white shadow-lg" : "bg-gray-100 text-black hover:bg-gray-200"
                           )}
                         >
                           {isExpanded ? "Show Less" : "Know More"}
@@ -271,7 +389,7 @@ function ServicesContent() {
                                   <div className="mt-1">
                                     <CheckCircle2 className="text-secondary shrink-0" size={18} />
                                   </div>
-                                  <span className="text-primary/90 font-medium text-sm leading-relaxed">{detail}</span>
+                                  <span className="text-black/90 font-medium text-sm leading-relaxed">{detail}</span>
                                 </li>
                               ))}
                             </ul>
@@ -305,10 +423,10 @@ function ServicesContent() {
         <div className="container mx-auto px-6 max-w-4xl text-center">
           <div className="bg-gray-50 border border-gray-100 p-10 md:p-16 rounded-[3rem] relative overflow-hidden shadow-xl shadow-gray-200/50">
             <div className="absolute inset-0 bg-gradient-to-r from-secondary/5 via-transparent to-secondary/5" />
-            <h2 className="text-2xl md:text-4xl font-black text-primary mb-6 relative z-10 leading-tight">
+            <h2 className="text-2xl md:text-4xl font-black text-black mb-6 relative z-10 leading-tight">
               Not sure which service you need?
             </h2>
-            <p className="text-primary/70 text-base md:text-lg mb-10 max-w-2xl mx-auto relative z-10">
+            <p className="text-black/70 text-base md:text-lg mb-10 max-w-2xl mx-auto relative z-10">
               Book a free consultation with our experts to find the perfect tailored solution for your business setup and growth strategy.
             </p>
             <Link href="/contact" className="relative z-10 inline-block">
@@ -339,7 +457,7 @@ export default function ServicesPage() {
           <div className="min-h-screen flex items-center justify-center pt-32">
             <div className="animate-pulse flex flex-col items-center">
               <div className="w-12 h-12 border-4 border-secondary border-t-transparent rounded-full animate-spin mb-4" />
-              <p className="text-primary font-bold">Loading Services...</p>
+              <p className="text-black font-bold">Loading Services...</p>
             </div>
           </div>
         }>

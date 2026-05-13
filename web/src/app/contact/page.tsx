@@ -33,14 +33,21 @@ export default function ContactPage() {
             <div className="max-w-md">
               <div className="text-secondary text-sm font-bold tracking-widest uppercase mb-4">• • • •</div>
               <h2 className="text-4xl md:text-5xl font-black text-[#0A2540] mb-6 leading-tight">
-                Let&apos;s Start <br />
-                your <br />
-                Business <br />
+                Let&apos;s Start Your <br />
+                Business Journey <br />
                 in <span className="text-[#0EA5E9]">Qatar</span>
               </h2>
-              <p className="text-gray-600 leading-relaxed font-medium">
-                If you are reading this, congratulations. You are taking the first step to your new business in Qatar. We are a business setup firm specializing in company formation so you can focus on growth.
-              </p>
+              <div className="text-gray-600 leading-relaxed font-medium space-y-4 text-sm md:text-base">
+                <p>
+                  If you&apos;re planning to establish a company in Qatar, you&apos;re already taking the first step toward expanding into one of the Middle East&apos;s fastest-growing business destinations. Qatar offers a strong economy, investor-friendly regulations, strategic global connectivity, and excellent opportunities for entrepreneurs, startups, and international companies.
+                </p>
+                <p>
+                  We specialize in professional business setup and company formation services in Qatar, helping entrepreneurs and foreign investors navigate every stage of the registration process with confidence. From company incorporation and commercial registration to licensing, PRO services, document attestation, and government approvals, our experts provide complete end-to-end support tailored to your business goals.
+                </p>
+                <p>
+                  Our mission is simple — to make your business setup process smooth, compliant, and hassle-free, so you can focus on building, managing, and growing your business successfully in Qatar.
+                </p>
+              </div>
             </div>
           </div>
           <div className="h-[400px] md:h-auto w-full relative bg-gray-100">
@@ -69,25 +76,47 @@ export default function ContactPage() {
             />
           </div>
           <div className="flex items-center justify-center p-12 md:p-24 order-1 md:order-2">
-            <div className="max-w-md">
+            <div className="max-w-xl">
               <h2 className="text-3xl md:text-4xl font-black text-[#0A2540] mb-6 leading-tight">
-                What You Should <br />
-                Know Before We <br />
+                What You Should <br className="hidden md:block" />
+                Know Before We <br className="hidden md:block" />
                 Talk
               </h2>
-              <div className="w-16 h-1 bg-[#F97316] mb-8" />
+              <div className="w-16 h-1 bg-[#F97316] mb-6" />
+              
+              <p className="text-gray-600 leading-relaxed font-medium mb-8 text-sm md:text-base">
+                Starting a business in Qatar is a strategic investment opportunity, but success depends on making informed decisions from the very beginning. Understanding the legal processes, timelines, documentation requirements, and compliance standards can help you avoid unnecessary delays and costly mistakes.
+              </p>
               
               <ul className="space-y-6">
                 {[
-                  "Business setups take time in Qatar, be prepared with patience, resilience, and decisions.",
-                  "The right structure is critical today, saves you a lot of trouble later.",
-                  "Timeline depends entirely on documentation readiness and approvals.",
-                  "Questions to vendors must make sense.",
-                  "Clear guidance always costs less than mistakes."
+                  {
+                    title: "Business Setup Requires Strategic Planning",
+                    desc: "Company formation in Qatar involves multiple stages including approvals, documentation, licensing, and regulatory procedures. Patience, proper planning, and expert guidance are essential for ensuring a smooth and successful setup process."
+                  },
+                  {
+                    title: "Choosing the Right Business Structure Matters",
+                    desc: "Selecting the correct legal structure for your business is one of the most important decisions you will make. Whether it’s an LLC, branch office, professional entity, or free zone company, the right setup today can save significant legal, operational, and financial challenges in the future."
+                  },
+                  {
+                    title: "Timelines Depend on Documentation & Approvals",
+                    desc: "The speed of business registration in Qatar largely depends on the accuracy and readiness of your documents, ministry approvals, and compliance clearances. Well-prepared documentation helps accelerate the registration process and reduces approval delays."
+                  },
+                  {
+                    title: "Ask the Right Questions Before You Begin",
+                    desc: "Understanding licensing requirements, ownership regulations, office requirements, and operational costs is essential before starting your business journey. Asking informed questions helps you make confident business decisions and avoid future complications."
+                  },
+                  {
+                    title: "Expert Guidance Prevents Costly Mistakes",
+                    desc: "Professional business setup consultants help streamline the process, ensure regulatory compliance, and minimize risks associated with documentation errors or incorrect business structuring. Clear guidance from experienced experts is always more cost-effective than resolving avoidable mistakes later."
+                  }
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-4">
                     <CheckCircle2 className="text-[#0EA5E9] shrink-0 mt-1" size={20} />
-                    <span className="text-[#0A2540] font-bold text-sm leading-relaxed">{item}</span>
+                    <div>
+                      <h3 className="text-[#0A2540] font-black text-sm md:text-base mb-1">{item.title}</h3>
+                      <p className="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -97,19 +126,19 @@ export default function ContactPage() {
       </section>
 
       {/* Section 3: Contact Form */}
-      <section className="py-24 md:py-32 bg-[#F8FAFC]">
+      <section className="py-20 md:py-28 bg-[#F8FAFC]">
         <div className="container mx-auto px-6 max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-16 lg:gap-24 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-20 items-start">
             <div>
-              <h2 className="text-4xl md:text-6xl lg:text-[5rem] font-black text-[#0A2540] mb-12 leading-[1] tracking-tighter">
-                Feel free to <span className="text-[#0EA5E9]">get in touch</span> or visit our location.
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-[#0A2540] mb-8 leading-tight tracking-tight">
+                Feel free to <br className="hidden lg:block"/> <span className="text-[#0EA5E9]">get in touch</span> or visit our location.
               </h2>
-              <div className="w-24 h-2 bg-[#0EA5E9] rounded-full hidden lg:block" />
+              <div className="w-16 h-1.5 bg-[#0EA5E9] rounded-full hidden lg:block" />
             </div>
             
             <div className="bg-transparent mt-8 lg:mt-0 w-full">
               <form 
-                className="space-y-16 md:space-y-24 w-full"
+                className="space-y-8 md:space-y-10 w-full"
                 onSubmit={(e) => {
                   e.preventDefault();
                   const formData = new FormData(e.currentTarget);
@@ -123,76 +152,74 @@ export default function ContactPage() {
                   window.location.href = `mailto:info@trekgroups.com?subject=Website Contact: ${name}&body=${body}`;
                 }}
               >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12 md:gap-y-16">
-                  <div className="space-y-4 border-b-2 border-gray-300 pb-4 transition-all duration-500 focus-within:border-[#0EA5E9] group/field">
-                    <label className="text-sm md:text-base font-black text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors">Full name</label>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 md:gap-y-10">
+                  <div className="space-y-2 border-b-2 border-gray-200 pb-3 transition-all duration-300 focus-within:border-[#0EA5E9] group/field">
+                    <label className="text-xs md:text-sm font-bold text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors uppercase tracking-wider">Full name</label>
                     <input 
                       name="name" 
                       type="text" 
                       required 
-                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-400" 
+                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-base md:text-lg font-bold placeholder:text-gray-300" 
                       placeholder="Your Name" 
                     />
                   </div>
-                  <div className="space-y-4 border-b-2 border-gray-300 pb-4 transition-all duration-500 focus-within:border-[#0EA5E9] group/field">
-                    <label className="text-sm md:text-base font-black text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors">Email address</label>
+                  <div className="space-y-2 border-b-2 border-gray-200 pb-3 transition-all duration-300 focus-within:border-[#0EA5E9] group/field">
+                    <label className="text-xs md:text-sm font-bold text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors uppercase tracking-wider">Email address</label>
                     <input 
                       name="email" 
                       type="email" 
                       required 
-                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-400" 
+                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-base md:text-lg font-bold placeholder:text-gray-300" 
                       placeholder="Email@Address.com" 
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12 md:gap-y-16">
-                  <div className="space-y-4 border-b-2 border-gray-300 pb-4 transition-all duration-500 focus-within:border-[#0EA5E9] group/field">
-                    <label className="text-sm md:text-base font-black text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors">Phone number</label>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 md:gap-y-10">
+                  <div className="space-y-2 border-b-2 border-gray-200 pb-3 transition-all duration-300 focus-within:border-[#0EA5E9] group/field">
+                    <label className="text-xs md:text-sm font-bold text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors uppercase tracking-wider">Phone number</label>
                     <input 
                       name="phone" 
                       type="tel" 
                       required 
-                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-400" 
+                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-base md:text-lg font-bold placeholder:text-gray-300" 
                       placeholder="+974 0000 0000" 
                     />
                   </div>
-                  <div className="space-y-4 border-b-2 border-gray-300 pb-4 transition-all duration-500 focus-within:border-[#0EA5E9] group/field">
-                    <label className="text-sm md:text-base font-black text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors">Location</label>
+                  <div className="space-y-2 border-b-2 border-gray-200 pb-3 transition-all duration-300 focus-within:border-[#0EA5E9] group/field">
+                    <label className="text-xs md:text-sm font-bold text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors uppercase tracking-wider">Location</label>
                     <input 
                       name="location" 
                       type="text" 
-                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-400" 
+                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-base md:text-lg font-bold placeholder:text-gray-300" 
                       placeholder="Doha, Qatar" 
                     />
                   </div>
                 </div>
 
-                <div className="space-y-4 border-b-2 border-gray-300 pb-4 transition-all duration-500 focus-within:border-[#0EA5E9] group/field">
-                  <label className="text-sm md:text-base font-black text-[#0EA5E9] block">Type your message...</label>
+                <div className="space-y-2 border-b-2 border-gray-200 pb-3 transition-all duration-300 focus-within:border-[#0EA5E9] group/field">
+                  <label className="text-xs md:text-sm font-bold text-[#0EA5E9] block uppercase tracking-wider">Type your message...</label>
                   <textarea 
                     name="message" 
                     rows={4} 
                     required 
-                    className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold resize-none leading-tight" 
+                    className="w-full bg-transparent focus:outline-none text-[#0A2540] text-base md:text-lg font-bold resize-none leading-relaxed" 
                   ></textarea>
                 </div>
 
-                <div className="pt-8">
+                <div className="pt-4">
                   <button 
                     type="submit" 
-                    className="w-full md:w-auto bg-[#0EA5E9] hover:bg-[#0284C7] text-white px-16 py-8 rounded-[2rem] font-black text-2xl transition-all flex items-center justify-center gap-8 hover:shadow-3xl hover:shadow-[#0EA5E9]/50 hover:-translate-y-2 group"
+                    className="w-full md:w-auto bg-[#0EA5E9] hover:bg-[#0284C7] text-white px-10 py-4 rounded-full font-bold text-lg transition-all flex items-center justify-center gap-4 hover:shadow-xl hover:shadow-[#0EA5E9]/30 hover:-translate-y-1 group"
                   >
-                    <div className="bg-white rounded-full p-3 text-[#0EA5E9] transition-transform group-hover:translate-x-3">
-                      <ArrowRight size={32} />
+                    <div className="bg-white rounded-full p-2 text-[#0EA5E9] transition-transform group-hover:translate-x-2">
+                      <ArrowRight size={20} />
                     </div>
                     Send message
                   </button>
                 </div>
               </form>
             </div>
-
-
           </div>
         </div>
       </section>
@@ -212,8 +239,11 @@ export default function ContactPage() {
               </div>
               <h3 className="text-[#0EA5E9] text-xs font-black tracking-widest uppercase mb-4 group-hover:text-white transition-colors duration-500">LOCATION</h3>
               <p className="text-[#0A2540] text-sm font-bold leading-relaxed group-hover:text-white transition-colors duration-500">
-                TREK GROUP BUSINESS SERVICES<br />
-                Nuija 43, Doha, Qatar
+                TREK GROUP Corporate Head Office<br />
+                Office No. 8, 2nd Floor<br />
+                Building No. 210, Street No. 330, Zone No. 43<br />
+                Rawdat Al Khail Street, Nuaija<br />
+                Doha, Qatar
               </p>
             </div>
 

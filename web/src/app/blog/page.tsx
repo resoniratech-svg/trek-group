@@ -44,10 +44,10 @@ export default function BlogPage() {
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-secondary/5 rounded-full blur-3xl" />
               <div className="relative z-10">
                 <span className="text-secondary font-bold tracking-widest uppercase text-xs">Latest Insights</span>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-primary mt-4 mb-6 leading-tight">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-black mt-4 mb-6 leading-tight">
                   Trek Group <span className="text-secondary italic">Blog</span>
                 </h1>
-                <p className="text-primary/70 text-base md:text-lg leading-relaxed">
+                <p className="text-black/70 text-base md:text-lg leading-relaxed">
                   Stay updated with the latest news, regulations, and insights on doing business in Qatar.
                 </p>
               </div>
@@ -62,15 +62,15 @@ export default function BlogPage() {
                 >
                   <div className="mb-4 flex items-center justify-between">
                     <span className="text-secondary font-bold text-xs uppercase tracking-wider">{post.category}</span>
-                    <span className="text-primary/40 text-xs">{post.date}</span>
+                    <span className="text-black/40 text-xs">{post.date}</span>
                   </div>
-                  <h3 className="text-xl font-black text-primary mb-4 leading-tight group-hover:text-secondary transition-colors">
+                  <h3 className="text-xl font-black text-black mb-4 leading-tight group-hover:text-secondary transition-colors">
                     {post.title}
                   </h3>
-                  <p className="text-primary/60 leading-relaxed mb-8 text-sm flex-grow">
+                  <p className="text-black/60 leading-relaxed mb-8 text-sm flex-grow">
                     {post.excerpt}
                   </p>
-                  <button className="flex items-center gap-2 text-primary font-bold text-sm group/btn self-start">
+                  <button className="flex items-center gap-2 text-black font-bold text-sm group/btn self-start">
                     Read Article
                     <ArrowRight size={16} className="transition-transform group-hover/btn:translate-x-1 text-secondary" />
                   </button>
