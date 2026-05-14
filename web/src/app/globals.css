@@ -43,9 +43,24 @@
 
 :root {
   --background: #050816;
-  --foreground: #ffffff;
+  --foreground: #f8fafc;
+  --surface: rgba(255, 255, 255, 0.06);
+  --surface-strong: rgba(255, 255, 255, 0.12);
+  --border-color: rgba(255, 255, 255, 0.15);
+  --muted: rgba(255, 255, 255, 0.75);
   --primary: #0EA5E9;
   --secondary: #d4af37;
+}
+
+.theme-white {
+  --background: #f8fafc;
+  --foreground: #111827;
+  --surface: rgba(15, 23, 42, 0.05);
+  --surface-strong: rgba(15, 23, 42, 0.1);
+  --border-color: rgba(15, 23, 42, 0.12);
+  --muted: rgba(15, 23, 42, 0.7);
+  --primary: #111827;
+  --secondary: #111827;
 }
 
 body {
@@ -54,6 +69,97 @@ body {
   font-family: var(--font-sans), sans-serif;
   overflow-x: hidden;
   zoom: 0.8;
+}
+
+.bg-theme {
+  background: var(--background) !important;
+}
+
+.text-theme {
+  color: var(--foreground) !important;
+}
+
+.bg-card {
+  background: var(--surface) !important;
+}
+
+.bg-card-strong {
+  background: var(--surface-strong) !important;
+}
+
+.border-theme {
+  border-color: var(--border-color) !important;
+}
+
+.text-muted {
+  color: var(--muted) !important;
+}
+
+.theme-white .text-white {
+  color: var(--foreground) !important;
+}
+
+.theme-white .text-white\/90 {
+  color: rgba(17, 24, 39, 0.9) !important;
+}
+
+.theme-white .text-white\/70 {
+  color: rgba(17, 24, 39, 0.7) !important;
+}
+
+.theme-white .text-white\/60 {
+  color: rgba(17, 24, 39, 0.6) !important;
+}
+
+.theme-white .text-white\/40 {
+  color: rgba(17, 24, 39, 0.4) !important;
+}
+
+.theme-white .bg-white\/5 {
+  background-color: rgba(17, 24, 39, 0.05) !important;
+}
+
+.theme-white .bg-white\/10 {
+  background-color: rgba(17, 24, 39, 0.1) !important;
+}
+
+.theme-white .border-white\/10 {
+  border-color: rgba(17, 24, 39, 0.1) !important;
+}
+
+.theme-white .border-white\/20 {
+  border-color: rgba(17, 24, 39, 0.15) !important;
+}
+
+.theme-white .bg-slate-950,
+.theme-white .bg-black,
+.theme-white .bg-\[\#050816\] {
+  background-color: #f8fafc !important;
+}
+
+.theme-white .text-black,
+.theme-white .text-secondary,
+.theme-white .text-primary,
+.theme-white .text-\[\#0EA5E9\] {
+  color: #111827 !important;
+}
+
+.theme-white .bg-secondary,
+.theme-white .bg-primary,
+.theme-white .bg-\[\#0EA5E9\] {
+  background-color: #111827 !important;
+}
+
+.theme-white .bg-white {
+  background-color: #f8fafc !important;
+}
+
+.theme-white .bg-black\/30 {
+  background-color: rgba(15, 23, 42, 0.3) !important;
+}
+
+.theme-white .border-gray-200 {
+  border-color: rgba(17, 24, 39, 0.15) !important;
 }
 
 /* Dark Theme Support */

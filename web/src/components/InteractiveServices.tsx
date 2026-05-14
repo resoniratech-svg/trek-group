@@ -10,7 +10,6 @@ import {
   Code2,
   LucideIcon
 } from "lucide-react";
-import ServicesBackground from "./ServicesBackground";
 import Link from "next/link";
 
 interface ServiceCard {
@@ -33,15 +32,22 @@ const services: ServiceCard[] = [
 
 export default function InteractiveServices() {
   return (
-    <section className="py-24 bg-[#0B1B3D] overflow-hidden relative min-h-[1100px] flex flex-col items-center justify-center">
-      {/* Background with Grid */}
-      <ServicesBackground />
+    <section className="relative overflow-hidden min-h-[1100px] bg-slate-950">
+      <div className="absolute inset-0 z-0">
+        <img
+          src="/backgroundHome.png"
+          alt="Background"
+          className="absolute inset-0 w-full h-full object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-slate-950/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-950/20 to-slate-950/90" />
+      </div>
 
-      <div className="container mx-auto px-6 relative z-10 text-center mb-16">
+      <div className="container mx-auto px-6 relative z-20 text-center mb-14">
         <motion.span
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          className="text-secondary font-bold tracking-widest uppercase text-xs mb-4 block"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          className="text-secondary font-bold tracking-[0.35em] uppercase text-xs md:text-sm mb-4 block"
         >
           Comprehensive Solutions
         </motion.span>
@@ -54,60 +60,43 @@ export default function InteractiveServices() {
         </motion.h2>
       </div>
 
-      <div className="relative w-full max-w-[1400px] h-[800px] flex items-center justify-center">
-        {/* SVG Connecting Lines */}
-        <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
+      <div className="relative w-full max-w-[1400px] h-[840px] mx-auto z-20">
+        <svg className="absolute inset-0 w-full h-full pointer-events-none z-10">
           {services.map((service, i) => (
             <motion.path
               key={`line-${i}`}
-              d={`M 700 400 L ${700 + service.x} ${400 + service.y}`}
-              stroke="rgba(212,175,55,0.3)"
+              d={`M 700 420 L ${700 + service.x} ${420 + service.y}`}
+              stroke="rgba(255,255,255,0.22)"
               strokeWidth="2"
               fill="none"
-              strokeDasharray="10 10"
+              strokeDasharray="8 12"
               initial={{ pathLength: 0, opacity: 0 }}
               whileInView={{ pathLength: 1, opacity: 1 }}
-              transition={{ duration: 1.5, delay: service.delay }}
+              transition={{ duration: 1.4, delay: service.delay }}
             />
           ))}
         </svg>
 
-        {/* Central Figure */}
         <motion.div
-          initial={{ scale: 0.95, opacity: 0 }}
-          whileInView={{ scale: 1, opacity: 1 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
-          className="relative z-20 w-[90%] max-w-[550px] h-[500px] md:h-[850px] flex items-center justify-center"
+          className="absolute left-1/2 top-1/2 z-20 w-[620px] max-w-full -translate-x-1/2 -translate-y-1/2"
         >
-          {/* Elegant Ambient Shadows & Glow for Light UI */}
-          <div className="absolute inset-0 bg-secondary/15 rounded-full blur-[120px] animate-pulse" />
-          <div className="absolute inset-0 bg-white/40 rounded-full blur-[80px]" />
-
-          {/* Image Container with Soft Feathering */}
-          <div
-            className="relative w-full h-full z-10"
-            style={{
-              WebkitMaskImage: 'radial-gradient(ellipse at 50% 50%, black 40%, transparent 90%)',
-              maskImage: 'radial-gradient(ellipse at 50% 50%, black 40%, transparent 90%)'
-            }}
-          >
+          <div className="relative w-full h-[760px] rounded-[2.5rem] overflow-hidden border border-white/10 shadow-[0_40px_120px_rgba(0,0,0,0.65)]">
             <img
               src="/imageServices.jpeg"
-              alt="Trek Group Expert"
+              alt="Expert business background"
               className="w-full h-full object-cover"
             />
-            {/* Smooth Light Overlays for Premium Depth and Edge Harmonization */}
-            <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-transparent to-white/40" />
-            <div className="absolute inset-0 shadow-[inset_0_0_120px_rgba(255,255,255,0.9)] pointer-events-none" />
-            <div className="absolute inset-0 bg-secondary/5 mix-blend-multiply pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-slate-950/20" />
           </div>
         </motion.div>
 
-        {/* Floating Service Cards */}
         {services.map((service, i) => (
           <motion.div
             key={service.title}
-            initial={{ opacity: 0, x: 0, y: 0 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{
               opacity: 1,
               x: service.x,
@@ -117,36 +106,35 @@ export default function InteractiveServices() {
               duration: 1,
               delay: service.delay,
               type: "spring",
-              stiffness: 50
+              stiffness: 60
             }}
-            whileHover={{ scale: 1.1, y: service.y - 10 }}
-            className="absolute z-30 group"
+            whileHover={{ scale: 1.05 }}
+            className="absolute left-1/2 top-1/2 z-30 -translate-x-1/2 -translate-y-1/2 group"
           >
             <Link href={`/services?service=${service.id}`} className="block">
-              <div className="bg-white/80 backdrop-blur-md border border-gray-100 p-5 rounded-2xl flex items-center gap-4 shadow-2xl hover:border-secondary/50 transition-all cursor-pointer min-w-[220px]">
-                <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-white transition-colors">
-                  <service.icon size={24} />
+              <div className="min-w-[260px] bg-white/90 backdrop-blur-md border border-white/20 p-5 rounded-3xl flex items-center gap-4 shadow-2xl hover:border-secondary/40 transition-all cursor-pointer">
+                <div className="w-12 h-12 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-white transition-colors">
+                  <service.icon size={22} />
                 </div>
                 <div className="text-left">
-                  <div className="text-black font-black text-lg leading-tight drop-shadow-sm">{service.title}</div>
-                  <div className="text-black/60 text-[10px] uppercase tracking-wider mt-1">Expert Service</div>
+                  <div className="text-slate-950 font-semibold text-lg leading-tight">{service.title}</div>
+                  <div className="text-slate-500 text-[10px] uppercase tracking-[0.25em] mt-1">Expert Service</div>
                 </div>
               </div>
             </Link>
 
-            {/* Floating particle effect for each card */}
             <motion.div
               animate={{
-                y: [0, -10, 0],
-                opacity: [0.3, 0.6, 0.3],
+                y: [0, -8, 0],
+                opacity: [0.2, 0.6, 0.2],
               }}
               transition={{
                 duration: 3,
                 repeat: Infinity,
                 ease: "easeInOut",
-                delay: i * 0.5
+                delay: i * 0.4
               }}
-              className="absolute -inset-2 bg-secondary/5 rounded-2xl blur-lg -z-10 group-hover:bg-secondary/10"
+              className="absolute -inset-2 bg-white/10 rounded-3xl blur-3xl -z-10 group-hover:bg-secondary/20"
             />
           </motion.div>
         ))}

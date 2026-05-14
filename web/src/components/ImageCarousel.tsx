@@ -49,7 +49,7 @@ export default function ImageCarousel() {
                 src={src}
                 alt={`Trek Group Moment ${index + 1}`}
                 className="h-full w-auto object-cover transition-transform duration-500 group-hover:scale-105"
-                style={{ imageRendering: "high-quality", WebkitFontSmoothing: "antialiased" }}
+                style={{ imageRendering: "auto" }}
               />
               {/* Subtle Gold Glow Overlay on Hover */}
               <div className="absolute inset-0 bg-transparent hover:bg-secondary/10 transition-colors duration-300" />

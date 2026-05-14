@@ -70,6 +70,7 @@ export const metadata: Metadata = {
 };
 
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 export default function RootLayout({
   children,
@@ -82,8 +83,10 @@ export default function RootLayout({
         className={`${inter.variable} ${outfit.variable} antialiased font-sans`}
         suppressHydrationWarning
       >
-        {children}
-        <WhatsAppButton />
+        <ThemeProvider>
+          {children}
+          <WhatsAppButton />
+        </ThemeProvider>
       </body>
     </html>
   );

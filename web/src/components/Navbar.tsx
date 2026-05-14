@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronRight, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ThemeToggleButton } from "@/components/ThemeProvider";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -119,8 +120,10 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* Right Section: Get a Quote */}
+        {/* Right Section: Get a Quote + Theme Toggle */}
         <div className="flex-1 flex justify-end items-center gap-4">
+          <ThemeToggleButton className="hidden xl:inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-4 py-3 text-sm font-bold text-white transition hover:bg-white/20" />
+
           <Link href="/contact">
             <button className="bg-secondary hover:bg-secondary-dark text-white px-8 py-3 rounded-full text-base font-bold transition-all transform hover:scale-105 flex items-center gap-2 shadow-lg shadow-secondary/20 whitespace-nowrap">
               Get a Quote <ChevronRight size={18} />

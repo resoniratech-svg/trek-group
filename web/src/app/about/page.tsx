@@ -3,7 +3,21 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CorporateGlobeBackground from "@/components/CorporateGlobeBackground";
-import { ChevronRight, CheckCircle2 } from "lucide-react";
+import { 
+  CheckCircle2, 
+  Building2,
+  UserCheck,
+  FileCheck,
+  Palette,
+  Globe2,
+  Code2,
+  FileText,
+  Award,
+  ShieldCheck,
+  Landmark,
+  Calculator,
+  Plane
+} from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -254,11 +268,23 @@ export default function AboutPage() {
 
                   <div className="space-y-5">
                     <p className="text-black/70 text-sm md:text-[15px] leading-relaxed font-medium">
-                      We help them avoid the hassle of the backend process and turn it into a registered, licensed, operational business in Qatar......without delays, confusion, or unnecessary costs.
+                      1. Clarity First
+                      Our expert Qatar business setup consultants simplify complex legal procedures, documentation requirements, and approval timelines into clear, actionable steps. We help entrepreneurs and investors understand every stage of company formation in Qatar without confusion.
                     </p>
 
                     <p className="text-black/70 text-sm md:text-[15px] leading-relaxed font-medium">
-                      We provide relief to them beyond paperwork. We work as strategic partners offering end-to-end guidance, clarity, and accountability, so entrepreneurs can focus on growth while we handle the groundwork.
+                      2. Fast & Accurate Company Formation
+                      We combine efficient internal processes with strong coordination across relevant ministries to deliver faster business setup approvals in Qatar while maintaining full legal compliance and accuracy.
+                    </p>
+
+                    <p className="text-black/70 text-sm md:text-[15px] leading-relaxed font-medium">
+                      3. Client-Focused Business Solutions
+                      Our end-to-end Qatar company registration services are customized to match your business goals, industry requirements, and budget. From startups to international investors, we provide strategic guidance designed for long-term success.
+                    </p>
+
+                    <p className="text-black/70 text-sm md:text-[15px] leading-relaxed font-medium">
+                      4. Long-Term Business Support in Qatar
+                      Our relationship does not end after company formation. We continue supporting your business growth in Qatar with compliance assistance, business advisory services, licensing support, and operational guidance whenever needed.
                     </p>
                   </div>
                 </div>
@@ -348,92 +374,43 @@ export default function AboutPage() {
               <p className="text-[#0EA5E9] text-lg font-medium">End-to-end corporate solutions, including</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
-                {
-                  title: "Company Formation in Qatar",
-                  desc: "(LLC, Branch Office, Holding Company, Partnership, Free Zone)",
-                  icon: (
-                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                    </svg>
-                  )
-                },
-                {
-                  title: "PRO Services in Qatar",
-                  desc: "(Visas, Labour Cards, Establishment ID, Ministry Approvals)",
-                  icon: (
-                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
-                    </svg>
-                  )
-                },
-                {
-                  title: "Business Registration & Licensing",
-                  icon: (
-                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                  )
-                },
-                {
-                  title: "Translation & Certificate Attestation",
-                  icon: (
-                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
-                    </svg>
-                  )
-                },
-                {
-                  title: "Branding & Creative Enablement",
-                  icon: (
-                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-                    </svg>
-                  )
-                },
-                {
-                  title: "International Business Events Support",
-                  icon: (
-                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h.293m1.414 0l1.414 1.414M11 18.03V17a2 2 0 012-2h1m1 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  )
-                },
-                {
-                  title: "Offshore Company Consultation",
-                  icon: (
-                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
-                  )
-                },
-                {
-                  title: "Business Consultancy & Compliance",
-                  icon: (
-                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                    </svg>
-                  )
-                }
+                { title: "Company Registration", desc: "Streamlined business registration across all sectors in Qatar with full regulatory compliance.", icon: <Building2 size={36} /> },
+                { title: "Company Formation", desc: "End-to-end support for LLC, 100% foreign ownership, and Free Zone setup tailored to your specific business needs.", icon: <Building2 size={36} /> },
+                { title: "PRO Services in Qatar", desc: "Expert handling of government documents, labor cards, trade licenses, and all essential compliance paperwork.", icon: <UserCheck size={36} /> },
+                { title: "Visa & Immigration", desc: "Seamless processing for family, work, and investor visas in Qatar.", icon: <Plane size={36} /> },
+                { title: "Certificate Attestation", desc: "Document legalization from MOFA, Embassies, and Chamber of Commerce.", icon: <FileCheck size={36} /> },
+                { title: "Corporate Bank Account", desc: "Expert guidance in opening and managing corporate bank accounts in Qatar's leading banks.", icon: <Landmark size={36} /> }
               ].map((service, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="bg-white/5 backdrop-blur-md p-8 rounded-2xl shadow-sm border border-white/10 flex flex-col items-start hover:bg-white/10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group"
+                  transition={{ delay: (i % 3) * 0.1 }}
+                  className="bg-white/5 backdrop-blur-md p-10 md:p-12 rounded-3xl shadow-lg border border-white/10 flex flex-col items-start hover:bg-white/10 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group min-h-[320px]"
                 >
-                  <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center text-[#0EA5E9] mb-6 group-hover:bg-[#0EA5E9] group-hover:text-white transition-colors duration-300">
+                  <div className="w-20 h-20 bg-white/10 rounded-2xl flex items-center justify-center text-[#0EA5E9] mb-8 group-hover:bg-[#0EA5E9] group-hover:text-white transition-colors duration-300 shadow-xl">
                     {service.icon}
                   </div>
-                  <h4 className="text-[17px] font-black text-white leading-tight mb-2">{service.title}</h4>
+                  <h4 className="text-2xl font-black text-white leading-tight mb-4">{service.title}</h4>
                   {service.desc && (
-                    <p className="text-[12px] text-white/60 leading-relaxed font-medium">{service.desc}</p>
+                    <p className="text-base text-white/70 leading-relaxed font-medium">{service.desc}</p>
                   )}
                 </motion.div>
               ))}
+            </div>
+
+            <div className="mt-16 text-center">
+              <Link href="/services">
+                <button className="bg-secondary hover:bg-secondary-dark text-white px-10 py-4 rounded-full font-black text-lg transition-all transform hover:scale-105 shadow-xl shadow-secondary/20 flex items-center gap-3 mx-auto">
+                  View All Services
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
+              </Link>
             </div>
           </div>
         </section>
