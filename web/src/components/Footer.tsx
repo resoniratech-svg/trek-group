@@ -142,21 +142,6 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="w-full mt-8">
-        <a 
-          href="https://resonira.com/" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="block w-full hover:opacity-95 transition-opacity"
-        >
-          <img 
-            src="/resonira-banner(1).png" 
-            alt="Our Digital Partner - Resonira Technologies" 
-            className="w-full h-auto object-cover"
-          />
-        </a>
-      </div>
-
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="mt-8 pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4 text-black/60 text-base font-medium">
           <p>© 2026 Trek Group Qatar. All rights reserved.</p>
