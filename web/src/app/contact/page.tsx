@@ -126,7 +126,7 @@ export default function ContactPage() {
       </section>
 
       {/* Section 3: Contact Form */}
-      <section className="py-20 md:py-28 bg-[#F8FAFC]">
+      <section id="contact-form-section" className="py-20 md:py-28 bg-[#F8FAFC]">
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-20 items-start">
             <div>
@@ -153,57 +153,57 @@ export default function ContactPage() {
                 }}
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 md:gap-y-10">
-                  <div className="space-y-2 border-b-2 border-gray-200 pb-3 transition-all duration-300 focus-within:border-[#0EA5E9] group/field">
-                    <label className="text-xs md:text-sm font-bold text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors uppercase tracking-wider">Full name</label>
+                  <div className="space-y-2 border-2 border-gray-100 rounded-2xl p-4 md:p-5 bg-white shadow-sm transition-all duration-300 hover:border-gray-200 hover:shadow-md focus-within:border-[#0EA5E9] focus-within:shadow-lg focus-within:-translate-y-1 group/field">
+                    <label className="text-sm md:text-base font-bold text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors uppercase tracking-wider">Full name</label>
                     <input 
                       name="name" 
                       type="text" 
                       required 
-                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-base md:text-lg font-bold placeholder:text-gray-300" 
+                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-300" 
                       placeholder="Your Name" 
                     />
                   </div>
-                  <div className="space-y-2 border-b-2 border-gray-200 pb-3 transition-all duration-300 focus-within:border-[#0EA5E9] group/field">
-                    <label className="text-xs md:text-sm font-bold text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors uppercase tracking-wider">Email address</label>
+                  <div className="space-y-2 border-2 border-gray-100 rounded-2xl p-4 md:p-5 bg-white shadow-sm transition-all duration-300 hover:border-gray-200 hover:shadow-md focus-within:border-[#0EA5E9] focus-within:shadow-lg focus-within:-translate-y-1 group/field">
+                    <label className="text-sm md:text-base font-bold text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors uppercase tracking-wider">Email address</label>
                     <input 
                       name="email" 
                       type="email" 
                       required 
-                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-base md:text-lg font-bold placeholder:text-gray-300" 
+                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-300" 
                       placeholder="Email@Address.com" 
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 md:gap-y-10">
-                  <div className="space-y-2 border-b-2 border-gray-200 pb-3 transition-all duration-300 focus-within:border-[#0EA5E9] group/field">
-                    <label className="text-xs md:text-sm font-bold text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors uppercase tracking-wider">Phone number</label>
+                  <div className="space-y-2 border-2 border-gray-100 rounded-2xl p-4 md:p-5 bg-white shadow-sm transition-all duration-300 hover:border-gray-200 hover:shadow-md focus-within:border-[#0EA5E9] focus-within:shadow-lg focus-within:-translate-y-1 group/field">
+                    <label className="text-sm md:text-base font-bold text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors uppercase tracking-wider">Phone number</label>
                     <input 
                       name="phone" 
                       type="tel" 
                       required 
-                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-base md:text-lg font-bold placeholder:text-gray-300" 
+                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-300" 
                       placeholder="+974 0000 0000" 
                     />
                   </div>
-                  <div className="space-y-2 border-b-2 border-gray-200 pb-3 transition-all duration-300 focus-within:border-[#0EA5E9] group/field">
-                    <label className="text-xs md:text-sm font-bold text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors uppercase tracking-wider">Location</label>
+                  <div className="space-y-2 border-2 border-gray-100 rounded-2xl p-4 md:p-5 bg-white shadow-sm transition-all duration-300 hover:border-gray-200 hover:shadow-md focus-within:border-[#0EA5E9] focus-within:shadow-lg focus-within:-translate-y-1 group/field">
+                    <label className="text-sm md:text-base font-bold text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors uppercase tracking-wider">Location</label>
                     <input 
                       name="location" 
                       type="text" 
-                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-base md:text-lg font-bold placeholder:text-gray-300" 
+                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-300" 
                       placeholder="Doha, Qatar" 
                     />
                   </div>
                 </div>
 
-                <div className="space-y-2 border-b-2 border-gray-200 pb-3 transition-all duration-300 focus-within:border-[#0EA5E9] group/field">
-                  <label className="text-xs md:text-sm font-bold text-[#0EA5E9] block uppercase tracking-wider">Type your message...</label>
+                <div className="space-y-2 border-2 border-gray-100 rounded-2xl p-4 md:p-5 bg-white shadow-sm transition-all duration-300 hover:border-gray-200 hover:shadow-md focus-within:border-[#0EA5E9] focus-within:shadow-lg focus-within:-translate-y-1 group/field">
+                  <label className="text-sm md:text-base font-bold text-[#0EA5E9] block uppercase tracking-wider">Type your message...</label>
                   <textarea 
                     name="message" 
                     rows={4} 
                     required 
-                    className="w-full bg-transparent focus:outline-none text-[#0A2540] text-base md:text-lg font-bold resize-none leading-relaxed" 
+                    className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold resize-none leading-relaxed" 
                   ></textarea>
                 </div>
 

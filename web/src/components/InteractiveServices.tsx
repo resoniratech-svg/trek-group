@@ -43,11 +43,11 @@ export default function InteractiveServices() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-950/20 to-slate-950/90" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-20 text-center mb-14">
+      <div className="container mx-auto px-6 relative z-20 text-center mb-14 pt-24">
         <motion.span
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="text-secondary font-bold tracking-[0.35em] uppercase text-xs md:text-sm mb-4 block"
+          className="text-secondary font-bold tracking-[0.35em] uppercase text-base md:text-xl mb-4 block"
         >
           Comprehensive Solutions
         </motion.span>
@@ -85,7 +85,7 @@ export default function InteractiveServices() {
         >
           <div className="relative w-full h-[760px] rounded-[2.5rem] overflow-hidden border border-white/10 shadow-[0_40px_120px_rgba(0,0,0,0.65)]">
             <img
-              src="/imageServices.jpeg"
+              src="/imageServices.webp"
               alt="Expert business background"
               className="w-full h-full object-cover"
             />

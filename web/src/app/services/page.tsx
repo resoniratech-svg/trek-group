@@ -262,22 +262,13 @@ function ServicesContent() {
     <div className="w-full">
       {/* Hero Section */}
       <section className="pt-32 pb-16 md:pt-40 md:pb-24 px-6 relative overflow-hidden">
-        {/* Unified Background Image */}
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-white/70 z-10" />
-          <img 
-            src="/trek_mountain_hero.png" 
-            alt="Mountain Landscape Background" 
-            className="w-full h-full object-cover"
-          />
-        </div>
 
         <div className="container mx-auto max-w-4xl text-center relative z-20">
-          <span className="text-secondary font-bold tracking-widest uppercase text-xs">Our Expertise</span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-black mt-4 mb-6 leading-tight">
+          <span className="text-secondary font-bold tracking-widest uppercase text-sm md:text-base">Our Expertise</span>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mt-4 mb-6 leading-tight">
             Comprehensive <span className="text-secondary italic">Services</span>
           </h1>
-          <p className="text-black/80 text-base md:text-lg leading-relaxed max-w-2xl mx-auto font-medium">
+          <p className="text-white/90 text-base md:text-lg leading-relaxed max-w-2xl mx-auto font-medium">
             Explore our wide range of professional solutions designed to streamline your operations and accelerate your business growth in Qatar and beyond.
           </p>
         </div>
@@ -285,16 +276,6 @@ function ServicesContent() {
 
       {/* Alternating Services Timeline Section */}
       <section className="py-24 relative overflow-hidden">
-        {/* Unified Background Image */}
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-white/80 z-10 backdrop-blur-sm" />
-          <img 
-            src="/trek_mountain_hero.png" 
-            alt="Mountain Landscape Background" 
-            className="w-full h-full object-cover opacity-60"
-          />
-        </div>
-
         <div className="container mx-auto px-6 max-w-6xl relative z-20">
           {/* Vertical Timeline Line (Desktop only) */}
           <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gray-200 -translate-x-1/2" />
@@ -303,10 +284,10 @@ function ServicesContent() {
             {services.map((service, index) => {
               const isExpanded = expandedId === service.id;
               const isEven = index % 2 === 0;
-              
+
               return (
                 <div key={service.id} id={service.id} className="relative flex flex-col md:flex-row items-center w-full group">
-                  
+
                   {/* Center Node (Desktop only) */}
                   <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-white border-4 border-secondary z-30 items-center justify-center shadow-[0_0_15px_rgba(212,175,55,0.3)]">
                     <div className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
@@ -326,7 +307,7 @@ function ServicesContent() {
                       isEven ? "md:pr-12 md:text-right" : "md:pl-12 md:text-left"
                     )}
                   >
-                    <div 
+                    <div
                       className={cn(
                         "bg-white/80 backdrop-blur-xl border p-8 rounded-[2rem] shadow-xl transition-all duration-500 overflow-hidden relative",
                         isExpanded ? "border-secondary/60 shadow-[0_10px_40px_rgba(212,175,55,0.15)]" : "border-gray-100 hover:bg-white hover:border-gray-200 shadow-gray-200/50"
@@ -358,7 +339,7 @@ function ServicesContent() {
                         </div>
 
                         {/* Know More Button */}
-                        <button 
+                        <button
                           onClick={() => toggleService(service.id)}
                           className={cn(
                             "flex items-center gap-2 font-bold text-sm px-6 py-3 rounded-full transition-all duration-300",
@@ -393,7 +374,7 @@ function ServicesContent() {
                                 </li>
                               ))}
                             </ul>
-                            
+
                             <div className="mt-8 pt-8 border-t border-gray-100 flex justify-start">
                               <Link href="/contact">
                                 <button className="flex items-center gap-2 text-secondary hover:text-secondary-dark font-bold text-sm group/btn transition-colors">
@@ -421,8 +402,8 @@ function ServicesContent() {
       {/* CTA inside Services */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6 max-w-4xl text-center">
-          <div className="bg-gray-50 border border-gray-100 p-10 md:p-16 rounded-[3rem] relative overflow-hidden shadow-xl shadow-gray-200/50">
-            <div className="absolute inset-0 bg-gradient-to-r from-secondary/5 via-transparent to-secondary/5" />
+          <div className="bg-blue-50 border border-blue-100 p-10 md:p-16 rounded-[3rem] relative overflow-hidden shadow-xl shadow-blue-900/5">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-100/50 via-transparent to-blue-100/50" />
             <h2 className="text-2xl md:text-4xl font-black text-black mb-6 relative z-10 leading-tight">
               Not sure which service you need?
             </h2>
@@ -443,16 +424,20 @@ function ServicesContent() {
 
 export default function ServicesPage() {
   return (
-    <main className="min-h-screen bg-white relative overflow-x-hidden">
-      {/* Global Animated Background */}
+    <main className="min-h-screen bg-transparent relative overflow-x-hidden">
+      {/* Global Background Image */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <FuturisticBackground />
+        <img 
+          src="/servicesBG2.png" 
+          alt="Global Services Background" 
+          className="w-full aspect-video object-cover object-center opacity-50"
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
       </div>
 
       <div className="relative z-10">
         <Navbar />
-        
+
         <Suspense fallback={
           <div className="min-h-screen flex items-center justify-center pt-32">
             <div className="animate-pulse flex flex-col items-center">

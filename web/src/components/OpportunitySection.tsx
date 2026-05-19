@@ -64,7 +64,7 @@ export default function OpportunitySection() {
             {/* Right Image */}
             <div className="relative overflow-hidden group/img min-h-[250px]">
               <motion.img 
-                src="/img6.jpeg" 
+                src="/img6.webp" 
                 alt="Qatar Business Opportunity" 
                 className="w-full h-full object-cover group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
               />

@@ -3,12 +3,12 @@
 import { motion } from "framer-motion";
 
 const images = [
-  "/img1.jpeg",
-  "/img2.jpeg",
-  "/img3.jpeg",
-  "/img4.jpeg",
-  "/img5.jpeg",
-  "/img6.jpeg",
+  "/img1.webp",
+  "/img2.webp",
+  "/img3.webp",
+  "/img4.webp",
+  "/img5.webp",
+  "/img6.webp",
 ];
 
 export default function ImageCarousel() {

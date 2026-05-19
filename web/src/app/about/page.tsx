@@ -99,7 +99,7 @@ export default function AboutPage() {
                     className="aspect-square rounded-[2rem] overflow-hidden shadow-2xl relative z-10 border border-white/10 bg-white/5 backdrop-blur-md"
                   >
                     <img
-                      src="/ladder_support_final.png"
+                      src="/ladder_support_final.webp"
                       alt="Business Support and Growth"
                       className="w-full h-full object-cover"
                     />
@@ -249,18 +249,23 @@ export default function AboutPage() {
           </div>
 
           <div className="container mx-auto px-6 max-w-6xl relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-              {/* Heading Column */}
-              <div className="lg:col-span-4">
-                <div className="w-48 h-1 bg-secondary mb-6" />
-                <h2 className="text-4xl md:text-5xl font-black text-black tracking-tighter leading-none">
-                  OUR <br />
-                  PURPOSE
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
+              {/* Image & Heading Column */}
+              <div className="lg:col-span-5 flex flex-col min-h-[400px]">
+                <h2 className="text-4xl md:text-5xl font-black text-black tracking-tighter leading-none mb-8">
+                  OUR PURPOSE
                 </h2>
+                <div className="flex-grow relative rounded-3xl overflow-hidden shadow-2xl w-full h-full">
+                  <img 
+                    src="/ourPurposeBG.png" 
+                    alt="Our Purpose Background" 
+                    className="absolute inset-0 w-full h-full object-cover object-center"
+                  />
+                </div>
               </div>
 
               {/* Content Column */}
-              <div className="lg:col-span-8 pt-2">
+              <div className="lg:col-span-7 pt-2">
                 <div className="space-y-6">
                   <h3 className="text-xl md:text-2xl font-black text-black leading-tight">
                     Businesses come to us with an idea. We become their business setup <br className="hidden md:block" />
@@ -299,12 +304,7 @@ export default function AboutPage() {
           {/* Background Image with Overlay */}
           <div className="absolute inset-0 z-0">
             {/* Dark gradient overlay for readability */}
-            <div className="absolute inset-0 bg-gray-900/80 z-10" />
-            <img
-              src="/expert_businessman_multi_arms_1777724379082.png"
-              alt="Business Approach Background"
-              className="w-full h-full object-cover opacity-40 grayscale"
-            />
+            <div className="absolute inset-0 bg-gray-900/90 z-10" />
           </div>
 
           <div className="container mx-auto px-6 max-w-6xl relative z-20">

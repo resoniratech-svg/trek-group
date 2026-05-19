@@ -73,7 +73,7 @@ export default function KeySetupFactors() {
               >
                 {/* Step Circle & Glow */}
                 <div className="mb-8 flex justify-center relative">
-                  <motion.div 
+                  <motion.div
                     whileHover={{ scale: 1.1 }}
                     className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white border-2 border-secondary/20 shadow-xl flex items-center justify-center relative z-20 transition-all group-hover:border-secondary"
                   >

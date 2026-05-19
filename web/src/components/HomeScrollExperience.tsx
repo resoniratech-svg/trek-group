@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import HomeScrollAnimation from "./HomeScrollAnimation";
 import Hero from "./Hero";
 
 export default function HomeScrollExperience() {
@@ -18,9 +17,14 @@ export default function HomeScrollExperience() {
 
   return (
     <div ref={containerRef} className="relative h-[150vh]">
-      {/* Sticky Background Animation */}
+      {/* Sticky Background Image */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        <HomeScrollAnimation progress={scrollYProgress} />
+        <div className="absolute inset-0 bg-black/40 z-10" /> {/* Optional overlay for text readability */}
+        <img 
+          src="/homeBG.jpg" 
+          alt="Trek Group Home Background" 
+          className="w-full h-full object-cover"
+        />
       </div>
 
       {/* Overlay Content Sections */}
