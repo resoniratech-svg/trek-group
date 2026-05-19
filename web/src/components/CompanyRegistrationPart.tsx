@@ -40,7 +40,7 @@ export default function CompanyRegistrationPart() {
     <section className="py-24 bg-white relative overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="max-w-7xl mx-auto space-y-20">
-          
+
           {/* Top Intro Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -54,13 +54,13 @@ export default function CompanyRegistrationPart() {
             <h2 className="text-4xl md:text-6xl font-black text-[#050816] leading-tight mb-8 max-w-4xl">
               Our Role in Your Qatar Company Registration
             </h2>
-            
+
             <div className="text-gray-600 text-lg md:text-xl leading-relaxed max-w-4xl space-y-6">
               <p>
                 Every successful company formation in Qatar begins with one essential legal requirement — the <strong className="text-gray-900">Commercial Registration (CR)</strong>. This document serves as the official legal identity of your company and confirms that your business is recognized by the Government of Qatar.
               </p>
             </div>
-            
+
             <div className="mt-8 bg-red-50/50 p-8 rounded-3xl border border-red-100 max-w-4xl">
               <h3 className="font-bold text-red-900 mb-4 text-lg">Without a valid Commercial Registration, businesses cannot:</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -80,7 +80,7 @@ export default function CompanyRegistrationPart() {
 
           {/* Complete Services Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-            
+
             {/* Left side: Services */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -96,7 +96,7 @@ export default function CompanyRegistrationPart() {
               <h4 className="text-xl font-bold text-[#050816] mb-6">Our Services Include:</h4>
               <div className="grid grid-cols-1 gap-4 mb-10">
                 {servicesList.map((point, i) => (
-                  <motion.div 
+                  <motion.div
                     key={point}
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -120,9 +120,9 @@ export default function CompanyRegistrationPart() {
               className="flex flex-col gap-10"
             >
               <div className="w-full h-[350px] md:h-[450px] rounded-[3rem] overflow-hidden shadow-2xl relative">
-                <img 
-                  src="/images/qatar_registration.png" 
-                  alt="Qatar Business Registration Experts" 
+                <img
+                  src="/qatar_registration.webp"
+                  alt="Qatar Business Registration Experts"
                   className="w-full h-full object-cover"
                 />
               </div>

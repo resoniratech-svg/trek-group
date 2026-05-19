@@ -3,8 +3,8 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CorporateGlobeBackground from "@/components/CorporateGlobeBackground";
-import { 
-  CheckCircle2, 
+import {
+  CheckCircle2,
   Building2,
   UserCheck,
   FileCheck,
@@ -166,7 +166,7 @@ export default function AboutPage() {
               >
                 <div className="h-64 overflow-hidden relative">
                   <img
-                    src="/vision_image.png"
+                    src="/vision_image.webp"
                     alt="Our Vision"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
@@ -256,9 +256,9 @@ export default function AboutPage() {
                   OUR PURPOSE
                 </h2>
                 <div className="flex-grow relative rounded-3xl overflow-hidden shadow-2xl w-full h-full">
-                  <img 
-                    src="/ourPurposeBG.png" 
-                    alt="Our Purpose Background" 
+                  <img
+                    src="/ourPurposeBG.png"
+                    alt="Our Purpose Background"
                     className="absolute inset-0 w-full h-full object-cover object-center"
                   />
                 </div>

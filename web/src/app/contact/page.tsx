@@ -16,7 +16,7 @@ export default function ContactPage() {
         {/* Subtle dot pattern background */}
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(white 2px, transparent 2px)', backgroundSize: '30px 30px' }} />
         <div className="container mx-auto px-6 max-w-6xl relative z-10 text-center">
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4"
@@ -27,99 +27,103 @@ export default function ContactPage() {
       </section>
 
       {/* Section 1: Let's Start your Business */}
-      <section className="bg-white">
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          <div className="flex items-center justify-center p-12 md:p-24">
-            <div className="max-w-md">
-              <div className="text-secondary text-sm font-bold tracking-widest uppercase mb-4">• • • •</div>
-              <h2 className="text-4xl md:text-5xl font-black text-[#0A2540] mb-6 leading-tight">
-                Let&apos;s Start Your <br />
-                Business Journey <br />
-                in <span className="text-[#0EA5E9]">Qatar</span>
-              </h2>
-              <div className="text-gray-600 leading-relaxed font-medium space-y-4 text-sm md:text-base">
-                <p>
-                  If you&apos;re planning to establish a company in Qatar, you&apos;re already taking the first step toward expanding into one of the Middle East&apos;s fastest-growing business destinations. Qatar offers a strong economy, investor-friendly regulations, strategic global connectivity, and excellent opportunities for entrepreneurs, startups, and international companies.
-                </p>
-                <p>
-                  We specialize in professional business setup and company formation services in Qatar, helping entrepreneurs and foreign investors navigate every stage of the registration process with confidence. From company incorporation and commercial registration to licensing, PRO services, document attestation, and government approvals, our experts provide complete end-to-end support tailored to your business goals.
-                </p>
-                <p>
-                  Our mission is simple — to make your business setup process smooth, compliant, and hassle-free, so you can focus on building, managing, and growing your business successfully in Qatar.
-                </p>
+      {/* Section 1: Let's Start your Business */}
+      <section className="bg-white py-16 md:py-24">
+        <div className="container mx-auto px-6 max-w-7xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-stretch">
+            <div className="flex items-center justify-center">
+              <div className="max-w-xl w-full">
+                <div className="text-secondary text-sm font-bold tracking-widest uppercase mb-4">• • • •</div>
+                <h2 className="text-4xl md:text-5xl font-black text-[#0A2540] mb-6 leading-tight">
+                  Let&apos;s Start Your <br />
+                  Business Journey <br />
+                  in <span className="text-[#0EA5E9]">Qatar</span>
+                </h2>
+                <div className="text-gray-600 leading-relaxed font-medium space-y-4 text-sm md:text-base">
+                  <p>
+                    If you&apos;re planning to establish a company in Qatar, you&apos;re already taking the first step toward expanding into one of the Middle East&apos;s fastest-growing business destinations. Qatar offers a strong economy, investor-friendly regulations, strategic global connectivity, and excellent opportunities for entrepreneurs, startups, and international companies.
+                  </p>
+                  <p>
+                    We specialize in professional business setup and company formation services in Qatar, helping entrepreneurs and foreign investors navigate every stage of the registration process with confidence. From company incorporation and commercial registration to licensing, PRO services, document attestation, and government approvals, our experts provide complete end-to-end support tailored to your business goals.
+                  </p>
+                  <p>
+                    Our mission is simple — to make your business setup process smooth, compliant, and hassle-free, so you can focus on building, managing, and growing your business successfully in Qatar.
+                  </p>
+                </div>
               </div>
             </div>
+            <div className="relative rounded-[2rem] overflow-hidden shadow-2xl min-h-[350px] lg:min-h-full bg-gray-100">
+              <img
+                src="/images/qatar_office.webp"
+                alt="Handshake"
+                className="absolute inset-0 w-full h-full object-cover"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = '/mission_image.png'; // Fallback
+                }}
+              />
+            </div>
           </div>
-          <div className="h-[400px] md:h-auto w-full relative bg-gray-100">
-            <img 
-              src="/images/qatar_office.png" 
-              alt="Handshake" 
-              className="absolute inset-0 w-full h-full object-cover"
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.src = '/mission_image.png'; // Fallback
-              }}
-            />
-          </div>
-
         </div>
       </section>
 
       {/* Section 2: What You Should Know */}
-      <section className="bg-[#F8FAFC]">
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          <div className="h-[400px] md:h-auto w-full relative bg-gray-200 order-2 md:order-1">
-            <img 
-              src="/vision_image.png" 
-              alt="Phone Communication" 
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-          </div>
-          <div className="flex items-center justify-center p-12 md:p-24 order-1 md:order-2">
-            <div className="max-w-xl">
-              <h2 className="text-3xl md:text-4xl font-black text-[#0A2540] mb-6 leading-tight">
-                What You Should <br className="hidden md:block" />
-                Know Before We <br className="hidden md:block" />
-                Talk
-              </h2>
-              <div className="w-16 h-1 bg-[#F97316] mb-6" />
-              
-              <p className="text-gray-600 leading-relaxed font-medium mb-8 text-sm md:text-base">
-                Starting a business in Qatar is a strategic investment opportunity, but success depends on making informed decisions from the very beginning. Understanding the legal processes, timelines, documentation requirements, and compliance standards can help you avoid unnecessary delays and costly mistakes.
-              </p>
-              
-              <ul className="space-y-6">
-                {[
-                  {
-                    title: "Business Setup Requires Strategic Planning",
-                    desc: "Company formation in Qatar involves multiple stages including approvals, documentation, licensing, and regulatory procedures. Patience, proper planning, and expert guidance are essential for ensuring a smooth and successful setup process."
-                  },
-                  {
-                    title: "Choosing the Right Business Structure Matters",
-                    desc: "Selecting the correct legal structure for your business is one of the most important decisions you will make. Whether it’s an LLC, branch office, professional entity, or free zone company, the right setup today can save significant legal, operational, and financial challenges in the future."
-                  },
-                  {
-                    title: "Timelines Depend on Documentation & Approvals",
-                    desc: "The speed of business registration in Qatar largely depends on the accuracy and readiness of your documents, ministry approvals, and compliance clearances. Well-prepared documentation helps accelerate the registration process and reduces approval delays."
-                  },
-                  {
-                    title: "Ask the Right Questions Before You Begin",
-                    desc: "Understanding licensing requirements, ownership regulations, office requirements, and operational costs is essential before starting your business journey. Asking informed questions helps you make confident business decisions and avoid future complications."
-                  },
-                  {
-                    title: "Expert Guidance Prevents Costly Mistakes",
-                    desc: "Professional business setup consultants help streamline the process, ensure regulatory compliance, and minimize risks associated with documentation errors or incorrect business structuring. Clear guidance from experienced experts is always more cost-effective than resolving avoidable mistakes later."
-                  }
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-4">
-                    <CheckCircle2 className="text-[#0EA5E9] shrink-0 mt-1" size={20} />
-                    <div>
-                      <h3 className="text-[#0A2540] font-black text-sm md:text-base mb-1">{item.title}</h3>
-                      <p className="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+      <section className="bg-[#F8FAFC] py-16 md:py-24">
+        <div className="container mx-auto px-6 max-w-7xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-stretch">
+            <div className="relative rounded-[2rem] overflow-hidden shadow-2xl min-h-[350px] lg:min-h-full bg-gray-200 order-2 lg:order-1">
+              <img
+                src="/qatar_visionary.webp"
+                alt="Phone Communication"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            </div>
+            <div className="flex items-center justify-center order-1 lg:order-2 lg:pl-12">
+              <div className="max-w-xl w-full">
+                <h2 className="text-3xl md:text-4xl font-black text-[#0A2540] mb-6 leading-tight">
+                  What You Should <br className="hidden md:block" />
+                  Know Before We <br className="hidden md:block" />
+                  Talk
+                </h2>
+                <div className="w-16 h-1 bg-[#F97316] mb-6" />
+
+                <p className="text-gray-600 leading-relaxed font-medium mb-8 text-sm md:text-base">
+                  Starting a business in Qatar is a strategic investment opportunity, but success depends on making informed decisions from the very beginning. Understanding the legal processes, timelines, documentation requirements, and compliance standards can help you avoid unnecessary delays and costly mistakes.
+                </p>
+
+                <ul className="space-y-6">
+                  {[
+                    {
+                      title: "Business Setup Requires Strategic Planning",
+                      desc: "Company formation in Qatar involves multiple stages including approvals, documentation, licensing, and regulatory procedures. Patience, proper planning, and expert guidance are essential for ensuring a smooth and successful setup process."
+                    },
+                    {
+                      title: "Choosing the Right Business Structure Matters",
+                      desc: "Selecting the correct legal structure for your business is one of the most important decisions you will make. Whether it’s an LLC, branch office, professional entity, or free zone company, the right setup today can save significant legal, operational, and financial challenges in the future."
+                    },
+                    {
+                      title: "Timelines Depend on Documentation & Approvals",
+                      desc: "The speed of business registration in Qatar largely depends on the accuracy and readiness of your documents, ministry approvals, and compliance clearances. Well-prepared documentation helps accelerate the registration process and reduces approval delays."
+                    },
+                    {
+                      title: "Ask the Right Questions Before You Begin",
+                      desc: "Understanding licensing requirements, ownership regulations, office requirements, and operational costs is essential before starting your business journey. Asking informed questions helps you make confident business decisions and avoid future complications."
+                    },
+                    {
+                      title: "Expert Guidance Prevents Costly Mistakes",
+                      desc: "Professional business setup consultants help streamline the process, ensure regulatory compliance, and minimize risks associated with documentation errors or incorrect business structuring. Clear guidance from experienced experts is always more cost-effective than resolving avoidable mistakes later."
+                    }
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start gap-4">
+                      <CheckCircle2 className="text-[#0EA5E9] shrink-0 mt-1" size={20} />
+                      <div>
+                        <h3 className="text-[#0A2540] font-black text-sm md:text-base mb-1">{item.title}</h3>
+                        <p className="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -131,13 +135,13 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-20 items-start">
             <div>
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-[#0A2540] mb-8 leading-tight tracking-tight">
-                Feel free to <br className="hidden lg:block"/> <span className="text-[#0EA5E9]">get in touch</span> or visit our location.
+                Feel free to <br className="hidden lg:block" /> <span className="text-[#0EA5E9]">get in touch</span> or visit our location.
               </h2>
               <div className="w-16 h-1.5 bg-[#0EA5E9] rounded-full hidden lg:block" />
             </div>
-            
+
             <div className="bg-transparent mt-8 lg:mt-0 w-full">
-              <form 
+              <form
                 className="space-y-8 md:space-y-10 w-full"
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -147,7 +151,7 @@ export default function ContactPage() {
                   const phone = formData.get("phone") || "Not provided";
                   const location = formData.get("location") || "Not provided";
                   const message = formData.get("message") || "No message";
-                  
+
                   const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0APhone: ${phone}%0D%0ALocation: ${location}%0D%0A%0D%0AMessage:%0D%0A${message}`;
                   window.location.href = `mailto:info@trekgroups.com?subject=Website Contact: ${name}&body=${body}`;
                 }}
@@ -155,22 +159,22 @@ export default function ContactPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 md:gap-y-10">
                   <div className="space-y-2 border-2 border-gray-100 rounded-2xl p-4 md:p-5 bg-white shadow-sm transition-all duration-300 hover:border-gray-200 hover:shadow-md focus-within:border-[#0EA5E9] focus-within:shadow-lg focus-within:-translate-y-1 group/field">
                     <label className="text-sm md:text-base font-bold text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors uppercase tracking-wider">Full name</label>
-                    <input 
-                      name="name" 
-                      type="text" 
-                      required 
-                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-300" 
-                      placeholder="Your Name" 
+                    <input
+                      name="name"
+                      type="text"
+                      required
+                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-300"
+                      placeholder="Your Name"
                     />
                   </div>
                   <div className="space-y-2 border-2 border-gray-100 rounded-2xl p-4 md:p-5 bg-white shadow-sm transition-all duration-300 hover:border-gray-200 hover:shadow-md focus-within:border-[#0EA5E9] focus-within:shadow-lg focus-within:-translate-y-1 group/field">
                     <label className="text-sm md:text-base font-bold text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors uppercase tracking-wider">Email address</label>
-                    <input 
-                      name="email" 
-                      type="email" 
-                      required 
-                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-300" 
-                      placeholder="Email@Address.com" 
+                    <input
+                      name="email"
+                      type="email"
+                      required
+                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-300"
+                      placeholder="Email@Address.com"
                     />
                   </div>
                 </div>
@@ -178,38 +182,38 @@ export default function ContactPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 md:gap-y-10">
                   <div className="space-y-2 border-2 border-gray-100 rounded-2xl p-4 md:p-5 bg-white shadow-sm transition-all duration-300 hover:border-gray-200 hover:shadow-md focus-within:border-[#0EA5E9] focus-within:shadow-lg focus-within:-translate-y-1 group/field">
                     <label className="text-sm md:text-base font-bold text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors uppercase tracking-wider">Phone number</label>
-                    <input 
-                      name="phone" 
-                      type="tel" 
-                      required 
-                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-300" 
-                      placeholder="+974 0000 0000" 
+                    <input
+                      name="phone"
+                      type="tel"
+                      required
+                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-300"
+                      placeholder="+974 0000 0000"
                     />
                   </div>
                   <div className="space-y-2 border-2 border-gray-100 rounded-2xl p-4 md:p-5 bg-white shadow-sm transition-all duration-300 hover:border-gray-200 hover:shadow-md focus-within:border-[#0EA5E9] focus-within:shadow-lg focus-within:-translate-y-1 group/field">
                     <label className="text-sm md:text-base font-bold text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors uppercase tracking-wider">Location</label>
-                    <input 
-                      name="location" 
-                      type="text" 
-                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-300" 
-                      placeholder="Doha, Qatar" 
+                    <input
+                      name="location"
+                      type="text"
+                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-300"
+                      placeholder="Doha, Qatar"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2 border-2 border-gray-100 rounded-2xl p-4 md:p-5 bg-white shadow-sm transition-all duration-300 hover:border-gray-200 hover:shadow-md focus-within:border-[#0EA5E9] focus-within:shadow-lg focus-within:-translate-y-1 group/field">
                   <label className="text-sm md:text-base font-bold text-[#0EA5E9] block uppercase tracking-wider">Type your message...</label>
-                  <textarea 
-                    name="message" 
-                    rows={4} 
-                    required 
-                    className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold resize-none leading-relaxed" 
+                  <textarea
+                    name="message"
+                    rows={4}
+                    required
+                    className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold resize-none leading-relaxed"
                   ></textarea>
                 </div>
 
                 <div className="pt-4">
-                  <button 
-                    type="submit" 
+                  <button
+                    type="submit"
                     className="w-full md:w-auto bg-[#0EA5E9] hover:bg-[#0284C7] text-white px-10 py-4 rounded-full font-bold text-lg transition-all flex items-center justify-center gap-4 hover:shadow-xl hover:shadow-[#0EA5E9]/30 hover:-translate-y-1 group"
                   >
                     <div className="bg-white rounded-full p-2 text-[#0EA5E9] transition-transform group-hover:translate-x-2">
@@ -230,7 +234,7 @@ export default function ContactPage() {
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-white">Get In Touch</h2>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Card 1 */}
             <div className="bg-white p-8 rounded-2xl flex flex-col items-center text-center hover:-translate-y-2 hover:bg-secondary hover:shadow-[0_10px_30px_rgba(212,175,55,0.4)] transition-all duration-500 group cursor-pointer border border-gray-100">
@@ -293,9 +297,9 @@ export default function ContactPage() {
         <div className="container mx-auto px-6 max-w-4xl text-center">
           <h3 className="text-[#0EA5E9] font-bold mb-4">Ready to Incorporate?</h3>
           <h2 className="text-3xl md:text-5xl font-black text-[#0A2540] mb-10">Talk to a Business Setup Expert.</h2>
-          
+
           <div className="w-16 h-1 bg-[#F97316] mx-auto mb-10" />
-          
+
           <Link href="/#contact-expert">
             <button className="bg-[#F97316] hover:bg-[#EA580C] text-white px-8 py-4 font-bold text-sm tracking-wider uppercase transition-colors shadow-lg shadow-orange-500/20">
               SPEAK WITH A CONSULTANT

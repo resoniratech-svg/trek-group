@@ -20,9 +20,9 @@ export default function HomeScrollExperience() {
       {/* Sticky Background Image */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         <div className="absolute inset-0 bg-black/40 z-10" /> {/* Optional overlay for text readability */}
-        <img 
-          src="/homeBG.jpg" 
-          alt="Trek Group Home Background" 
+        <img
+          src="/homeBG.webp"
+          alt="Trek Group Home Background"
           className="w-full h-full object-cover"
         />
       </div>
@@ -30,11 +30,11 @@ export default function HomeScrollExperience() {
       {/* Overlay Content Sections */}
       <div className="relative z-10 -mt-[100vh]">
         {/* Section 1: Hero */}
-        <motion.div 
-          style={{ 
+        <motion.div
+          style={{
             opacity: heroOpacity,
             scale: heroScale
-          }} 
+          }}
           className="min-h-screen flex items-center justify-center"
         >
           <Hero />
