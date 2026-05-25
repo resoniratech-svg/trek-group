@@ -1,453 +1,123 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import FuturisticBackground from "@/components/FuturisticBackground";
-import {
-  Building2,
-  UserCheck,
-  FileCheck,
-  Palette,
-  Globe2,
-  Code2,
-  ChevronDown,
-  CheckCircle2,
-  ArrowRight,
-  FileText,
-  Award,
-  ShieldCheck,
-  Landmark,
-  Calculator,
-  Plane
-} from "lucide-react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { cn } from "@/lib/utils";
-import { motion, AnimatePresence } from "framer-motion";
-
-const services = [
-  {
-    title: "Company Registration",
-    id: "company-registration",
-    description: "Streamlined business registration across all sectors in Qatar with full regulatory compliance.",
-    details: [
-      "Commercial Registration (CR)",
-      "Municipality License",
-      "Tax Card Issuance",
-      "Computer Card Registration",
-      "Chamber of Commerce Registration"
-    ],
-    icon: Building2,
-    color: "bg-blue-500",
-    lightColor: "bg-blue-500/10",
-    textColor: "text-black"
-  },
-  {
-    title: "Company Formation",
-    id: "company-formation",
-    description: "End-to-end support for LLC, 100% foreign ownership, and Free Zone setup tailored to your specific business needs.",
-    details: [
-      "Assistance with Mainland LLC Formation",
-      "Free Zone Company Setup and Registration",
-      "100% Foreign Ownership Structuring",
-      "Branch Office Registration for Foreign Companies",
-      "Trade License Issuance, Renewal, and Amendments"
-    ],
-    icon: Building2,
-    color: "bg-indigo-500",
-    lightColor: "bg-indigo-500/10",
-    textColor: "text-indigo-500"
-  },
-  {
-    title: "PRO Services in Qatar",
-    id: "pro-services-in-qatar",
-    description: "Expert handling of government documents, labor cards, trade licenses, and all essential compliance paperwork.",
-    details: [
-      "Visa Processing, Stamping, and Renewals",
-      "Labor Quota and Establishment Card Applications",
-      "Ministry of Interior (MOI) Approvals",
-      "Corporate Bank Account Assistance",
-      "Document Clearance and Legal Processing"
-    ],
-    icon: UserCheck,
-    color: "bg-purple-500",
-    lightColor: "bg-purple-500/10",
-    textColor: "text-purple-500"
-  },
-  {
-    title: "Software Services",
-    id: "software-services",
-    description: "Custom digital solutions, enterprise software, and innovative IT infrastructure for business growth.",
-    details: [
-      "AI Service and Automations",
-      "Digital Marketing and SEO Strategies",
-      "Custom Software Services and Web Development",
-      "Enterprise Resource Planning (ERP) Implementation",
-      "Mobile App Development (iOS & Android)"
-    ],
-    icon: Code2,
-    color: "bg-cyan-500",
-    lightColor: "bg-cyan-500/10",
-    textColor: "text-cyan-500"
-  },
-  {
-    title: "Certificate Attestation",
-    id: "certificate-attestation",
-    description: "Document legalization from MOFA, Embassies, and Chamber of Commerce.",
-    details: [
-      "Educational Certificate Attestation",
-      "Marriage and Birth Certificate Legalization",
-      "Commercial Document Legalization",
-      "MOFA (Ministry of Foreign Affairs) Attestation",
-      "Embassy and Consulate Attestation"
-    ],
-    icon: FileCheck,
-    color: "bg-amber-500",
-    lightColor: "bg-amber-500/10",
-    textColor: "text-amber-500"
-  },
-  {
-    title: "Notary Services",
-    id: "notary-services",
-    description: "Professional notarization of legal documents, contracts, and agreements.",
-    details: [
-      "Power of Attorney Notarization",
-      "Contract and Agreement Witnessing",
-      "Affidavit Swearing",
-      "Legal Document Verification",
-      "Certified Copies"
-    ],
-    icon: FileText,
-    color: "bg-rose-500",
-    lightColor: "bg-rose-500/10",
-    textColor: "text-rose-500"
-  },
-  {
-    title: "Classification Certificate",
-    id: "classification-certificate",
-    description: "Assistance in obtaining government classification certificates for contracting and consulting companies.",
-    details: [
-      "Contractor Classification",
-      "Consultant Classification",
-      "Tender Eligibility Assessment",
-      "Documentation Preparation",
-      "Government Liaison"
-    ],
-    icon: Award,
-    color: "bg-emerald-500",
-    lightColor: "bg-emerald-500/10",
-    textColor: "text-emerald-500"
-  },
-  {
-    title: "Police Clearance Certificate",
-    id: "police-clearance-certificate",
-    description: "Smooth processing of Police Clearance Certificates (PCC) for employment or immigration.",
-    details: [
-      "Qatar PCC Application",
-      "Overseas PCC Assistance",
-      "Fingerprint Processing Guidance",
-      "Document Translation for PCC",
-      "Ministry of Interior Follow-up"
-    ],
-    icon: ShieldCheck,
-    color: "bg-blue-600",
-    lightColor: "bg-blue-600/10",
-    textColor: "text-black"
-  },
-  {
-    title: "Corporate Bank Account",
-    id: "corporate-bank-account",
-    description: "Expert guidance in opening and managing corporate bank accounts in Qatar's leading banks.",
-    details: [
-      "Bank Selection Consultation",
-      "Document Preparation and Verification",
-      "Application Submission",
-      "Liaison with Bank Managers",
-      "Account Activation Support"
-    ],
-    icon: Landmark,
-    color: "bg-purple-600",
-    lightColor: "bg-purple-600/10",
-    textColor: "text-purple-600"
-  },
-  {
-    title: "Auditing Services",
-    id: "auditing-services",
-    description: "Comprehensive financial auditing, bookkeeping, and tax compliance services.",
-    details: [
-      "Annual Financial Audits",
-      "Internal Auditing",
-      "VAT Registration and Filing",
-      "Bookkeeping Services",
-      "Financial Feasibility Studies"
-    ],
-    icon: Calculator,
-    color: "bg-amber-600",
-    lightColor: "bg-amber-600/10",
-    textColor: "text-amber-600"
-  },
-  {
-    title: "Visa & Immigration",
-    id: "visa-and-immigration",
-    description: "Seamless processing for family, work, and investor visas in Qatar.",
-    details: [
-      "Employment Visa Processing",
-      "Family Residence Visas",
-      "Investor and Partner Visas",
-      "Visa Renewals and Cancellations",
-      "Immigration Status Adjustments"
-    ],
-    icon: Plane,
-    color: "bg-emerald-600",
-    lightColor: "bg-emerald-600/10",
-    textColor: "text-emerald-600"
-  },
-  {
-    title: "Business & Tourist Visas",
-    id: "business-and-tourist-visas",
-    description: "Efficient handling of short-term business visas and tourist visas for visitors to Qatar.",
-    details: [
-      "Business Visa Applications",
-      "Tourist Visa Processing",
-      "Visa Extension Services",
-      "Conference and Event Visas",
-      "On-arrival Visa Assistance"
-    ],
-    icon: Globe2,
-    color: "bg-cyan-600",
-    lightColor: "bg-cyan-600/10",
-    textColor: "text-cyan-600"
-  },
-  {
-    title: "Designing & Branding",
-    id: "designing-and-branding",
-    description: "Comprehensive brand identity creation, strategic positioning, and marketing solutions for market impact.",
-    details: [
-      "Corporate Identity and Logo Design",
-      "Brand Strategy and Market Positioning",
-      "Company Profile and Brochure Creation",
-      "Marketing Collateral and Print Design",
-      "Digital Brand Guidelines and Assets"
-    ],
-    icon: Palette,
-    color: "bg-rose-600",
-    lightColor: "bg-rose-600/10",
-    textColor: "text-rose-600"
-  }
-];
-
-function ServicesContent() {
-  const searchParams = useSearchParams();
-  const [expandedId, setExpandedId] = useState<string | null>(null);
-
-  useEffect(() => {
-    const serviceParam = searchParams.get('service');
-    if (serviceParam) {
-      setExpandedId(serviceParam);
-      setTimeout(() => {
-        const element = document.getElementById(serviceParam);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      }, 300);
-    }
-  }, [searchParams]);
-
-  const toggleService = (id: string) => {
-    setExpandedId(prev => prev === id ? null : id);
-  };
-
-  return (
-    <div className="w-full">
-      {/* Hero Section */}
-      <section className="pt-32 pb-16 md:pt-40 md:pb-24 px-6 relative overflow-hidden">
-
-        <div className="container mx-auto max-w-4xl text-center relative z-20">
-          <span className="text-secondary font-bold tracking-widest uppercase text-sm md:text-base">Our Expertise</span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mt-4 mb-6 leading-tight">
-            Comprehensive <span className="text-secondary italic">Services</span>
-          </h1>
-          <p className="text-white/90 text-base md:text-lg leading-relaxed max-w-2xl mx-auto font-medium">
-            Explore our wide range of professional solutions designed to streamline your operations and accelerate your business growth in Qatar and beyond.
-          </p>
-        </div>
-      </section>
-
-      {/* Alternating Services Timeline Section */}
-      <section className="py-24 relative overflow-hidden">
-        <div className="container mx-auto px-6 max-w-6xl relative z-20">
-          {/* Vertical Timeline Line (Desktop only) */}
-          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gray-200 -translate-x-1/2" />
-
-          <div className="space-y-16 md:space-y-24">
-            {services.map((service, index) => {
-              const isExpanded = expandedId === service.id;
-              const isEven = index % 2 === 0;
-
-              return (
-                <div key={service.id} id={service.id} className="relative flex flex-col md:flex-row items-center w-full group">
-
-                  {/* Center Node (Desktop only) */}
-                  <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-white border-4 border-secondary z-30 items-center justify-center shadow-[0_0_15px_rgba(212,175,55,0.3)]">
-                    <div className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
-                  </div>
-
-                  {/* Spacer for alignment */}
-                  {isEven ? null : <div className="hidden md:block md:w-1/2" />}
-
-                  {/* Service Card */}
-                  <motion.div
-                    initial={{ opacity: 0, x: isEven ? -50 : 50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.6, delay: 0.1 }}
-                    className={cn(
-                      "w-full md:w-[45%]",
-                      isEven ? "md:pr-12 md:text-right" : "md:pl-12 md:text-left"
-                    )}
-                  >
-                    <div
-                      className={cn(
-                        "bg-white/80 backdrop-blur-xl border p-8 rounded-[2rem] shadow-xl transition-all duration-500 overflow-hidden relative",
-                        isExpanded ? "border-secondary/60 shadow-[0_10px_40px_rgba(212,175,55,0.15)]" : "border-gray-100 hover:bg-white hover:border-gray-200 shadow-gray-200/50"
-                      )}
-                    >
-                      {/* Subtle gradient glow inside card */}
-                      <div className={cn(
-                        "absolute -inset-24 opacity-10 blur-3xl rounded-full transition-opacity duration-500 pointer-events-none",
-                        isExpanded ? service.color : "opacity-0"
-                      )} />
-
-                      <div className={cn("flex flex-col gap-6 relative z-10", isEven ? "md:items-end" : "md:items-start")}>
-                        {/* Icon */}
-                        <div className={cn(
-                          "w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg transition-transform duration-500",
-                          isExpanded ? "scale-110 " + service.color + " text-white" : service.lightColor + " " + service.textColor + " group-hover:scale-110"
-                        )}>
-                          <service.icon size={32} />
-                        </div>
-
-                        {/* Title & Desc */}
-                        <div>
-                          <h3 className="text-2xl md:text-3xl font-black text-black mb-3 tracking-tight">
-                            {service.title}
-                          </h3>
-                          <p className="text-black/70 text-sm md:text-base leading-relaxed font-medium">
-                            {service.description}
-                          </p>
-                        </div>
-
-                        {/* Know More Button */}
-                        <button
-                          onClick={() => toggleService(service.id)}
-                          className={cn(
-                            "flex items-center gap-2 font-bold text-sm px-6 py-3 rounded-full transition-all duration-300",
-                            isExpanded ? "bg-secondary text-white shadow-lg" : "bg-gray-100 text-black hover:bg-gray-200"
-                          )}
-                        >
-                          {isExpanded ? "Show Less" : "Know More"}
-                          <ChevronDown size={18} className={cn("transition-transform duration-300", isExpanded ? "rotate-180" : "rotate-0")} />
-                        </button>
-                      </div>
-
-                      {/* Expandable Details */}
-                      <AnimatePresence>
-                        {isExpanded && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0, marginTop: 0 }}
-                            animate={{ height: "auto", opacity: 1, marginTop: 32 }}
-                            exit={{ height: 0, opacity: 0, marginTop: 0 }}
-                            transition={{ duration: 0.4 }}
-                            className="border-t border-gray-100 pt-8 relative z-10 text-left"
-                          >
-                            <h4 className="text-secondary font-black uppercase tracking-wider text-xs mb-6">
-                              Full Service Details
-                            </h4>
-                            <ul className="space-y-4">
-                              {service.details.map((detail, idx) => (
-                                <li key={idx} className="flex items-start gap-3">
-                                  <div className="mt-1">
-                                    <CheckCircle2 className="text-secondary shrink-0" size={18} />
-                                  </div>
-                                  <span className="text-black/90 font-medium text-sm leading-relaxed">{detail}</span>
-                                </li>
-                              ))}
-                            </ul>
-
-                            <div className="mt-8 pt-8 border-t border-gray-100 flex justify-start">
-                              <Link href="/contact">
-                                <button className="flex items-center gap-2 text-secondary hover:text-secondary-dark font-bold text-sm group/btn transition-colors">
-                                  Start Your Application
-                                  <ArrowRight size={16} className="transition-transform group-hover/btn:translate-x-1" />
-                                </button>
-                              </Link>
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  </motion.div>
-
-                  {/* Spacer for alignment */}
-                  {isEven ? <div className="hidden md:block md:w-1/2" /> : null}
-
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA inside Services */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-6 max-w-4xl text-center">
-          <div className="bg-blue-50 border border-blue-100 p-10 md:p-16 rounded-[3rem] relative overflow-hidden shadow-xl shadow-blue-900/5">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-100/50 via-transparent to-blue-100/50" />
-            <h2 className="text-2xl md:text-4xl font-black text-black mb-6 relative z-10 leading-tight">
-              Not sure which service you need?
-            </h2>
-            <p className="text-black/70 text-base md:text-lg mb-10 max-w-2xl mx-auto relative z-10">
-              Book a free consultation with our experts to find the perfect tailored solution for your business setup and growth strategy.
-            </p>
-            <Link href="/contact" className="relative z-10 inline-block">
-              <button className="bg-secondary hover:bg-secondary-dark text-white px-8 py-4 rounded-full font-black text-lg transition-all transform hover:scale-105 shadow-2xl shadow-secondary/20">
-                Book Free Consultation
-              </button>
-            </Link>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-}
+import { servicesData } from "@/lib/servicesData";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function ServicesPage() {
   return (
     <main className="min-h-screen bg-transparent relative overflow-x-hidden">
-      {/* Global Background Image */}
+      {/* Global Background Grid/Dots */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <img 
-          src="/servicesBG2.png" 
-          alt="Global Services Background" 
-          className="w-full aspect-video object-cover object-center opacity-50"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[#050816] opacity-95" />
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-[120px]" />
       </div>
 
       <div className="relative z-10">
         <Navbar />
 
-        <Suspense fallback={
-          <div className="min-h-screen flex items-center justify-center pt-32">
-            <div className="animate-pulse flex flex-col items-center">
-              <div className="w-12 h-12 border-4 border-secondary border-t-transparent rounded-full animate-spin mb-4" />
-              <p className="text-black font-bold">Loading Services...</p>
+        {/* Hero Section */}
+        <section className="pt-32 pb-16 md:pt-40 md:pb-24 px-6 relative overflow-hidden">
+          <div className="container mx-auto max-w-4xl text-center relative z-20">
+            <span className="text-secondary font-bold tracking-widest uppercase text-sm md:text-base">
+              Our Expertise
+            </span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mt-4 mb-6 leading-tight">
+              Corporate & Business <span className="text-secondary italic">Services</span>
+            </h1>
+            <p className="text-white/80 text-base md:text-lg leading-relaxed max-w-2xl mx-auto font-medium">
+              Explore our wide range of professional solutions designed to streamline your operations, protect your assets, and accelerate your business growth in Qatar.
+            </p>
+          </div>
+        </section>
+
+        {/* Services Grid Section */}
+        <section className="pb-24 px-6">
+          <div className="container mx-auto max-w-7xl relative z-20">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {Object.values(servicesData).map((service, index) => {
+                const ServiceIcon = service.icon;
+                return (
+                  <motion.div
+                    key={service.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.05 }}
+                    className="group relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 flex flex-col justify-between hover:border-secondary/35 transition-all duration-300 hover:shadow-2xl hover:shadow-secondary/5"
+                  >
+                    <div>
+                      {/* Service Icon wrapper */}
+                      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 text-white bg-gradient-to-br from-white/10 to-white/5 border border-white/10 group-hover:scale-110 group-hover:border-secondary/30 transition-all duration-300`}>
+                        <ServiceIcon size={26} className="text-secondary" />
+                      </div>
+
+                      <h3 className="text-xl md:text-2xl font-black text-white mb-3 tracking-tight group-hover:text-secondary transition-colors">
+                        {service.title}
+                      </h3>
+                      <p className="text-white/70 text-sm leading-relaxed mb-6 font-medium">
+                        {service.description}
+                      </p>
+                    </div>
+
+                    <Link href={`/services/${service.id}`} className="inline-flex items-center gap-2 text-secondary font-black text-sm group-hover:text-white transition-colors">
+                      Learn More
+                      <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                    </Link>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
-        }>
-          <ServicesContent />
-        </Suspense>
+        </section>
+
+        {/* Trust Stats Bar */}
+        <section className="py-16 bg-white/5 border-y border-white/5 px-6">
+          <div className="container mx-auto max-w-7xl">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+              <div>
+                <p className="text-4xl md:text-5xl font-black text-secondary mb-2">15+</p>
+                <p className="text-white/60 font-bold uppercase tracking-wider text-xs md:text-sm">Years of Experience</p>
+              </div>
+              <div>
+                <p className="text-4xl md:text-5xl font-black text-secondary mb-2">1,500+</p>
+                <p className="text-white/60 font-bold uppercase tracking-wider text-xs md:text-sm">Company Setups Completed</p>
+              </div>
+              <div>
+                <p className="text-4xl md:text-5xl font-black text-secondary mb-2">25+</p>
+                <p className="text-white/60 font-bold uppercase tracking-wider text-xs md:text-sm">Expert Consultants</p>
+              </div>
+              <div>
+                <p className="text-4xl md:text-5xl font-black text-secondary mb-2">6+</p>
+                <p className="text-white/60 font-bold uppercase tracking-wider text-xs md:text-sm">Service Countries (GCC & India)</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Global CTA Section */}
+        <section className="py-24 px-6 bg-transparent">
+          <div className="container mx-auto max-w-4xl text-center">
+            <div className="bg-gradient-to-br from-white/10 to-white/5 border border-white/10 p-10 md:p-16 rounded-[3rem] relative overflow-hidden shadow-2xl shadow-blue-900/5">
+              <div className="absolute top-0 right-0 w-40 h-40 bg-secondary/10 rounded-full blur-3xl" />
+              <h2 className="text-2xl md:text-4xl font-black text-white mb-6 leading-tight">
+                Ready to Start Your Business Journey in Qatar?
+              </h2>
+              <p className="text-white/70 text-base md:text-lg mb-10 max-w-2xl mx-auto font-medium">
+                Book a free consultation with our corporate experts to find the perfect tailored solution for your business setup and licensing requirements in Doha.
+              </p>
+              <Link href="/contact" className="inline-block">
+                <button className="bg-secondary hover:bg-secondary-dark text-white px-8 py-4 rounded-full font-black text-lg transition-all transform hover:scale-105 shadow-2xl shadow-secondary/20 cursor-pointer">
+                  Book Free Consultation
+                </button>
+              </Link>
+            </div>
+          </div>
+        </section>
 
         <Footer />
       </div>

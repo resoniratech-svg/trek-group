@@ -69,8 +69,8 @@ export default function Home() {
                   <Link href="/contact" className="w-full sm:w-auto bg-secondary hover:bg-secondary-dark text-white px-10 py-5 rounded-full font-black text-lg transition-all transform hover:scale-105 shadow-2xl shadow-secondary/20 inline-flex items-center justify-center">
                     Book Free Consultation
                   </Link>
-                  <a href="tel:+97430056030" className="text-white font-black text-lg hover:text-secondary transition-colors flex items-center gap-2">
-                    Call Us: <span className="text-secondary">+974 3005 6030</span>
+                  <a href="tel:+97430516559" className="text-white font-black text-lg hover:text-secondary transition-colors flex items-center gap-2">
+                    Call Us: <span className="text-secondary">+974 3051 6559 / 3005 6030</span>
                   </a>
                 </div>
               </motion.div>

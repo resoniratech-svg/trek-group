@@ -27,41 +27,47 @@ import ScrollAnimation from "./ScrollAnimation";
 
 const services = [
   {
-    title: "Company Registration",
+    title: "Company Formation / Setup",
     description: "Streamlined business registration across all sectors in Qatar with full regulatory compliance.",
     icon: Building2,
     color: "bg-blue-500",
+    id: "company-formation-business-setup",
   },
   {
-    title: "Company Formation",
+    title: "100% Foreign Ownership",
     description: "End-to-end support for LLC, 100% foreign ownership, and Free Zone setup.",
     icon: Building2,
     color: "bg-indigo-500",
+    id: "one-hundred-percent-foreign-ownership",
   },
   {
     title: "PRO Services in Qatar",
     description: "Expert handling of government documents, labor cards, and trade licenses.",
     icon: UserCheck,
     color: "bg-purple-500",
+    id: "pro-services",
   },
   {
     title: "Software Services",
     description: "Custom digital solutions, enterprise software, and innovative IT infrastructure.",
     icon: Code2,
     color: "bg-cyan-500",
+    id: "software-services",
   },
   {
     title: "Certificate Attestation",
     description: "Document legalization from MOFA, Embassies, and Chamber of Commerce.",
     icon: FileCheck,
     color: "bg-amber-500",
+    id: "certificate-attestation",
   },
   {
     title: "View All Services",
-    description: "Explore our full range of 13+ professional business solutions tailored for you.",
+    description: "Explore our full range of 12+ professional business solutions tailored for you.",
     icon: ArrowRight,
     color: "bg-secondary",
     isViewMore: true,
+    id: "",
   },
 ];
 
@@ -221,7 +227,7 @@ export default function Services() {
                   }}
                   className="group relative p-6 rounded-[2rem] bg-white/80 backdrop-blur-sm border border-gray-100 hover:border-secondary/50 transition-all duration-500 shadow-xl shadow-gray-200/20 overflow-hidden flex flex-col justify-between"
                 >
-                  <Link href={service.isViewMore ? "/services" : `/services?service=${service.title.toLowerCase().replace(/\s+/g, '-')}`} className="absolute inset-0 z-20" />
+                  <Link href={service.isViewMore ? "/services" : `/services/${service.id}`} className="absolute inset-0 z-20" />
                   <div className="relative z-10">
                     <div className={cn(
                       "w-12 h-12 rounded-xl flex items-center justify-center mb-5 text-white transition-all duration-500 shadow-lg group-hover:scale-110 group-hover:rotate-6",

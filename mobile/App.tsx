@@ -16,11 +16,6 @@ import {
   MapPin,
   ChevronRight
 } from 'lucide-react-native';
-import { styled } from 'nativewind';
-
-const StyledView = styled(View);
-const StyledText = styled(Text);
-const StyledTouchableOpacity = styled(TouchableOpacity);
 
 const { width } = Dimensions.get('window');
 
@@ -50,155 +45,155 @@ export default function App() {
       <StatusBar style="dark" />
 
       {/* Header */}
-      <StyledView className="px-6 py-4 flex-row items-center justify-between border-b border-gray-100">
-        <StyledView className="flex-row items-center gap-1">
+      <View className="px-6 py-4 flex-row items-center justify-between border-b border-gray-100">
+        <View className="flex-row items-center gap-1">
           <Image
             source={require('./assets/logo.png')}
             style={{ width: 80, height: 80 }}
             resizeMode="contain"
           />
-          <StyledText className="text-3xl font-black tracking-tighter text-primary">
-            TREK<StyledText className="text-secondary">GROUP</StyledText>
-          </StyledText>
-        </StyledView>
-        <StyledTouchableOpacity>
+          <Text className="text-3xl font-black tracking-tighter text-primary">
+            TREK<Text className="text-secondary">GROUP</Text>
+          </Text>
+        </View>
+        <TouchableOpacity>
           <Menu size={24} color="#2D1B69" />
-        </StyledTouchableOpacity>
-      </StyledView>
+        </TouchableOpacity>
+      </View>
 
       <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
         {/* Hero Section */}
-        <StyledView className="px-6 py-12 items-center text-center">
-          <StyledView className="bg-secondary/10 px-4 py-1.5 rounded-full mb-6 border border-secondary/20">
-            <StyledText className="text-secondary font-bold text-xs uppercase tracking-widest">
+        <View className="px-6 py-12 items-center text-center">
+          <View className="bg-secondary/10 px-4 py-1.5 rounded-full mb-6 border border-secondary/20">
+            <Text className="text-secondary font-bold text-xs uppercase tracking-widest">
               Business Solutions in Qatar
-            </StyledText>
-          </StyledView>
+            </Text>
+          </View>
 
-          <StyledText className="text-4xl font-black text-primary text-center leading-tight mb-4">
-            Build Your <StyledText className="text-secondary italic">Future</StyledText> in Qatar
-          </StyledText>
+          <Text className="text-4xl font-black text-primary text-center leading-tight mb-4">
+            Build Your <Text className="text-secondary italic">Future</Text> in Qatar
+          </Text>
 
-          <StyledText className="text-gray-500 text-center leading-relaxed mb-8">
+          <Text className="text-gray-500 text-center leading-relaxed mb-8">
             Qatar's most trusted partner for company formation and PRO services.
-          </StyledText>
+          </Text>
 
-          <StyledTouchableOpacity className="bg-secondary w-full py-4 rounded-2xl items-center justify-center flex-row gap-2 shadow-xl shadow-secondary/30">
-            <StyledText className="text-white font-bold text-lg">Get Started</StyledText>
+          <TouchableOpacity className="bg-secondary w-full py-4 rounded-2xl items-center justify-center flex-row gap-2 shadow-xl shadow-secondary/30">
+            <Text className="text-white font-bold text-lg">Get Started</Text>
             <ArrowRight size={20} color="white" />
-          </StyledTouchableOpacity>
-        </StyledView>
+          </TouchableOpacity>
+        </View>
 
         {/* Services Grid */}
-        <StyledView className="px-6 py-10 bg-gray-50">
-          <StyledText className="text-xs font-bold text-secondary uppercase tracking-widest mb-2 text-center">Expertise</StyledText>
-          <StyledText className="text-2xl font-black text-primary mb-8 text-center">Our Core Services</StyledText>
-          <StyledView className="flex-row flex-wrap justify-between gap-y-4">
+        <View className="px-6 py-10 bg-gray-50">
+          <Text className="text-xs font-bold text-secondary uppercase tracking-widest mb-2 text-center">Expertise</Text>
+          <Text className="text-2xl font-black text-primary mb-8 text-center">Our Core Services</Text>
+          <View className="flex-row flex-wrap justify-between gap-y-4">
             {services.map((service, index) => (
-              <StyledView
+              <View
                 key={index}
                 className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm"
                 style={{ width: (width - 60) / 2 }}
               >
-                <StyledView
+                <View
                   className="w-12 h-12 rounded-2xl items-center justify-center mb-4"
                   style={{ backgroundColor: service.color + '20' }}
                 >
                   <service.icon size={24} color={service.color} />
-                </StyledView>
-                <StyledText className="text-lg font-bold text-primary mb-2">{service.title}</StyledText>
-                <StyledText className="text-gray-400 text-xs leading-relaxed mb-4">{service.description}</StyledText>
-                <StyledTouchableOpacity className="flex-row items-center">
-                  <StyledText className="text-secondary font-bold text-[10px] uppercase">Learn More</StyledText>
+                </View>
+                <Text className="text-lg font-bold text-primary mb-2">{service.title}</Text>
+                <Text className="text-gray-400 text-xs leading-relaxed mb-4">{service.description}</Text>
+                <TouchableOpacity className="flex-row items-center">
+                  <Text className="text-secondary font-bold text-[10px] uppercase">Learn More</Text>
                   <ChevronRight size={12} color="#D4AF37" />
-                </StyledTouchableOpacity>
-              </StyledView>
+                </TouchableOpacity>
+              </View>
             ))}
-          </StyledView>
-        </StyledView>
+          </View>
+        </View>
 
         {/* About Section */}
-        <StyledView className="px-6 py-16">
-          <StyledView className="aspect-square bg-gray-200 rounded-[3rem] overflow-hidden mb-8 relative">
+        <View className="px-6 py-16">
+          <View className="aspect-square bg-gray-200 rounded-[3rem] overflow-hidden mb-8 relative">
             <Image
               source={{ uri: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80' }}
               className="w-full h-full"
             />
-            <StyledView className="absolute bottom-4 right-4 bg-secondary p-4 rounded-2xl">
-              <StyledText className="text-white font-black text-2xl">10+</StyledText>
-              <StyledText className="text-white/80 text-[8px] font-bold uppercase">Years</StyledText>
-            </StyledView>
-          </StyledView>
-          <StyledText className="text-secondary font-bold uppercase text-xs tracking-widest mb-2">About Us</StyledText>
-          <StyledText className="text-3xl font-black text-primary mb-4 leading-tight">
+            <View className="absolute bottom-4 right-4 bg-secondary p-4 rounded-2xl">
+              <Text className="text-white font-black text-2xl">10+</Text>
+              <Text className="text-white/80 text-[8px] font-bold uppercase">Years</Text>
+            </View>
+          </View>
+          <Text className="text-secondary font-bold uppercase text-xs tracking-widest mb-2">About Us</Text>
+          <Text className="text-3xl font-black text-primary mb-4 leading-tight">
             Your Strategic Partner for Growth
-          </StyledText>
-          <StyledText className="text-gray-500 leading-relaxed mb-6">
+          </Text>
+          <Text className="text-gray-500 leading-relaxed mb-6">
             We simplify the complexities of starting and running a business in Qatar with over 10 years of expertise and hundreds of satisfied clients.
-          </StyledText>
+          </Text>
 
-          <StyledView className="space-y-4">
+          <View className="space-y-4">
             {["Expert Local Knowledge", "Fast Processing", "Transparent Pricing"].map((item) => (
-              <StyledView key={item} className="flex-row items-center gap-3">
-                <StyledView className="w-5 h-5 rounded-full bg-secondary/20 items-center justify-center">
-                  <StyledText className="text-secondary font-bold text-[10px]">✓</StyledText>
-                </StyledView>
-                <StyledText className="font-bold text-primary">{item}</StyledText>
-              </StyledView>
+              <View key={item} className="flex-row items-center gap-3">
+                <View className="w-5 h-5 rounded-full bg-secondary/20 items-center justify-center">
+                  <Text className="text-secondary font-bold text-[10px]">✓</Text>
+                </View>
+                <Text className="font-bold text-primary">{item}</Text>
+              </View>
             ))}
-          </StyledView>
-        </StyledView>
+          </View>
+        </View>
 
         {/* FAQ Section */}
-        <StyledView className="px-6 py-10 bg-gray-50">
-          <StyledText className="text-2xl font-black text-primary mb-6">FAQ</StyledText>
+        <View className="px-6 py-10 bg-gray-50">
+          <Text className="text-2xl font-black text-primary mb-6">FAQ</Text>
           {faqs.map((faq, index) => (
-            <StyledView key={index} className="mb-4 bg-white rounded-2xl border border-gray-100 overflow-hidden">
-              <StyledTouchableOpacity
+            <View key={index} className="mb-4 bg-white rounded-2xl border border-gray-100 overflow-hidden">
+              <TouchableOpacity
                 onPress={() => setOpenFaq(openFaq === index ? null : index)}
                 className="p-5 flex-row items-center justify-between"
               >
-                <StyledText className="font-bold text-primary flex-1 pr-4">{faq.question}</StyledText>
-                <StyledView className="w-6 h-6 rounded-full bg-secondary/10 items-center justify-center">
+                <Text className="font-bold text-primary flex-1 pr-4">{faq.question}</Text>
+                <View className="w-6 h-6 rounded-full bg-secondary/10 items-center justify-center">
                   {openFaq === index ? <Minus size={14} color="#D4AF37" /> : <Plus size={14} color="#D4AF37" />}
-                </StyledView>
-              </StyledTouchableOpacity>
+                </View>
+              </TouchableOpacity>
               {openFaq === index && (
-                <StyledView className="p-5 pt-0">
-                  <StyledText className="text-gray-500 text-sm leading-relaxed">{faq.answer}</StyledText>
-                </StyledView>
+                <View className="p-5 pt-0">
+                  <Text className="text-gray-500 text-sm leading-relaxed">{faq.answer}</Text>
+                </View>
               )}
-            </StyledView>
+            </View>
           ))}
-        </StyledView>
+        </View>
 
         {/* CTA */}
-        <StyledView className="px-6 py-16 bg-primary">
-          <StyledText className="text-3xl font-black text-white text-center mb-4">Ready to Start?</StyledText>
-          <StyledText className="text-white/60 text-center mb-8">Contact us today for a free consultation.</StyledText>
-          <StyledTouchableOpacity className="bg-secondary p-5 rounded-full items-center shadow-lg shadow-secondary/40">
-            <StyledText className="text-white font-black text-lg">Contact Us Now</StyledText>
-          </StyledTouchableOpacity>
-        </StyledView>
+        <View className="px-6 py-16 bg-primary">
+          <Text className="text-3xl font-black text-white text-center mb-4">Ready to Start?</Text>
+          <Text className="text-white/60 text-center mb-8">Contact us today for a free consultation.</Text>
+          <TouchableOpacity className="bg-secondary p-5 rounded-full items-center shadow-lg shadow-secondary/40">
+            <Text className="text-white font-black text-lg">Contact Us Now</Text>
+          </TouchableOpacity>
+        </View>
 
         {/* Contact Info */}
-        <StyledView className="px-6 py-12 bg-primary border-t border-white/5">
-          <StyledView className="space-y-6">
-            <StyledView className="flex-row items-center gap-4">
+        <View className="px-6 py-12 bg-primary border-t border-white/5">
+          <View className="space-y-6">
+            <View className="flex-row items-center gap-4">
               <MapPin size={20} color="#D4AF37" />
-              <StyledText className="text-white/60 text-sm">Al Reem Tower, Doha, Qatar</StyledText>
-            </StyledView>
-            <StyledView className="flex-row items-center gap-4">
+              <Text className="text-white/60 text-sm">Al Reem Tower, Doha, Qatar</Text>
+            </View>
+            <View className="flex-row items-center gap-4">
               <Phone size={20} color="#D4AF37" />
-              <StyledText className="text-white/60 text-sm">+974 4455 6677</StyledText>
-            </StyledView>
-            <StyledView className="flex-row items-center gap-4">
+              <Text className="text-white/60 text-sm">+974 4455 6677</Text>
+            </View>
+            <View className="flex-row items-center gap-4">
               <Mail size={20} color="#D4AF37" />
-              <StyledText className="text-white/60 text-sm">info@trek-group.com</StyledText>
-            </StyledView>
-          </StyledView>
-          <StyledText className="text-white/20 text-center mt-12 text-[10px]">© 2026 Trek Group Qatar. All rights reserved.</StyledText>
-        </StyledView>
+              <Text className="text-white/60 text-sm">info@trek-group.com</Text>
+            </View>
+          </View>
+          <Text className="text-white/20 text-center mt-12 text-[10px]">© 2026 Trek Group Qatar. All rights reserved.</Text>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

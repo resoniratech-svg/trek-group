@@ -44,7 +44,7 @@ export default function OpportunitySection() {
                     <TrendingUp size={24} />
                   </div>
                   <div>
-                    <div className="text-xl font-black text-black">10+</div>
+                    <div className="text-xl font-black text-black">15</div>
                     <div className="text-black/50 text-[10px] font-bold uppercase tracking-widest leading-none">Years Experience</div>
                   </div>
                 </div>
@@ -54,8 +54,8 @@ export default function OpportunitySection() {
                     <Users size={24} />
                   </div>
                   <div>
-                    <div className="text-xl font-black text-black">1000+</div>
-                    <div className="text-black/50 text-[10px] font-bold uppercase tracking-widest leading-none">Happy Clients</div>
+                    <div className="text-xl font-black text-black">1500 +</div>
+                    <div className="text-black/50 text-[10px] font-bold uppercase tracking-widest leading-none">Company Setups</div>
                   </div>
                 </div>
               </div>

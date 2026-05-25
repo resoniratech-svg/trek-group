@@ -244,9 +244,9 @@ export default function ContactPage() {
               <h3 className="text-[#0EA5E9] text-xs font-black tracking-widest uppercase mb-4 group-hover:text-white transition-colors duration-500">LOCATION</h3>
               <p className="text-[#0A2540] text-sm font-bold leading-relaxed group-hover:text-white transition-colors duration-500">
                 TREK GROUP Corporate Head Office<br />
-                Office No. 8, 2nd Floor<br />
-                Building No. 210, Street No. 330, Zone No. 43<br />
-                Rawdat Al Khail Street, Nuaija<br />
+                Office no -8, 2nd floor<br />
+                Building no -210, Street - 330, Zone -43<br />
+                Entrance - near Baladna Hypermarket<br />
                 Doha, Qatar
               </p>
             </div>
@@ -258,11 +258,9 @@ export default function ContactPage() {
               </div>
               <h3 className="text-[#0EA5E9] text-xs font-black tracking-widest uppercase mb-4 group-hover:text-white transition-colors duration-500">OFFICE HOURS</h3>
               <p className="text-[#0A2540] text-sm font-bold leading-relaxed group-hover:text-white transition-colors duration-500">
-                Sun - Thu<br />
-                7:30 AM - 10:00 PM<br />
-                Saturday<br />
-                8:00 AM - 10:00 PM<br />
-                *Friday Holiday
+                Office Hours:<br />
+                8:00 AM - 1:00 PM<br />
+                4:00 PM - 10:00 PM
               </p>
             </div>
 
@@ -273,8 +271,9 @@ export default function ContactPage() {
               </div>
               <h3 className="text-[#0EA5E9] text-xs font-black tracking-widest uppercase mb-4 group-hover:text-white transition-colors duration-500">PHONE</h3>
               <p className="text-[#0A2540] text-sm font-bold leading-relaxed group-hover:text-white transition-colors duration-500">
-                +974 3005 6030<br />
-                +974 3051 6558
+                Mobile: +974 3051 6559<br />
+                Mobile: +974 3005 6030<br />
+                Tel: +974 4007 0727
               </p>
             </div>
 

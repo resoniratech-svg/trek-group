@@ -58,14 +58,14 @@ export default function AboutPage() {
                   </div>
 
                   <p>
-                    Built on a simple vision, Trek Group has spent more than a decade delivering reliable, efficient, and fully compliant business setup solutions across Qatar.
+                    Built on a simple vision, Trek Group has spent 15 years delivering reliable, efficient, and fully compliant business setup solutions across Qatar.
                   </p>
 
                   <div className="bg-black/30 rounded-[2rem] p-8 border border-white/10 shadow-2xl my-10 backdrop-blur-sm">
-                    <h3 className="text-2xl font-black text-white mb-6">With 10+ years of industry experience, we specialize in:</h3>
+                    <h3 className="text-2xl font-black text-white mb-6">With 15 years of industry experience, we specialize in:</h3>
                     <ul className="space-y-4">
                       {[
-                        "Company Formation in Qatar",
+                        "Company Formation in Qatar & Service Countries (KSA, UAE, Bahrain, Oman, Kuwait, India, etc.)",
                         "Commercial Registration (CR) Services",
                         "Trade License Processing",
                         "PRO & Government Liaison Services",
@@ -110,26 +110,26 @@ export default function AboutPage() {
 
                   {/* Floating Badge */}
                   <div className="absolute -bottom-6 -left-6 bg-[#050816] p-6 rounded-2xl shadow-2xl z-20 hidden md:block border border-white/10 backdrop-blur-xl">
-                    <div className="text-white font-black text-3xl mb-1">1000+</div>
-                    <div className="text-secondary text-[10px] font-black uppercase tracking-[0.2em]">Clients Supported</div>
+                    <div className="text-white font-black text-3xl mb-1">1500+</div>
+                    <div className="text-secondary text-[10px] font-black uppercase tracking-[0.2em]">Company Setups</div>
                   </div>
                 </div>
 
                 <div className="space-y-6 text-white/90 text-base md:text-lg font-medium leading-relaxed drop-shadow-md pt-4">
                   <p>
-                    Over the years, Trek Group has grown from a small advisory unit into one of Qatar’s trusted business consultancy firms, proudly serving 1,000+ clients across multiple industries. Our reputation is built on professionalism, transparency, fast processing, and a commitment to simplifying even the most complex business formation procedures in Qatar.
+                    Over the years, Trek Group has grown from a small advisory unit into one of Qatar’s trusted business consultancy firms, proudly completing 1,500+ successful company setups across multiple industries. Our team includes 25+ expert consultants and team members, serving clients across Qatar, KSA, UAE, Bahrain, Oman, Kuwait, and India. Our reputation is built on professionalism, transparency, fast processing, and a commitment to simplifying even the most complex business formation procedures.
                   </p>
 
                   <div className="bg-gradient-to-br from-primary/20 to-secondary/10 rounded-[2rem] p-8 border border-secondary/20 shadow-2xl my-10 backdrop-blur-md">
                     <h3 className="text-2xl font-black text-white mb-6">Why Businesses Choose Trek Group</h3>
                     <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {[
-                        "10+ Years of Business Setup Experience in Qatar",
-                        "Trusted by 1,000+ Entrepreneurs & Companies",
+                        "15 Years of Business Setup Experience in Qatar",
+                        "Trusted for 1,500+ Successful Company Setups",
+                        "25+ Expert Consultants & Dedicated Support",
+                        "Active across Qatar, KSA, UAE, Bahrain, Oman, Kuwait & India",
                         "Fast & Reliable Government Processing",
-                        "End-to-End Business Formation Solutions",
-                        "Expert Knowledge of Qatar Business Regulations",
-                        "Dedicated Client Support & Consultation"
+                        "End-to-End Business Formation Solutions"
                       ].map((item, i) => (
                         <li key={i} className="flex items-start gap-3">
                           <div className="bg-secondary p-1 rounded-full text-white mt-1 shrink-0">

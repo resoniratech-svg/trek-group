@@ -14,11 +14,11 @@ const navLinks = [
     name: "Services",
     href: "/services",
     subItems: [
-      { name: "Company Registration", href: "/services?service=company-registration" },
-      { name: "Company Formation", href: "/services?service=company-formation" },
-      { name: "PRO Services in Qatar", href: "/services?service=pro-services-in-qatar" },
-      { name: "Software Services", href: "/services?service=software-services" },
-      { name: "Certificate Attestation", href: "/services?service=certificate-attestation" },
+      { name: "Company Formation", href: "/services/company-formation-business-setup" },
+      { name: "100% Foreign Ownership", href: "/services/one-hundred-percent-foreign-ownership" },
+      { name: "PRO Services", href: "/services/pro-services" },
+      { name: "Software Services", href: "/services/software-services" },
+      { name: "Certificate Attestation", href: "/services/certificate-attestation" },
       { name: "View More", href: "/services", isViewMore: true },
     ]
   },

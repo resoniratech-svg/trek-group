@@ -5,9 +5,8 @@ import {
   Building2,
   UserCheck,
   FileCheck,
-  Palette,
-  Globe,
-  Code2,
+  ShieldCheck,
+  Landmark,
   LucideIcon
 } from "lucide-react";
 import Link from "next/link";
@@ -22,12 +21,12 @@ interface ServiceCard {
 }
 
 const services: ServiceCard[] = [
-  { title: "Company Formation", icon: Building2, x: -400, y: -250, delay: 0.1, id: "company-formation" },
-  { title: "PRO Service", icon: UserCheck, x: 400, y: -250, delay: 0.2, id: "pro-service" },
-  { title: "Translation and Attestation", icon: FileCheck, x: -480, y: 0, delay: 0.3, id: "translation-and-attestation" },
-  { title: "Branding Services", icon: Palette, x: 480, y: 0, delay: 0.4, id: "branding-services" },
-  { title: "International Business Events", icon: Globe, x: -300, y: 250, delay: 0.5, id: "international-business-events" },
-  { title: "Software Services", icon: Code2, x: 300, y: 250, delay: 0.6, id: "software-services" },
+  { title: "Company Formation", icon: Building2, x: -400, y: -250, delay: 0.1, id: "company-formation-business-setup" },
+  { title: "PRO Services", icon: UserCheck, x: 400, y: -250, delay: 0.2, id: "pro-services" },
+  { title: "100% Foreign Ownership", icon: ShieldCheck, x: -480, y: 0, delay: 0.3, id: "one-hundred-percent-foreign-ownership" },
+  { title: "Qatari Sponsor Services", icon: UserCheck, x: 480, y: 0, delay: 0.4, id: "qatari-sponsor-services" },
+  { title: "Certificate Attestation", icon: FileCheck, x: -300, y: 250, delay: 0.5, id: "certificate-attestation" },
+  { title: "Corporate Bank Account", icon: Landmark, x: 300, y: 250, delay: 0.6, id: "corporate-bank-account-assistance" },
 ];
 
 export default function InteractiveServices() {
@@ -111,7 +110,7 @@ export default function InteractiveServices() {
             whileHover={{ scale: 1.05 }}
             className="absolute left-1/2 top-1/2 z-30 -translate-x-1/2 -translate-y-1/2 group"
           >
-            <Link href={`/services?service=${service.id}`} className="block">
+            <Link href={`/services/${service.id}`} className="block">
               <div className="min-w-[260px] bg-white/90 backdrop-blur-md border border-white/20 p-5 rounded-3xl flex items-center gap-4 shadow-2xl hover:border-secondary/40 transition-all cursor-pointer">
                 <div className="w-12 h-12 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-white transition-colors">
                   <service.icon size={22} />
