@@ -34,7 +34,7 @@ export default function Home() {
         <HomeScrollExperience />
 
         {/* The rest of the page follows after the scroll experience */}
-        <div className="relative z-20 bg-transparent -mt-[50vh]">
+        <div className="relative z-20 bg-transparent lg:-mt-[50vh] mt-0">
           <InteractiveServices />
           <OwnershipBanner />
           

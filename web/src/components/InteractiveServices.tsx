@@ -31,7 +31,7 @@ const services: ServiceCard[] = [
 
 export default function InteractiveServices() {
   return (
-    <section className="relative overflow-hidden min-h-[1100px] bg-slate-950">
+    <section className="relative overflow-hidden min-h-[600px] lg:min-h-[1100px] bg-slate-950">
       <div className="absolute inset-0 z-0">
         <img
           src="/fullBGservices.webp"
@@ -59,7 +59,8 @@ export default function InteractiveServices() {
         </motion.h2>
       </div>
 
-      <div className="relative w-full max-w-[1400px] h-[840px] mx-auto z-20 -mt-16">
+      {/* Desktop Node-Link Diagram */}
+      <div className="hidden lg:block relative w-full max-w-[1400px] h-[840px] mx-auto z-20 -mt-16">
         <svg className="absolute inset-0 w-full h-full pointer-events-none z-10">
           {services.map((service, i) => (
             <motion.path
@@ -137,6 +138,38 @@ export default function InteractiveServices() {
             />
           </motion.div>
         ))}
+      </div>
+
+      {/* Mobile/Tablet Grid version */}
+      <div className="lg:hidden container mx-auto px-6 pb-24 relative z-20 mt-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+          {services.map((service, i) => {
+            const ServiceIcon = service.icon;
+            return (
+              <motion.div
+                key={service.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
+                whileHover={{ scale: 1.02 }}
+                className="group w-full"
+              >
+                <Link href={`/services/${service.id}`} className="block">
+                  <div className="bg-white/90 backdrop-blur-md border border-white/20 p-6 rounded-3xl flex items-center gap-4 shadow-xl hover:border-secondary/40 transition-all cursor-pointer">
+                    <div className="w-12 h-12 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-white transition-colors">
+                      <ServiceIcon size={22} />
+                    </div>
+                    <div className="text-left">
+                      <div className="text-slate-950 font-semibold text-lg leading-tight">{service.title}</div>
+                      <div className="text-slate-500 text-[10px] uppercase tracking-[0.25em] mt-1">Expert Service</div>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

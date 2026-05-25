@@ -45,7 +45,7 @@ export default function OwnershipBanner() {
           </div>
 
           {/* Mobile version of the seal or just a badge */}
-          <div className="mt-8 flex lg:hidden items-center gap-4 text-black/10">
+          <div className="mt-8 flex lg:hidden items-center gap-4 text-white/20">
             <Award size={48} />
             <div className="text-sm font-bold uppercase tracking-tighter">
               100% Foreign Ownership <br /> Qatar Business Setup

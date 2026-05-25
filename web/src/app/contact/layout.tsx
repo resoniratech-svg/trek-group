@@ -16,7 +16,7 @@ const localBusinessSchema = {
   "telephone": "+974 3005 6030",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "Office no -8, 2nd floor, Building no -210, Street - 330, Zone -43, Entrance - near Baladna Hypermarket",
+    "streetAddress": "Office no -8, 2nd floor, Building no -210, Street - 330, Zone -43, Entrance - Near Baladna Hypermarket",
     "addressLocality": "Doha",
     "addressCountry": "QA"
   },

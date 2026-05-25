@@ -135,7 +135,7 @@ export default function Footer() {
                     TREK GROUP Corporate Head Office<br />
                     Office no -8, 2nd floor<br />
                     Building no -210, Street - 330, Zone -43<br />
-                    Entrance - near Baladna Hypermarket<br />
+                    Entrance - Near Baladna Hypermarket<br />
                     Doha, Qatar
                   </span>
                 </li>

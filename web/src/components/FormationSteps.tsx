@@ -116,7 +116,7 @@ export default function FormationSteps() {
                   id="formation-image"
                   src="/futuristic_stairs_process.png"
                   alt="Company Formation Steps"
-                  className="w-full h-full object-cover min-h-[500px] lg:min-h-[700px] transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover min-h-[300px] sm:min-h-[500px] lg:min-h-[700px] transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent opacity-60" />
               </motion.div>
@@ -126,8 +126,8 @@ export default function FormationSteps() {
             </div>
 
             {/* Right Side: Scrolling Steps Container */}
-            <div className="lg:w-1/2 relative">
-              <div className="h-[600px] lg:h-[700px] overflow-y-auto pr-6 custom-scrollbar scroll-smooth">
+            <div className="lg:w-1/2 w-full relative">
+              <div className="h-auto lg:h-[700px] overflow-y-visible lg:overflow-y-auto pr-0 lg:pr-6 custom-scrollbar scroll-smooth">
                 <div className="space-y-8 py-4">
                   {steps.map((step, index) => (
                     <motion.div

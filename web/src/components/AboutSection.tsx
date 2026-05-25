@@ -50,15 +50,15 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="absolute -bottom-8 -right-8 bg-secondary/30 backdrop-blur-md p-8 md:p-10 rounded-[2.5rem] shadow-2xl z-20 border border-white/50 group hover:bg-secondary/60 transition-all duration-500"
+              className="absolute bottom-4 right-4 sm:-bottom-8 sm:-right-8 bg-secondary/30 backdrop-blur-md p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-[2.5rem] shadow-2xl z-20 border border-white/50 group hover:bg-secondary/60 transition-all duration-500"
             >
-              <div className="text-white font-black text-4xl mb-1 drop-shadow-md">15</div>
+              <div className="text-white font-black text-3xl sm:text-4xl mb-1 drop-shadow-md">15</div>
               <div className="text-white/90 text-[10px] font-black uppercase tracking-[0.2em] leading-tight max-w-[100px]">
                 Years of Experience
               </div>
               
               {/* Subtle shine effect */}
-              <div className="absolute inset-0 overflow-hidden rounded-[2.5rem] pointer-events-none">
+              <div className="absolute inset-0 overflow-hidden rounded-2xl sm:rounded-[2.5rem] pointer-events-none">
                 <motion.div 
                   animate={{ 
                     x: ['-100%', '200%'],

@@ -43,13 +43,13 @@ export default function Navbar() {
   return (
     <nav
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6",
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-2 sm:px-6",
         isScrolled
           ? "bg-white border-b border-gray-200 py-0.5 shadow-md"
           : "bg-white/90 backdrop-blur-md py-1"
       )}
     >
-      <div className="max-w-[1800px] mx-auto flex items-center justify-between px-10">
+      <div className="max-w-[1800px] mx-auto flex items-center justify-between px-4 sm:px-10">
         {/* Logo Section */}
         <div className="flex-1 flex justify-start">
           <Link href="/" className="flex items-center gap-3 group">
@@ -122,7 +122,7 @@ export default function Navbar() {
         {/* Right Section: Get a Quote */}
         <div className="flex-1 flex justify-end items-center gap-4">
           <Link href="/contact#contact-form-section">
-            <button className="bg-secondary hover:bg-secondary-dark text-white px-8 py-3 rounded-full text-base font-bold transition-all transform hover:scale-105 flex items-center gap-2 shadow-lg shadow-secondary/20 whitespace-nowrap">
+            <button className="hidden sm:flex bg-secondary hover:bg-secondary-dark text-white px-8 py-3 rounded-full text-base font-bold transition-all transform hover:scale-105 items-center gap-2 shadow-lg shadow-secondary/20 whitespace-nowrap">
               Get a Quote <ChevronRight size={18} />
             </button>
           </Link>
