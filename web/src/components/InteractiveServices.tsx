@@ -34,7 +34,7 @@ export default function InteractiveServices() {
     <section className="relative overflow-hidden min-h-[1100px] bg-slate-950">
       <div className="absolute inset-0 z-0">
         <img
-          src="/backgroundHome.png"
+          src="/fullBGservices.webp"
           alt="Background"
           className="absolute inset-0 w-full h-full object-cover object-center"
         />
@@ -42,7 +42,7 @@ export default function InteractiveServices() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-950/20 to-slate-950/90" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-20 text-center mb-14 pt-24">
+      <div className="container mx-auto px-6 relative z-20 text-center mb-2 pt-24">
         <motion.span
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -59,7 +59,7 @@ export default function InteractiveServices() {
         </motion.h2>
       </div>
 
-      <div className="relative w-full max-w-[1400px] h-[840px] mx-auto z-20">
+      <div className="relative w-full max-w-[1400px] h-[840px] mx-auto z-20 -mt-16">
         <svg className="absolute inset-0 w-full h-full pointer-events-none z-10">
           {services.map((service, i) => (
             <motion.path
@@ -80,11 +80,11 @@ export default function InteractiveServices() {
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
-          className="absolute left-1/2 top-1/2 z-20 w-[620px] max-w-full -translate-x-1/2 -translate-y-1/2"
+          className="absolute left-1/2 top-1/2 z-20 w-[540px] max-w-full -translate-x-1/2 -translate-y-1/2"
         >
-          <div className="relative w-full h-[760px] rounded-[2.5rem] overflow-hidden border border-white/10 shadow-[0_40px_120px_rgba(0,0,0,0.65)]">
+          <div className="relative w-full h-[680px] rounded-[2.5rem] overflow-hidden border border-white/10 shadow-[0_40px_120px_rgba(0,0,0,0.65)]">
             <img
-              src="/imageServices.webp"
+              src="/bgServices.webp"
               alt="Expert business background"
               className="w-full h-full object-cover"
             />
