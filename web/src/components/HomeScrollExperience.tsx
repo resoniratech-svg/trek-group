@@ -34,11 +34,14 @@ export default function HomeScrollExperience() {
       {/* Sticky/Absolute Background Image */}
       <div className="absolute inset-0 lg:sticky lg:top-0 h-full lg:h-screen w-full overflow-hidden">
         <div className="absolute inset-0 bg-black/40 z-10" /> {/* Optional overlay for text readability */}
-        <img
-          src="/homeBG.webp"
-          alt="Trek Group Home Background"
-          className="w-full h-full object-cover"
-        />
+        <picture className="w-full h-full">
+          <source srcSet="/homeBG.webp" type="image/webp" />
+          <img
+            src="/homeBG.jpg"
+            alt="Trek Group Home Background"
+            className="w-full h-full object-cover"
+          />
+        </picture>
       </div>
 
       {/* Overlay Content Sections */}
