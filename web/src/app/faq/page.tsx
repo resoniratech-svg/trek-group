@@ -4,6 +4,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CorporateGlobeBackground from "@/components/CorporateGlobeBackground";
 import FAQ from "@/components/FAQ";
+import Link from "next/link";
+import { Plus } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function FAQPage() {
@@ -37,7 +39,19 @@ export default function FAQPage() {
 
         <div className="pb-24">
           <FAQ />
+          
+          {/* Add FAQ Button under the page */}
+          <div className="mt-12 text-center relative z-20">
+            <Link
+              href="/blog/admin"
+              className="inline-flex items-center gap-2 bg-white/5 hover:bg-secondary/20 border border-white/10 hover:border-secondary/30 text-white px-8 py-4 rounded-full font-black text-sm transition-all transform hover:scale-105 shadow-xl cursor-pointer"
+            >
+              <Plus size={16} className="text-secondary" />
+              Add FAQ (Admin Portal)
+            </Link>
+          </div>
         </div>
+        
         <Footer />
       </div>
     </main>
