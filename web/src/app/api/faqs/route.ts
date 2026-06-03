@@ -20,7 +20,6 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { question, answer } = body;
 
-    // Simple validation
     if (!question || !answer) {
       return NextResponse.json(
         { error: "Question and answer are required fields." },
@@ -29,20 +28,19 @@ export async function POST(request: Request) {
     }
 
     const faqs = await getFaqs();
-    
-    // Generate unique slug-like ID from question
+
     let id = question
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)+/g, "");
-    
+
     if (id.length > 50) {
       id = id.slice(0, 50);
     }
-    
-    // De-duplicate ID
+
     let finalId = id;
     let counter = 1;
+
     while (faqs.some((faq: any) => faq.id === finalId)) {
       finalId = `${id}-${counter}`;
       counter++;
@@ -55,9 +53,11 @@ export async function POST(request: Request) {
     };
 
     const insertedFaq = await insertFaq(newFaq);
+
     return NextResponse.json(insertedFaq, { status: 201 });
   } catch (error: any) {
     console.error("Error in POST /api/faqs:", error);
+
     return NextResponse.json(
       { error: "Failed to create FAQ item. " + error.message },
       { status: 500 }
