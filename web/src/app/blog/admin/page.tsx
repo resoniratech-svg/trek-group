@@ -86,14 +86,14 @@ export default function AdminPage() {
     const fetchData = async () => {
       try {
         // Fetch blogs
-        const blogsRes = await fetch("/api/blogs");
+        const blogsRes = await fetch("/api/blogs", { cache: "no-store" });
         if (blogsRes.ok) {
           const blogsData = await blogsRes.json();
           setBlogs(blogsData);
         }
 
         // Fetch FAQs
-        const faqsRes = await fetch("/api/faqs");
+        const faqsRes = await fetch("/api/faqs", { cache: "no-store" });
         if (faqsRes.ok) {
           const faqsData = await faqsRes.json();
           setFaqs(faqsData);

@@ -19,7 +19,11 @@ async function supabaseFetch(endpoint: string, options: RequestInit = {}) {
     ...options.headers,
   };
 
-  const response = await fetch(url, { ...options, headers });
+  const response = await fetch(url, { 
+    ...options, 
+    headers,
+    cache: "no-store"
+  });
   
   if (!response.ok) {
     const errorText = await response.text();

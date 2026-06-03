@@ -78,7 +78,7 @@ export default function FAQ() {
     const fetchFaqs = async () => {
       try {
         setLoading(true);
-        const res = await fetch("/api/faqs");
+        const res = await fetch("/api/faqs", { cache: "no-store" });
         if (res.ok) {
           const data = await res.json();
           // Use fetched data or fallback if empty

@@ -34,7 +34,7 @@ export default function BlogDetailPage() {
     const fetchBlog = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`/api/blogs/${blogId}`);
+        const res = await fetch(`/api/blogs/${blogId}`, { cache: "no-store" });
         if (!res.ok) {
           if (res.status === 404) {
             setError("Article not found.");
