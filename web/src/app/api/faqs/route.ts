@@ -1,38 +1,16 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
-
-const dataFilePath = path.join(process.cwd(), "src/data/faqs.json");
-
-// Helper function to read data
-function readFaqs() {
-  try {
-    if (!fs.existsSync(dataFilePath)) {
-      fs.mkdirSync(path.dirname(dataFilePath), { recursive: true });
-      fs.writeFileSync(dataFilePath, JSON.stringify([], null, 2));
-      return [];
-    }
-    const fileContent = fs.readFileSync(dataFilePath, "utf8");
-    return JSON.parse(fileContent);
-  } catch (error) {
-    console.error("Error reading faqs data file:", error);
-    return [];
-  }
-}
-
-// Helper function to write data
-function writeFaqs(data: any[]) {
-  try {
-    fs.mkdirSync(path.dirname(dataFilePath), { recursive: true });
-    fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2));
-  } catch (error) {
-    console.error("Error writing faqs data file:", error);
-  }
-}
+import { getFaqs, insertFaq } from "@/lib/db";
 
 export async function GET() {
-  const faqs = readFaqs();
-  return NextResponse.json(faqs);
+  try {
+    const faqs = await getFaqs();
+    return NextResponse.json(faqs);
+  } catch (error: any) {
+    return NextResponse.json(
+      { error: "Failed to fetch FAQ items: " + error.message },
+      { status: 500 }
+    );
+  }
 }
 
 export async function POST(request: Request) {
@@ -48,7 +26,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const faqs = readFaqs();
+    const faqs = await getFaqs();
     
     // Generate unique slug-like ID from question
     let id = question
@@ -74,11 +52,8 @@ export async function POST(request: Request) {
       answer,
     };
 
-    // Prepend new FAQ to the array
-    faqs.unshift(newFaq);
-    writeFaqs(faqs);
-
-    return NextResponse.json(newFaq, { status: 201 });
+    const insertedFaq = await insertFaq(newFaq);
+    return NextResponse.json(insertedFaq, { status: 201 });
   } catch (error: any) {
     console.error("Error in POST /api/faqs:", error);
     return NextResponse.json(

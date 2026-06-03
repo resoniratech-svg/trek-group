@@ -1,0 +1,213 @@
+import fs from "fs";
+import path from "path";
+
+const blogsPath = path.join(process.cwd(), "src/data/blogs.json");
+const faqsPath = path.join(process.cwd(), "src/data/faqs.json");
+
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY;
+
+const isSupabaseConfigured = !!(SUPABASE_URL && SUPABASE_ANON_KEY);
+
+// Helper function to call Supabase REST API
+async function supabaseFetch(endpoint: string, options: RequestInit = {}) {
+  const url = `${SUPABASE_URL}/rest/v1/${endpoint}`;
+  const headers = {
+    "apikey": SUPABASE_ANON_KEY!,
+    "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+    "Content-Type": "application/json",
+    ...options.headers,
+  };
+
+  const response = await fetch(url, { ...options, headers });
+  
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Supabase Error: ${response.status} - ${errorText}`);
+  }
+
+  // DELETE requests might return empty responses
+  if (options.method === "DELETE" || response.status === 204) {
+    return true;
+  }
+
+  return await response.json();
+}
+
+// -------------------------------------------------------------
+// Local JSON File Helper Functions (Fallback)
+// -------------------------------------------------------------
+function readJsonFile(filePath: string) {
+  try {
+    if (!fs.existsSync(filePath)) {
+      fs.mkdirSync(path.dirname(filePath), { recursive: true });
+      fs.writeFileSync(filePath, JSON.stringify([], null, 2));
+      return [];
+    }
+    const content = fs.readFileSync(filePath, "utf8");
+    return JSON.parse(content);
+  } catch (error) {
+    console.error(`Error reading file ${filePath}:`, error);
+    return [];
+  }
+}
+
+function writeJsonFile(filePath: string, data: any[]) {
+  try {
+    fs.mkdirSync(path.dirname(filePath), { recursive: true });
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+  } catch (error) {
+    console.error(`Error writing file ${filePath}:`, error);
+  }
+}
+
+// -------------------------------------------------------------
+// BLOGS CRUD Interfaces
+// -------------------------------------------------------------
+export async function getBlogs(): Promise<any[]> {
+  if (isSupabaseConfigured) {
+    try {
+      // Order by created_at descending natively in Supabase
+      const data = await supabaseFetch("blogs?select=*&order=created_at.desc");
+      return data;
+    } catch (error) {
+      console.error("Supabase getBlogs failed, falling back to local file:", error);
+      return readJsonFile(blogsPath);
+    }
+  } else {
+    return readJsonFile(blogsPath);
+  }
+}
+
+export async function getBlogById(id: string): Promise<any | null> {
+  if (isSupabaseConfigured) {
+    try {
+      const data = await supabaseFetch(`blogs?id=eq.${id}&select=*`);
+      return data && data.length > 0 ? data[0] : null;
+    } catch (error) {
+      console.error(`Supabase getBlogById(${id}) failed, falling back to local file:`, error);
+      const blogs = readJsonFile(blogsPath);
+      return blogs.find((b: any) => b.id === id) || null;
+    }
+  } else {
+    const blogs = readJsonFile(blogsPath);
+    return blogs.find((b: any) => b.id === id) || null;
+  }
+}
+
+export async function insertBlog(blog: any): Promise<any> {
+  if (isSupabaseConfigured) {
+    try {
+      const data = await supabaseFetch("blogs", {
+        method: "POST",
+        body: JSON.stringify(blog),
+        headers: {
+          "Prefer": "return=representation",
+        },
+      });
+      return data && data.length > 0 ? data[0] : blog;
+    } catch (error) {
+      console.error("Supabase insertBlog failed, falling back to local file:", error);
+      const blogs = readJsonFile(blogsPath);
+      blogs.unshift(blog);
+      writeJsonFile(blogsPath, blogs);
+      return blog;
+    }
+  } else {
+    const blogs = readJsonFile(blogsPath);
+    blogs.unshift(blog);
+    writeJsonFile(blogsPath, blogs);
+    return blog;
+  }
+}
+
+export async function deleteBlog(id: string): Promise<boolean> {
+  if (isSupabaseConfigured) {
+    try {
+      await supabaseFetch(`blogs?id=eq.${id}`, {
+        method: "DELETE",
+      });
+      return true;
+    } catch (error) {
+      console.error(`Supabase deleteBlog(${id}) failed, falling back to local file:`, error);
+      const blogs = readJsonFile(blogsPath);
+      const initialLength = blogs.length;
+      const filteredBlogs = blogs.filter((b: any) => b.id !== id);
+      writeJsonFile(blogsPath, filteredBlogs);
+      return filteredBlogs.length !== initialLength;
+    }
+  } else {
+    const blogs = readJsonFile(blogsPath);
+    const initialLength = blogs.length;
+    const filteredBlogs = blogs.filter((b: any) => b.id !== id);
+    writeJsonFile(blogsPath, filteredBlogs);
+    return filteredBlogs.length !== initialLength;
+  }
+}
+
+// -------------------------------------------------------------
+// FAQS CRUD Interfaces
+// -------------------------------------------------------------
+export async function getFaqs(): Promise<any[]> {
+  if (isSupabaseConfigured) {
+    try {
+      const data = await supabaseFetch("faqs?select=*&order=created_at.desc");
+      return data;
+    } catch (error) {
+      console.error("Supabase getFaqs failed, falling back to local file:", error);
+      return readJsonFile(faqsPath);
+    }
+  } else {
+    return readJsonFile(faqsPath);
+  }
+}
+
+export async function insertFaq(faq: any): Promise<any> {
+  if (isSupabaseConfigured) {
+    try {
+      const data = await supabaseFetch("faqs", {
+        method: "POST",
+        body: JSON.stringify(faq),
+        headers: {
+          "Prefer": "return=representation",
+        },
+      });
+      return data && data.length > 0 ? data[0] : faq;
+    } catch (error) {
+      console.error("Supabase insertFaq failed, falling back to local file:", error);
+      const faqs = readJsonFile(faqsPath);
+      faqs.unshift(faq);
+      writeJsonFile(faqsPath, faqs);
+      return faq;
+    }
+  } else {
+    const faqs = readJsonFile(faqsPath);
+    faqs.unshift(faq);
+    writeJsonFile(faqsPath, faqs);
+    return faq;
+  }
+}
+
+export async function deleteFaq(id: string): Promise<boolean> {
+  if (isSupabaseConfigured) {
+    try {
+      await supabaseFetch(`faqs?id=eq.${id}`, {
+        method: "DELETE",
+      });
+      return true;
+    } catch (error) {
+      console.error(`Supabase deleteFaq(${id}) failed, falling back to local file:`, error);
+      const faqs = readJsonFile(faqsPath);
+      const initialLength = faqs.length;
+      const filteredFaqs = faqs.filter((f: any) => f.id !== id);
+      writeJsonFile(faqsPath, filteredFaqs);
+      return filteredFaqs.length !== initialLength;
+    }
+  } else {
+    const faqs = readJsonFile(faqsPath);
+    const initialLength = faqs.length;
+    const filteredFaqs = faqs.filter((f: any) => f.id !== id);
+    writeJsonFile(faqsPath, filteredFaqs);
+    return filteredFaqs.length !== initialLength;
+  }
+}

@@ -1,39 +1,16 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
-
-const dataFilePath = path.join(process.cwd(), "src/data/blogs.json");
-
-// Helper function to read data
-function readBlogs() {
-  try {
-    if (!fs.existsSync(dataFilePath)) {
-      // Ensure the directory exists
-      fs.mkdirSync(path.dirname(dataFilePath), { recursive: true });
-      fs.writeFileSync(dataFilePath, JSON.stringify([], null, 2));
-      return [];
-    }
-    const fileContent = fs.readFileSync(dataFilePath, "utf8");
-    return JSON.parse(fileContent);
-  } catch (error) {
-    console.error("Error reading blogs data file:", error);
-    return [];
-  }
-}
-
-// Helper function to write data
-function writeBlogs(data: any[]) {
-  try {
-    fs.mkdirSync(path.dirname(dataFilePath), { recursive: true });
-    fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2));
-  } catch (error) {
-    console.error("Error writing blogs data file:", error);
-  }
-}
+import { getBlogs, insertBlog } from "@/lib/db";
 
 export async function GET() {
-  const blogs = readBlogs();
-  return NextResponse.json(blogs);
+  try {
+    const blogs = await getBlogs();
+    return NextResponse.json(blogs);
+  } catch (error: any) {
+    return NextResponse.json(
+      { error: "Failed to fetch blog posts: " + error.message },
+      { status: 500 }
+    );
+  }
 }
 
 export async function POST(request: Request) {
@@ -49,7 +26,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const blogs = readBlogs();
+    const blogs = await getBlogs();
     
     // Create unique slug ID from title
     let id = title
@@ -79,11 +56,8 @@ export async function POST(request: Request) {
       }),
     };
 
-    // Prepend new blog to the array
-    blogs.unshift(newBlog);
-    writeBlogs(blogs);
-
-    return NextResponse.json(newBlog, { status: 201 });
+    const insertedBlog = await insertBlog(newBlog);
+    return NextResponse.json(insertedBlog, { status: 201 });
   } catch (error: any) {
     console.error("Error in POST /api/blogs:", error);
     return NextResponse.json(
