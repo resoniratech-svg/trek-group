@@ -8,6 +8,14 @@ const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY;
 
 const isSupabaseConfigured = !!(SUPABASE_URL && SUPABASE_ANON_KEY);
+const isProduction = process.env.NODE_ENV === "production" || !!process.env.NETLIFY;
+
+export function getDbStatus() {
+  return {
+    configured: isSupabaseConfigured,
+    mode: isSupabaseConfigured ? "Supabase Cloud" : "Local JSON Files (Read-Only on Server)"
+  };
+}
 
 // Helper function to call Supabase REST API
 async function supabaseFetch(endpoint: string, options: RequestInit = {}) {
@@ -27,7 +35,13 @@ async function supabaseFetch(endpoint: string, options: RequestInit = {}) {
   
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(`Supabase Error: ${response.status} - ${errorText}`);
+    let parsedError;
+    try {
+      parsedError = JSON.parse(errorText);
+    } catch {
+      parsedError = { message: errorText };
+    }
+    throw new Error(parsedError.message || parsedError.hint || `Supabase Error: ${response.status}`);
   }
 
   // DELETE requests might return empty responses
@@ -38,9 +52,7 @@ async function supabaseFetch(endpoint: string, options: RequestInit = {}) {
   return await response.json();
 }
 
-// -------------------------------------------------------------
-// Local JSON File Helper Functions (Fallback)
-// -------------------------------------------------------------
+// Local JSON File Helper Functions (Fallback for local dev only)
 function readJsonFile(filePath: string) {
   try {
     if (!fs.existsSync(filePath)) {
@@ -60,8 +72,9 @@ function writeJsonFile(filePath: string, data: any[]) {
   try {
     fs.mkdirSync(path.dirname(filePath), { recursive: true });
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-  } catch (error) {
+  } catch (error: any) {
     console.error(`Error writing file ${filePath}:`, error);
+    throw new Error(`Local write failed: ${error.message}`);
   }
 }
 
@@ -71,14 +84,16 @@ function writeJsonFile(filePath: string, data: any[]) {
 export async function getBlogs(): Promise<any[]> {
   if (isSupabaseConfigured) {
     try {
-      // Order by created_at descending natively in Supabase
-      const data = await supabaseFetch("blogs?select=*&order=created_at.desc");
-      return data;
+      return await supabaseFetch("blogs?select=*&order=created_at.desc");
     } catch (error) {
-      console.error("Supabase getBlogs failed, falling back to local file:", error);
-      return readJsonFile(blogsPath);
+      console.error("Supabase getBlogs failed:", error);
+      if (!isProduction) return readJsonFile(blogsPath);
+      throw error;
     }
   } else {
+    if (isProduction) {
+      throw new Error("Supabase is not configured. Local JSON is read-only in production.");
+    }
     return readJsonFile(blogsPath);
   }
 }
@@ -89,11 +104,17 @@ export async function getBlogById(id: string): Promise<any | null> {
       const data = await supabaseFetch(`blogs?id=eq.${id}&select=*`);
       return data && data.length > 0 ? data[0] : null;
     } catch (error) {
-      console.error(`Supabase getBlogById(${id}) failed, falling back to local file:`, error);
-      const blogs = readJsonFile(blogsPath);
-      return blogs.find((b: any) => b.id === id) || null;
+      console.error(`Supabase getBlogById(${id}) failed:`, error);
+      if (!isProduction) {
+        const blogs = readJsonFile(blogsPath);
+        return blogs.find((b: any) => b.id === id) || null;
+      }
+      throw error;
     }
   } else {
+    if (isProduction) {
+      throw new Error("Supabase is not configured. Local JSON is read-only in production.");
+    }
     const blogs = readJsonFile(blogsPath);
     return blogs.find((b: any) => b.id === id) || null;
   }
@@ -101,23 +122,19 @@ export async function getBlogById(id: string): Promise<any | null> {
 
 export async function insertBlog(blog: any): Promise<any> {
   if (isSupabaseConfigured) {
-    try {
-      const data = await supabaseFetch("blogs", {
-        method: "POST",
-        body: JSON.stringify(blog),
-        headers: {
-          "Prefer": "return=representation",
-        },
-      });
-      return data && data.length > 0 ? data[0] : blog;
-    } catch (error) {
-      console.error("Supabase insertBlog failed, falling back to local file:", error);
-      const blogs = readJsonFile(blogsPath);
-      blogs.unshift(blog);
-      writeJsonFile(blogsPath, blogs);
-      return blog;
-    }
+    // If it fails, throw directly to API handler (NO silent fallback)
+    const data = await supabaseFetch("blogs", {
+      method: "POST",
+      body: JSON.stringify(blog),
+      headers: {
+        "Prefer": "return=representation",
+      },
+    });
+    return data && data.length > 0 ? data[0] : blog;
   } else {
+    if (isProduction) {
+      throw new Error("Supabase database variables are missing. Local file writes are disabled in production.");
+    }
     const blogs = readJsonFile(blogsPath);
     blogs.unshift(blog);
     writeJsonFile(blogsPath, blogs);
@@ -127,20 +144,14 @@ export async function insertBlog(blog: any): Promise<any> {
 
 export async function deleteBlog(id: string): Promise<boolean> {
   if (isSupabaseConfigured) {
-    try {
-      await supabaseFetch(`blogs?id=eq.${id}`, {
-        method: "DELETE",
-      });
-      return true;
-    } catch (error) {
-      console.error(`Supabase deleteBlog(${id}) failed, falling back to local file:`, error);
-      const blogs = readJsonFile(blogsPath);
-      const initialLength = blogs.length;
-      const filteredBlogs = blogs.filter((b: any) => b.id !== id);
-      writeJsonFile(blogsPath, filteredBlogs);
-      return filteredBlogs.length !== initialLength;
-    }
+    await supabaseFetch(`blogs?id=eq.${id}`, {
+      method: "DELETE",
+    });
+    return true;
   } else {
+    if (isProduction) {
+      throw new Error("Supabase database variables are missing. Local file writes are disabled in production.");
+    }
     const blogs = readJsonFile(blogsPath);
     const initialLength = blogs.length;
     const filteredBlogs = blogs.filter((b: any) => b.id !== id);
@@ -155,36 +166,34 @@ export async function deleteBlog(id: string): Promise<boolean> {
 export async function getFaqs(): Promise<any[]> {
   if (isSupabaseConfigured) {
     try {
-      const data = await supabaseFetch("faqs?select=*&order=created_at.desc");
-      return data;
+      return await supabaseFetch("faqs?select=*&order=created_at.desc");
     } catch (error) {
-      console.error("Supabase getFaqs failed, falling back to local file:", error);
-      return readJsonFile(faqsPath);
+      console.error("Supabase getFaqs failed:", error);
+      if (!isProduction) return readJsonFile(faqsPath);
+      throw error;
     }
   } else {
+    if (isProduction) {
+      throw new Error("Supabase is not configured. Local JSON is read-only in production.");
+    }
     return readJsonFile(faqsPath);
   }
 }
 
 export async function insertFaq(faq: any): Promise<any> {
   if (isSupabaseConfigured) {
-    try {
-      const data = await supabaseFetch("faqs", {
-        method: "POST",
-        body: JSON.stringify(faq),
-        headers: {
-          "Prefer": "return=representation",
-        },
-      });
-      return data && data.length > 0 ? data[0] : faq;
-    } catch (error) {
-      console.error("Supabase insertFaq failed, falling back to local file:", error);
-      const faqs = readJsonFile(faqsPath);
-      faqs.unshift(faq);
-      writeJsonFile(faqsPath, faqs);
-      return faq;
-    }
+    const data = await supabaseFetch("faqs", {
+      method: "POST",
+      body: JSON.stringify(faq),
+      headers: {
+        "Prefer": "return=representation",
+      },
+    });
+    return data && data.length > 0 ? data[0] : faq;
   } else {
+    if (isProduction) {
+      throw new Error("Supabase database variables are missing. Local file writes are disabled in production.");
+    }
     const faqs = readJsonFile(faqsPath);
     faqs.unshift(faq);
     writeJsonFile(faqsPath, faqs);
@@ -194,20 +203,14 @@ export async function insertFaq(faq: any): Promise<any> {
 
 export async function deleteFaq(id: string): Promise<boolean> {
   if (isSupabaseConfigured) {
-    try {
-      await supabaseFetch(`faqs?id=eq.${id}`, {
-        method: "DELETE",
-      });
-      return true;
-    } catch (error) {
-      console.error(`Supabase deleteFaq(${id}) failed, falling back to local file:`, error);
-      const faqs = readJsonFile(faqsPath);
-      const initialLength = faqs.length;
-      const filteredFaqs = faqs.filter((f: any) => f.id !== id);
-      writeJsonFile(faqsPath, filteredFaqs);
-      return filteredFaqs.length !== initialLength;
-    }
+    await supabaseFetch(`faqs?id=eq.${id}`, {
+      method: "DELETE",
+    });
+    return true;
   } else {
+    if (isProduction) {
+      throw new Error("Supabase database variables are missing. Local file writes are disabled in production.");
+    }
     const faqs = readJsonFile(faqsPath);
     const initialLength = faqs.length;
     const filteredFaqs = faqs.filter((f: any) => f.id !== id);

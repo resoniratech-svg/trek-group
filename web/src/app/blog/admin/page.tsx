@@ -70,6 +70,7 @@ export default function AdminPage() {
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const [faqs, setFaqs] = useState<FAQItem[]>([]);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
+  const [dbStatus, setDbStatus] = useState<{ configured: boolean; mode: string } | null>(null);
 
   // Authenticate on mount from localStorage
   useEffect(() => {
@@ -85,6 +86,17 @@ export default function AdminPage() {
 
     const fetchData = async () => {
       try {
+        // Fetch database status
+        try {
+          const statusRes = await fetch("/api/status", { cache: "no-store" });
+          if (statusRes.ok) {
+            const statusData = await statusRes.json();
+            setDbStatus(statusData);
+          }
+        } catch (dbErr) {
+          console.error("Failed to fetch database status", dbErr);
+        }
+
         // Fetch blogs
         const blogsRes = await fetch("/api/blogs", { cache: "no-store" });
         if (blogsRes.ok) {
@@ -188,11 +200,12 @@ export default function AdminPage() {
       if (res.ok) {
         setRefreshTrigger((prev) => prev + 1);
       } else {
-        alert("Failed to delete the article.");
+        const errorData = await res.json();
+        alert(`Failed to delete article: ${errorData.error || "Server error"}`);
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      alert("An error occurred while deleting.");
+      alert(`An error occurred while deleting: ${err.message}`);
     }
   };
 
@@ -253,11 +266,12 @@ export default function AdminPage() {
       if (res.ok) {
         setRefreshTrigger((prev) => prev + 1);
       } else {
-        alert("Failed to delete the FAQ.");
+        const errorData = await res.json();
+        alert(`Failed to delete FAQ: ${errorData.error || "Server error"}`);
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      alert("An error occurred while deleting.");
+      alert(`An error occurred while deleting: ${err.message}`);
     }
   };
 
@@ -511,6 +525,25 @@ export default function AdminPage() {
                       </button>
                     </div>
                   </div>
+
+                  {/* Database Connection Diagnostics Status Bar */}
+                  {dbStatus && (
+                    <div className={`p-4 rounded-2xl border flex flex-col sm:flex-row sm:items-center justify-between text-xs font-black uppercase tracking-wider gap-2 ${
+                      dbStatus.configured 
+                        ? "bg-green-500/10 border-green-500/20 text-green-400" 
+                        : "bg-red-500/10 border-red-500/20 text-red-400"
+                    }`}>
+                      <div className="flex items-center gap-2">
+                        <span className={`w-2.5 h-2.5 rounded-full ${dbStatus.configured ? "bg-green-500 animate-pulse" : "bg-red-500"}`} />
+                        <span>Database Status: {dbStatus.mode}</span>
+                      </div>
+                      {!dbStatus.configured && (
+                        <span className="text-[10px] text-red-400/80 lowercase normal-case font-medium">
+                          (Please configure SUPABASE_URL and SUPABASE_ANON_KEY variables in Netlify settings)
+                        </span>
+                      )}
+                    </div>
+                  )}
 
                   {/* Unified Tab Switcher (Blogs vs FAQs) */}
                   <div className="flex flex-col sm:flex-row bg-white/5 p-1.5 border border-white/10 rounded-2xl w-full sm:w-fit gap-1 sm:gap-0">
