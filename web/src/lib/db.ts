@@ -86,14 +86,10 @@ export async function getBlogs(): Promise<any[]> {
     try {
       return await supabaseFetch("blogs?select=*&order=created_at.desc");
     } catch (error) {
-      console.error("Supabase getBlogs failed:", error);
-      if (!isProduction) return readJsonFile(blogsPath);
-      throw error;
+      console.error("Supabase getBlogs failed, falling back to local seed data:", error);
+      return readJsonFile(blogsPath);
     }
   } else {
-    if (isProduction) {
-      throw new Error("Supabase is not configured. Local JSON is read-only in production.");
-    }
     return readJsonFile(blogsPath);
   }
 }
@@ -104,17 +100,11 @@ export async function getBlogById(id: string): Promise<any | null> {
       const data = await supabaseFetch(`blogs?id=eq.${id}&select=*`);
       return data && data.length > 0 ? data[0] : null;
     } catch (error) {
-      console.error(`Supabase getBlogById(${id}) failed:`, error);
-      if (!isProduction) {
-        const blogs = readJsonFile(blogsPath);
-        return blogs.find((b: any) => b.id === id) || null;
-      }
-      throw error;
+      console.error(`Supabase getBlogById(${id}) failed, falling back to local seed data:`, error);
+      const blogs = readJsonFile(blogsPath);
+      return blogs.find((b: any) => b.id === id) || null;
     }
   } else {
-    if (isProduction) {
-      throw new Error("Supabase is not configured. Local JSON is read-only in production.");
-    }
     const blogs = readJsonFile(blogsPath);
     return blogs.find((b: any) => b.id === id) || null;
   }
@@ -168,14 +158,10 @@ export async function getFaqs(): Promise<any[]> {
     try {
       return await supabaseFetch("faqs?select=*&order=created_at.desc");
     } catch (error) {
-      console.error("Supabase getFaqs failed:", error);
-      if (!isProduction) return readJsonFile(faqsPath);
-      throw error;
+      console.error("Supabase getFaqs failed, falling back to local seed data:", error);
+      return readJsonFile(faqsPath);
     }
   } else {
-    if (isProduction) {
-      throw new Error("Supabase is not configured. Local JSON is read-only in production.");
-    }
     return readJsonFile(faqsPath);
   }
 }
