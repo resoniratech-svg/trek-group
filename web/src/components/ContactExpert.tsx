@@ -133,7 +133,7 @@ export default function ContactExpert() {
                 <div className="space-y-3">
                   <h3 className="text-2xl md:text-3xl font-black text-white">Consultation Requested!</h3>
                   <p className="text-white/70 font-medium max-w-sm mx-auto text-sm md:text-base">
-                    Thank you for reaching out. Your setup inquiry has been forwarded to our corporate consultants at <strong>madhusudhant307@gmail.com</strong>.
+                    Thank you for reaching out. Your setup inquiry has been forwarded to our corporate consultants at <strong>info@trekgroups.com</strong>.
                   </p>
                   <p className="text-white/50 text-xs md:text-sm">
                     We will review your business plan and get back to you within 2 hours.

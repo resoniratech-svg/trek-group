@@ -130,7 +130,7 @@ ${message}
 
         const info = await testTransporter.sendMail({
           from: `"Trek Qatar Website Test" <${testAccount.user}>`,
-          to: "madhusudhant307@gmail.com",
+          to: "info@trekgroups.com",
           replyTo: email,
           subject: emailSubject,
           text: emailText,
@@ -167,14 +167,14 @@ ${message}
 
     await transporter.sendMail({
       from: SMTP_FROM || `"Trek Qatar Website" <${SMTP_USER}>`,
-      to: "madhusudhant307@gmail.com",
+      to: "info@trekgroups.com",
       replyTo: email,
       subject: emailSubject,
       text: emailText,
       html: emailHtml,
     });
 
-    console.log(`✉️ Email successfully sent to madhusudhant307@gmail.com for inquiry from ${name}`);
+    console.log(`✉️ Email successfully sent to info@trekgroups.com for inquiry from ${name}`);
 
     return NextResponse.json({
       success: true,

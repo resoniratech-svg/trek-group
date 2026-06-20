@@ -158,7 +158,7 @@ export default function ContactPage() {
                   <div className="space-y-2">
                     <h3 className="text-2xl md:text-3xl font-black text-[#0A2540]">Message Sent!</h3>
                     <p className="text-gray-500 font-medium max-w-md mx-auto text-sm md:text-base">
-                      Thank you for getting in touch. Your message and details have been successfully received and forwarded to our team at <strong>madhusudhant307@gmail.com</strong>.
+                      Thank you for getting in touch. Your message and details have been successfully received and forwarded to our team at <strong>info@trekgroups.com</strong>.
                     </p>
                     <p className="text-gray-400 font-medium text-xs md:text-sm">
                       We will review your inquiry and get back to you shortly.
@@ -383,7 +383,7 @@ export default function ContactPage() {
               </div>
               <h3 className="text-[#0EA5E9] text-xs font-black tracking-widest uppercase mb-4 group-hover:text-white transition-colors duration-500">EMAIL</h3>
               <p className="text-[#0A2540] text-sm font-bold leading-relaxed group-hover:text-white transition-colors duration-500">
-                madhusudhant307@gmail.com
+                info@trekgroups.com
               </p>
             </div>
           </div>
