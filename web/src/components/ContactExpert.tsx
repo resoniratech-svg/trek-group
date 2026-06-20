@@ -28,10 +28,11 @@ export default function ContactExpert() {
     setErrorMessage("");
 
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch("https://formsubmit.co/ajax/info@trekgroups.com", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Accept": "application/json"
         },
         body: JSON.stringify({
           name: formData.name,
@@ -39,13 +40,12 @@ export default function ContactExpert() {
           phone: formData.phone,
           service: formData.service,
           message: formData.message || "Requested expert consultation.",
-          formType: "contact_expert_section",
+          "_subject": `New Setup Inquiry (Expert Form): from ${formData.name}`,
         }),
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to submit request");
+        throw new Error("Failed to submit request to FormSubmit");
       }
 
       setSubmitStatus("success");

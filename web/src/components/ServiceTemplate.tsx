@@ -86,10 +86,11 @@ export default function ServiceTemplate({ id }: ServiceTemplateProps) {
     setSubmitStatus("idle");
     
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch("https://formsubmit.co/ajax/info@trekgroups.com", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Accept": "application/json"
         },
         body: JSON.stringify({
           name: formData.name,
@@ -97,12 +98,12 @@ export default function ServiceTemplate({ id }: ServiceTemplateProps) {
           phone: formData.phone,
           message: formData.message,
           service: service.title,
-          formType: "service_inquiry_sidebar",
+          "_subject": `New Service Inquiry: ${service.title} from ${formData.name}`,
         }),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to send inquiry");
+        throw new Error("Failed to send inquiry to FormSubmit");
       }
 
       setSubmitStatus("success");

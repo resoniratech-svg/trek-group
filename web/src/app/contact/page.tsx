@@ -11,7 +11,6 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   return (
     <main className="min-h-screen bg-white">
       <Navbar />
@@ -163,15 +162,6 @@ export default function ContactPage() {
                     <p className="text-gray-400 font-medium text-xs md:text-sm">
                       We will review your inquiry and get back to you shortly.
                     </p>
-                    {previewUrl && (
-                      <div className="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-2xl text-amber-800 text-sm font-semibold max-w-md mx-auto">
-                        💡 <strong>[Test Mode] Live email was simulated!</strong><br />
-                        Since SMTP credentials are not set on your machine, you can preview the sent mail layout here:<br />
-                        <a href={previewUrl} target="_blank" rel="noopener noreferrer" className="text-[#0EA5E9] hover:underline font-bold mt-2 inline-block">
-                          Open Simulated Email Preview ↗
-                        </a>
-                      </div>
-                    )}
                   </div>
                   <button 
                     onClick={() => setSubmitStatus("idle")}
@@ -197,10 +187,11 @@ export default function ContactPage() {
                     const message = formData.get("message") as string;
 
                     try {
-                      const response = await fetch("/api/contact", {
+                      const response = await fetch("https://formsubmit.co/ajax/info@trekgroups.com", {
                         method: "POST",
                         headers: {
                           "Content-Type": "application/json",
+                          "Accept": "application/json"
                         },
                         body: JSON.stringify({
                           name,
@@ -208,21 +199,14 @@ export default function ContactPage() {
                           phone,
                           location,
                           message,
-                          formType: "contact_page",
+                          "_subject": `New Contact Form Submission from ${name}`,
                         }),
                       });
 
                       if (!response.ok) {
-                        const errorData = await response.json();
-                        throw new Error(errorData.error || "Failed to submit message");
+                        throw new Error("Failed to submit message to FormSubmit");
                       }
 
-                      const responseData = await response.json();
-                      if (responseData.previewUrl) {
-                        setPreviewUrl(responseData.previewUrl);
-                      } else {
-                        setPreviewUrl(null);
-                      }
                       setSubmitStatus("success");
                       form.reset();
                     } catch (error: any) {
