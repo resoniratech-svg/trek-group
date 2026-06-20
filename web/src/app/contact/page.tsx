@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { MapPin, Clock, Phone, Mail, CheckCircle2, ArrowRight } from "lucide-react";
@@ -7,6 +8,10 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 
 export default function ContactPage() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   return (
     <main className="min-h-screen bg-white">
       <Navbar />
@@ -54,7 +59,7 @@ export default function ContactPage() {
             </div>
             <div className="relative rounded-[2rem] overflow-hidden shadow-2xl min-h-[350px] lg:min-h-full bg-gray-100">
               <img
-                src="/images/qatar_office.webp"
+                src="/qatar_office.webp"
                 alt="Handshake"
                 className="absolute inset-0 w-full h-full object-cover"
                 onError={(e) => {
@@ -141,88 +146,182 @@ export default function ContactPage() {
             </div>
 
             <div className="bg-transparent mt-8 lg:mt-0 w-full">
-              <form
-                className="space-y-8 md:space-y-10 w-full"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const formData = new FormData(e.currentTarget);
-                  const name = formData.get("name") || "Not provided";
-                  const email = formData.get("email") || "Not provided";
-                  const phone = formData.get("phone") || "Not provided";
-                  const location = formData.get("location") || "Not provided";
-                  const message = formData.get("message") || "No message";
-
-                  const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0APhone: ${phone}%0D%0ALocation: ${location}%0D%0A%0D%0AMessage:%0D%0A${message}`;
-                  window.location.href = `mailto:info@trekgroups.com?subject=Website Contact: ${name}&body=${body}`;
-                }}
-              >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 md:gap-y-10">
-                  <div className="space-y-2 border-2 border-gray-100 rounded-2xl p-4 md:p-5 bg-white shadow-sm transition-all duration-300 hover:border-gray-200 hover:shadow-md focus-within:border-[#0EA5E9] focus-within:shadow-lg focus-within:-translate-y-1 group/field">
-                    <label className="text-sm md:text-base font-bold text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors uppercase tracking-wider">Full name</label>
-                    <input
-                      name="name"
-                      type="text"
-                      required
-                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-300"
-                      placeholder="Your Name"
-                    />
+              {submitStatus === "success" ? (
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="bg-white border-2 border-emerald-100 rounded-3xl p-8 md:p-12 shadow-xl text-center space-y-6 flex flex-col items-center justify-center min-h-[400px]"
+                >
+                  <div className="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center text-emerald-500 shadow-inner">
+                    <CheckCircle2 size={48} strokeWidth={2.5} />
                   </div>
-                  <div className="space-y-2 border-2 border-gray-100 rounded-2xl p-4 md:p-5 bg-white shadow-sm transition-all duration-300 hover:border-gray-200 hover:shadow-md focus-within:border-[#0EA5E9] focus-within:shadow-lg focus-within:-translate-y-1 group/field">
-                    <label className="text-sm md:text-base font-bold text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors uppercase tracking-wider">Email address</label>
-                    <input
-                      name="email"
-                      type="email"
-                      required
-                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-300"
-                      placeholder="Email@Address.com"
-                    />
+                  <div className="space-y-2">
+                    <h3 className="text-2xl md:text-3xl font-black text-[#0A2540]">Message Sent!</h3>
+                    <p className="text-gray-500 font-medium max-w-md mx-auto text-sm md:text-base">
+                      Thank you for getting in touch. Your message and details have been successfully received and forwarded to our team at <strong>madhusudhant307@gmail.com</strong>.
+                    </p>
+                    <p className="text-gray-400 font-medium text-xs md:text-sm">
+                      We will review your inquiry and get back to you shortly.
+                    </p>
+                    {previewUrl && (
+                      <div className="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-2xl text-amber-800 text-sm font-semibold max-w-md mx-auto">
+                        💡 <strong>[Test Mode] Live email was simulated!</strong><br />
+                        Since SMTP credentials are not set on your machine, you can preview the sent mail layout here:<br />
+                        <a href={previewUrl} target="_blank" rel="noopener noreferrer" className="text-[#0EA5E9] hover:underline font-bold mt-2 inline-block">
+                          Open Simulated Email Preview ↗
+                        </a>
+                      </div>
+                    )}
                   </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 md:gap-y-10">
-                  <div className="space-y-2 border-2 border-gray-100 rounded-2xl p-4 md:p-5 bg-white shadow-sm transition-all duration-300 hover:border-gray-200 hover:shadow-md focus-within:border-[#0EA5E9] focus-within:shadow-lg focus-within:-translate-y-1 group/field">
-                    <label className="text-sm md:text-base font-bold text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors uppercase tracking-wider">Phone number</label>
-                    <input
-                      name="phone"
-                      type="tel"
-                      required
-                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-300"
-                      placeholder="+974 0000 0000"
-                    />
-                  </div>
-                  <div className="space-y-2 border-2 border-gray-100 rounded-2xl p-4 md:p-5 bg-white shadow-sm transition-all duration-300 hover:border-gray-200 hover:shadow-md focus-within:border-[#0EA5E9] focus-within:shadow-lg focus-within:-translate-y-1 group/field">
-                    <label className="text-sm md:text-base font-bold text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors uppercase tracking-wider">Location</label>
-                    <input
-                      name="location"
-                      type="text"
-                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-300"
-                      placeholder="Doha, Qatar"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2 border-2 border-gray-100 rounded-2xl p-4 md:p-5 bg-white shadow-sm transition-all duration-300 hover:border-gray-200 hover:shadow-md focus-within:border-[#0EA5E9] focus-within:shadow-lg focus-within:-translate-y-1 group/field">
-                  <label className="text-sm md:text-base font-bold text-[#0EA5E9] block uppercase tracking-wider">Type your message...</label>
-                  <textarea
-                    name="message"
-                    rows={4}
-                    required
-                    className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold resize-none leading-relaxed"
-                  ></textarea>
-                </div>
-
-                <div className="pt-4">
-                  <button
-                    type="submit"
-                    className="w-full md:w-auto bg-[#0EA5E9] hover:bg-[#0284C7] text-white px-10 py-4 rounded-full font-bold text-lg transition-all flex items-center justify-center gap-4 hover:shadow-xl hover:shadow-[#0EA5E9]/30 hover:-translate-y-1 group"
+                  <button 
+                    onClick={() => setSubmitStatus("idle")}
+                    className="bg-[#0EA5E9] hover:bg-[#0284C7] text-white px-8 py-3 rounded-full font-bold text-sm transition-all hover:shadow-lg hover:shadow-[#0EA5E9]/20"
                   >
-                    <div className="bg-white rounded-full p-2 text-[#0EA5E9] transition-transform group-hover:translate-x-2">
-                      <ArrowRight size={20} />
-                    </div>
-                    Send message
+                    Send another message
                   </button>
-                </div>
-              </form>
+                </motion.div>
+              ) : (
+                <form
+                  className="space-y-8 md:space-y-10 w-full"
+                  onSubmit={async (e) => {
+                    e.preventDefault();
+                    setIsSubmitting(true);
+                    setErrorMessage("");
+                    
+                    const form = e.currentTarget;
+                    const formData = new FormData(form);
+                    const name = formData.get("name") as string;
+                    const email = formData.get("email") as string;
+                    const phone = formData.get("phone") as string;
+                    const location = formData.get("location") as string;
+                    const message = formData.get("message") as string;
+
+                    try {
+                      const response = await fetch("/api/contact", {
+                        method: "POST",
+                        headers: {
+                          "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                          name,
+                          email,
+                          phone,
+                          location,
+                          message,
+                          formType: "contact_page",
+                        }),
+                      });
+
+                      if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.error || "Failed to submit message");
+                      }
+
+                      const responseData = await response.json();
+                      if (responseData.previewUrl) {
+                        setPreviewUrl(responseData.previewUrl);
+                      } else {
+                        setPreviewUrl(null);
+                      }
+                      setSubmitStatus("success");
+                      form.reset();
+                    } catch (error: any) {
+                      console.error("Submission error:", error);
+                      setSubmitStatus("error");
+                      setErrorMessage(error.message || "An unexpected error occurred. Please try again.");
+                    } finally {
+                      setIsSubmitting(false);
+                    }
+                  }}
+                >
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 md:gap-y-10">
+                    <div className="space-y-2 border-2 border-gray-100 rounded-2xl p-4 md:p-5 bg-white shadow-sm transition-all duration-300 hover:border-gray-200 hover:shadow-md focus-within:border-[#0EA5E9] focus-within:shadow-lg focus-within:-translate-y-1 group/field">
+                      <label className="text-sm md:text-base font-bold text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors uppercase tracking-wider">Full name</label>
+                      <input
+                        name="name"
+                        type="text"
+                        required
+                        className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-300"
+                        placeholder="Your Name"
+                      />
+                    </div>
+                    <div className="space-y-2 border-2 border-gray-100 rounded-2xl p-4 md:p-5 bg-white shadow-sm transition-all duration-300 hover:border-gray-200 hover:shadow-md focus-within:border-[#0EA5E9] focus-within:shadow-lg focus-within:-translate-y-1 group/field">
+                      <label className="text-sm md:text-base font-bold text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors uppercase tracking-wider">Email address</label>
+                      <input
+                        name="email"
+                        type="email"
+                        required
+                        className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-300"
+                        placeholder="Email@Address.com"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 md:gap-y-10">
+                    <div className="space-y-2 border-2 border-gray-100 rounded-2xl p-4 md:p-5 bg-white shadow-sm transition-all duration-300 hover:border-gray-200 hover:shadow-md focus-within:border-[#0EA5E9] focus-within:shadow-lg focus-within:-translate-y-1 group/field">
+                      <label className="text-sm md:text-base font-bold text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors uppercase tracking-wider">Phone number</label>
+                      <input
+                        name="phone"
+                        type="tel"
+                        required
+                        className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-300"
+                        placeholder="+974 0000 0000"
+                      />
+                    </div>
+                    <div className="space-y-2 border-2 border-gray-100 rounded-2xl p-4 md:p-5 bg-white shadow-sm transition-all duration-300 hover:border-gray-200 hover:shadow-md focus-within:border-[#0EA5E9] focus-within:shadow-lg focus-within:-translate-y-1 group/field">
+                      <label className="text-sm md:text-base font-bold text-[#0A2540]/60 block group-focus-within/field:text-[#0EA5E9] transition-colors uppercase tracking-wider">Location</label>
+                      <input
+                        name="location"
+                        type="text"
+                        className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold placeholder:text-gray-300"
+                        placeholder="Doha, Qatar"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2 border-2 border-gray-100 rounded-2xl p-4 md:p-5 bg-white shadow-sm transition-all duration-300 hover:border-gray-200 hover:shadow-md focus-within:border-[#0EA5E9] focus-within:shadow-lg focus-within:-translate-y-1 group/field">
+                    <label className="text-sm md:text-base font-bold text-[#0EA5E9] block uppercase tracking-wider">Type your message...</label>
+                    <textarea
+                      name="message"
+                      rows={4}
+                      required
+                      className="w-full bg-transparent focus:outline-none text-[#0A2540] text-lg md:text-xl font-bold resize-none leading-relaxed"
+                    ></textarea>
+                  </div>
+
+                  {submitStatus === "error" && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="bg-rose-50 border border-rose-200 p-4 rounded-2xl text-rose-600 text-sm font-semibold text-center"
+                    >
+                      ❌ {errorMessage}
+                    </motion.div>
+                  )}
+
+                  <div className="pt-4">
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full md:w-auto bg-[#0EA5E9] hover:bg-[#0284C7] text-white px-10 py-4 rounded-full font-bold text-lg transition-all flex items-center justify-center gap-4 hover:shadow-xl hover:shadow-[#0EA5E9]/30 hover:-translate-y-1 group disabled:opacity-75 disabled:cursor-not-allowed"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          <div className="bg-white rounded-full p-2 text-[#0EA5E9] transition-transform group-hover:translate-x-2">
+                            <ArrowRight size={20} />
+                          </div>
+                          Send message
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </form>
+              )}
             </div>
           </div>
         </div>
@@ -284,7 +383,7 @@ export default function ContactPage() {
               </div>
               <h3 className="text-[#0EA5E9] text-xs font-black tracking-widest uppercase mb-4 group-hover:text-white transition-colors duration-500">EMAIL</h3>
               <p className="text-[#0A2540] text-sm font-bold leading-relaxed group-hover:text-white transition-colors duration-500">
-                info@trekgroups.com
+                madhusudhant307@gmail.com
               </p>
             </div>
           </div>

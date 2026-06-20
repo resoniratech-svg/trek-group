@@ -83,9 +83,28 @@ export default function ServiceTemplate({ id }: ServiceTemplateProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate API request
+    setSubmitStatus("idle");
+    
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+          service: service.title,
+          formType: "service_inquiry_sidebar",
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send inquiry");
+      }
+
       setSubmitStatus("success");
       setFormData({
         name: "",
@@ -94,6 +113,7 @@ export default function ServiceTemplate({ id }: ServiceTemplateProps) {
         message: `Hello Trek Group, I would like to inquire about your "${service.title}" services in Qatar.`
       });
     } catch (err) {
+      console.error("Service inquiry error:", err);
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
@@ -279,6 +299,16 @@ export default function ServiceTemplate({ id }: ServiceTemplateProps) {
                         className="bg-emerald-500/10 border border-emerald-500/20 p-4 rounded-xl text-emerald-400 text-xs font-semibold text-center"
                       >
                         ✓ Thank you! Our corporate consultants will contact you shortly.
+                      </motion.div>
+                    )}
+
+                    {submitStatus === "error" && (
+                      <motion.div 
+                        initial={{ opacity: 0, y: 10 }} 
+                        animate={{ opacity: 1, y: 0 }}
+                        className="bg-rose-500/10 border border-rose-500/20 p-4 rounded-xl text-rose-400 text-xs font-semibold text-center"
+                      >
+                        ❌ Failed to send message. Please try again.
                       </motion.div>
                     )}
                   </form>

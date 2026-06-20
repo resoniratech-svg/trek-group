@@ -3,6 +3,7 @@ import path from "path";
 
 const blogsPath = path.join(process.cwd(), "src/data/blogs.json");
 const faqsPath = path.join(process.cwd(), "src/data/faqs.json");
+const inquiriesPath = path.join(process.cwd(), "src/data/inquiries.json");
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY;
@@ -83,15 +84,10 @@ function writeJsonFile(filePath: string, data: any[]) {
 // -------------------------------------------------------------
 export async function getBlogs(): Promise<any[]> {
   if (isSupabaseConfigured) {
-    try {
-      return await supabaseFetch("blogs?select=*&order=created_at.desc");
-    } catch (error) {
-      console.error("Supabase getBlogs failed, falling back to local seed data:", error);
-      return readJsonFile(blogsPath);
-    }
-  } else {
-    return readJsonFile(blogsPath);
+    return await supabaseFetch("blogs?select=*&order=created_at.desc");
   }
+
+  return [];
 }
 
 export async function getBlogById(id: string): Promise<any | null> {
@@ -155,15 +151,10 @@ export async function deleteBlog(id: string): Promise<boolean> {
 // -------------------------------------------------------------
 export async function getFaqs(): Promise<any[]> {
   if (isSupabaseConfigured) {
-    try {
-      return await supabaseFetch("faqs?select=*&order=created_at.desc");
-    } catch (error) {
-      console.error("Supabase getFaqs failed, falling back to local seed data:", error);
-      return readJsonFile(faqsPath);
-    }
-  } else {
-    return readJsonFile(faqsPath);
+    return await supabaseFetch("faqs?select=*&order=created_at.desc");
   }
+
+  return [];
 }
 
 export async function insertFaq(faq: any): Promise<any> {
@@ -202,5 +193,51 @@ export async function deleteFaq(id: string): Promise<boolean> {
     const filteredFaqs = faqs.filter((f: any) => f.id !== id);
     writeJsonFile(faqsPath, filteredFaqs);
     return filteredFaqs.length !== initialLength;
+  }
+}
+
+// -------------------------------------------------------------
+// INQUIRIES Interfaces
+// -------------------------------------------------------------
+export async function insertInquiry(inquiry: any): Promise<any> {
+  const timestamp = new Date().toISOString();
+  const inquiryWithTime = {
+    id: typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15),
+    created_at: timestamp,
+    ...inquiry
+  };
+
+  if (isSupabaseConfigured) {
+    try {
+      const data = await supabaseFetch("inquiries", {
+        method: "POST",
+        body: JSON.stringify(inquiryWithTime),
+        headers: {
+          "Prefer": "return=representation",
+        },
+      });
+      return data && data.length > 0 ? data[0] : inquiryWithTime;
+    } catch (error) {
+      console.error("Supabase insertInquiry failed, falling back to local file logging:", error);
+      try {
+        if (!isProduction) {
+          const inquiries = readJsonFile(inquiriesPath);
+          inquiries.unshift(inquiryWithTime);
+          writeJsonFile(inquiriesPath, inquiries);
+        }
+      } catch (err) {
+        console.error("Failed to write inquiry to local fallback file:", err);
+      }
+      return inquiryWithTime;
+    }
+  } else {
+    if (isProduction) {
+      console.warn("Supabase database variables are missing. Inquiry was not saved to database.");
+      return inquiryWithTime;
+    }
+    const inquiries = readJsonFile(inquiriesPath);
+    inquiries.unshift(inquiryWithTime);
+    writeJsonFile(inquiriesPath, inquiries);
+    return inquiryWithTime;
   }
 }
