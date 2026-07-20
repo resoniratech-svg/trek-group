@@ -4,7 +4,14 @@ import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
-import { ArrowRight, Search, BookOpen, Tag, HelpCircle, Plus } from "lucide-react";
+import {
+  ArrowRight,
+  Search,
+  BookOpen,
+  Tag,
+  HelpCircle,
+  Plus,
+} from "lucide-react";
 import { motion } from "framer-motion";
 
 interface BlogPost {
@@ -13,12 +20,36 @@ interface BlogPost {
   excerpt: string;
   content: string;
   category: string;
-  intent: "Informational" | "Commercial" | "Local Doha Setup";
+  intent: string;
+  targetLocation?: string;
   date: string;
 }
 
-const categories = ["All", "Company Formation", "Foreign Ownership", "PRO & Compliance", "Visas & Immigration", "Finance & Tech"];
-const intents = ["All", "Informational", "Commercial", "Local Doha Setup"];
+const categories = [
+  "All",
+  "Company Formation",
+  "Foreign Ownership",
+  "PRO & Compliance",
+  "Visas & Immigration",
+  "Finance & Tech",
+];
+const intents = [
+  "All",
+  "Informational",
+  "Commercial Investigation",
+  "Transactional / Lead Generation",
+  "Navigational / Branded",
+];
+const targetLocations = [
+  "All",
+  "Qatar",
+  "Doha",
+  "GCC",
+  "Saudi Arabia",
+  "UAE",
+  "International",
+  "Best setup",
+];
 
 const ShimmerCard = () => (
   <div className="bg-white/5 border border-white/10 p-8 rounded-[2rem] shadow-xl animate-pulse flex flex-col justify-between h-[300px]">
@@ -46,6 +77,7 @@ export default function BlogPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedIntent, setSelectedIntent] = useState("All");
+  const [selectedTargetLocation, setSelectedTargetLocation] = useState("All");
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -66,12 +98,17 @@ export default function BlogPage() {
     fetchBlogs();
   }, []);
 
-  const filteredPosts = blogPosts.filter(post => {
-    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === "All" || post.category === selectedCategory;
-    const matchesIntent = selectedIntent === "All" || post.intent === selectedIntent;
-    return matchesSearch && matchesCategory && matchesIntent;
+  const filteredPosts = blogPosts.filter((post) => {
+    const matchesSearch =
+      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory =
+      selectedCategory === "All" || post.category === selectedCategory;
+    const matchesIntent =
+      selectedIntent === "All" || post.intent === selectedIntent;
+    const matchesTargetLocation =
+      selectedTargetLocation === "All" || post.targetLocation === selectedTargetLocation;
+    return matchesSearch && matchesCategory && matchesIntent && matchesTargetLocation;
   });
 
   return (
@@ -93,10 +130,12 @@ export default function BlogPage() {
               Knowledge Hub & SEO Insights
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mt-4 mb-6 leading-tight">
-              Trek Group <span className="text-secondary italic">Corporate Blog</span>
+              Trek Group{" "}
+              <span className="text-secondary italic">Corporate Blog</span>
             </h1>
             <p className="text-white/80 text-base md:text-lg leading-relaxed max-w-2xl mx-auto font-medium">
-              A comprehensive guide and strategy index for entrepreneurs, investors, and businesses operating in Doha, Qatar.
+              A comprehensive guide and strategy index for entrepreneurs,
+              investors, and businesses operating in Doha, Qatar.
             </p>
           </div>
         </section>
@@ -105,11 +144,13 @@ export default function BlogPage() {
         <section className="pb-8 px-6">
           <div className="container mx-auto max-w-7xl relative z-20">
             <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-6 md:p-8 rounded-[2rem] shadow-xl space-y-6">
-              
               {/* Search Bar */}
               <div className="relative">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" size={20} />
-                <input 
+                <Search
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40"
+                  size={20}
+                />
+                <input
                   type="text"
                   placeholder="Search articles, keywords or strategies..."
                   value={searchQuery}
@@ -122,15 +163,17 @@ export default function BlogPage() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-2">
                 {/* Category Select */}
                 <div>
-                  <span className="block text-white/50 text-[10px] font-black uppercase tracking-wider mb-3">Filter by Category</span>
+                  <span className="block text-white/50 text-[10px] font-black uppercase tracking-wider mb-3">
+                    Filter by Category
+                  </span>
                   <div className="flex flex-wrap gap-2">
                     {categories.map((cat) => (
                       <button
                         key={cat}
                         onClick={() => setSelectedCategory(cat)}
                         className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                          selectedCategory === cat 
-                            ? "bg-secondary text-white shadow-lg" 
+                          selectedCategory === cat
+                            ? "bg-secondary text-white shadow-lg"
                             : "bg-white/5 hover:bg-white/10 text-white/70 hover:text-white border border-white/5"
                         }`}
                       >
@@ -142,15 +185,17 @@ export default function BlogPage() {
 
                 {/* Intent Select */}
                 <div>
-                  <span className="block text-white/50 text-[10px] font-black uppercase tracking-wider mb-3">Filter by Search Intent</span>
+                  <span className="block text-white/50 text-[10px] font-black uppercase tracking-wider mb-3">
+                    Filter by Search Intent
+                  </span>
                   <div className="flex flex-wrap gap-2">
                     {intents.map((intent) => (
                       <button
                         key={intent}
                         onClick={() => setSelectedIntent(intent)}
                         className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                          selectedIntent === intent 
-                            ? "bg-secondary text-white shadow-lg" 
+                          selectedIntent === intent
+                            ? "bg-secondary text-white shadow-lg"
                             : "bg-white/5 hover:bg-white/10 text-white/70 hover:text-white border border-white/5"
                         }`}
                       >
@@ -159,8 +204,29 @@ export default function BlogPage() {
                     ))}
                   </div>
                 </div>
-              </div>
 
+                {/* Target Location Select */}
+                <div>
+                  <span className="block text-white/50 text-[10px] font-black uppercase tracking-wider mb-3">
+                    Filter by Target Location
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {targetLocations.map((loc) => (
+                      <button
+                        key={loc}
+                        onClick={() => setSelectedTargetLocation(loc)}
+                        className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                          selectedTargetLocation === loc
+                            ? "bg-secondary text-white shadow-lg"
+                            : "bg-white/5 hover:bg-white/10 text-white/70 hover:text-white border border-white/5"
+                        }`}
+                      >
+                        {loc}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -178,7 +244,11 @@ export default function BlogPage() {
             ) : filteredPosts.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredPosts.map((post, index) => (
-                  <Link href={`/blog/${post.id}`} key={post.id} className="group block h-full">
+                  <Link
+                    href={`/blog/${post.id}`}
+                    key={post.id}
+                    className="group block h-full"
+                  >
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -222,9 +292,12 @@ export default function BlogPage() {
             ) : (
               <div className="text-center py-20 bg-white/5 rounded-[2rem] border border-white/10">
                 <BookOpen className="text-white/20 mx-auto mb-4" size={48} />
-                <h3 className="text-xl font-bold text-white mb-2">No articles found</h3>
+                <h3 className="text-xl font-bold text-white mb-2">
+                  No articles found
+                </h3>
                 <p className="text-white/50 max-w-sm mx-auto text-sm">
-                  Try adjusting your search query, selecting "All" categories, or resetting the filters.
+                  Try adjusting your search query, selecting "All" categories,
+                  or resetting the filters.
                 </p>
               </div>
             )}
@@ -250,7 +323,8 @@ export default function BlogPage() {
                 Need Specific Legal or Business Setup Advice?
               </h2>
               <p className="text-white/70 text-sm md:text-base mb-8 max-w-2xl mx-auto font-medium">
-                Our team can guide you on the exact regulations, CR amendments, tax cards, and PRO steps required for your company structure.
+                Our team can guide you on the exact regulations, CR amendments,
+                tax cards, and PRO steps required for your company structure.
               </p>
               <Link href="/contact" className="inline-block">
                 <button className="bg-secondary hover:bg-secondary-dark text-white px-8 py-3.5 rounded-full font-black text-base transition-all transform hover:scale-105 shadow-2xl cursor-pointer">

@@ -28,6 +28,7 @@ interface BlogPost {
   content: string;
   category: string;
   intent: string;
+  targetLocation?: string;
   date: string;
 }
 
@@ -38,7 +39,13 @@ interface FAQItem {
 }
 
 const CATEGORIES = ["Company Formation", "Foreign Ownership", "PRO & Compliance", "Visas & Immigration", "Finance & Tech"];
-const INTENTS = ["Informational", "Commercial", "Local Doha Setup"];
+const INTENTS = [
+  "Informational",
+  "Commercial Investigation",
+  "Transactional / Lead Generation",
+  "Navigational / Branded"
+];
+const TARGET_LOCATIONS = ["", "Qatar", "Doha", "GCC", "Saudi Arabia", "UAE", "International", "Best setup"];
 
 export default function AdminPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -55,6 +62,7 @@ export default function AdminPage() {
   const [content, setContent] = useState("");
   const [category, setCategory] = useState(CATEGORIES[0]);
   const [intent, setIntent] = useState(INTENTS[0]);
+  const [targetLocation, setTargetLocation] = useState("");
 
   // FAQ Form State
   const [faqQuestion, setFaqQuestion] = useState("");
@@ -160,6 +168,7 @@ export default function AdminPage() {
           content,
           category,
           intent,
+          targetLocation,
         }),
       });
 
@@ -174,6 +183,7 @@ export default function AdminPage() {
       setContent("");
       setCategory(CATEGORIES[0]);
       setIntent(INTENTS[0]);
+      setTargetLocation("");
       setSuccess(true);
       setActiveBlogTab("write");
       setRefreshTrigger((prev) => prev + 1);
@@ -673,6 +683,23 @@ export default function AdminPage() {
                                     {INTENTS.map((int) => (
                                       <option key={int} value={int} className="bg-[#0b0f22] text-white">
                                         {int}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </div>
+
+                                <div className="space-y-2">
+                                  <label className="text-white/60 text-xs font-bold uppercase tracking-wider">
+                                    Target Location (Optional)
+                                  </label>
+                                  <select
+                                    value={targetLocation}
+                                    onChange={(e) => setTargetLocation(e.target.value)}
+                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white/90 focus:outline-none focus:border-secondary transition-all cursor-pointer"
+                                  >
+                                    {TARGET_LOCATIONS.map((loc, idx) => (
+                                      <option key={idx} value={loc} className="bg-[#0b0f22] text-white">
+                                        {loc === "" ? "None (Optional)" : loc}
                                       </option>
                                     ))}
                                   </select>
