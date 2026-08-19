@@ -49,11 +49,14 @@ const steps = [
     title: "Apply for the Trade License",
     description: (
       <div className="space-y-4">
-        <p>With the Commercial Registration approved, businesses must apply for a Trade License through the Municipality and relevant government departments.</p>
+        <p>With the Commercial Registration approved, businesses must apply for the Commercial License/Permit through MOCI’s Single Window, together with any premises, municipality or external approvals required for the activity.</p>
         <p>The trade license application generally requires:</p>
         <ul className="list-disc pl-5 space-y-1 text-white/80 group-hover:text-white transition-colors">
           <li>Valid Commercial Registration (CR)</li>
-          <li>Office or virtual office agreement</li>
+          <li>Start your business in Qatar with up to 100% foreign ownership in eligible activities.</li>
+          <li>TREK Group Business Services can help you identify suitable activities,</li>
+          <li>Prepare the required documents,</li>
+          <li>Guide you through the applicable approval and company formation process.</li>
           <li>Municipality approvals</li>
           <li>Property documentation</li>
           <li>Safety and inspection clearances (if applicable)</li>

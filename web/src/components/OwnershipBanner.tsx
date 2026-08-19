@@ -40,7 +40,7 @@ export default function OwnershipBanner() {
             </h2>
 
             <p className="text-white/70 text-sm md:text-base leading-relaxed mb-0 max-w-3xl">
-              We give you <span className="text-white font-bold italic">1000% surety</span> that you can own 100% of your company in Qatar, provided your business is structured under the right legal pathway. Qatar has opened its doors wider than ever for international investors, allowing full foreign ownership across multiple sectors but the process is precise.
+              Foreign investors may qualify for up to 100% foreign ownership in eligible activities, subject to applicable regulations and approvals.
             </p>
           </div>
 
