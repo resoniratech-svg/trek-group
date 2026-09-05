@@ -22,6 +22,7 @@ interface BlogPost {
   category: string;
   intent: string;
   targetLocation?: string;
+  coverImage?: string;
   date: string;
 }
 
@@ -242,52 +243,123 @@ export default function BlogPage() {
                 <ShimmerCard />
               </div>
             ) : filteredPosts.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredPosts.map((post, index) => (
-                  <Link
-                    href={`/blog/${post.id}`}
-                    key={post.id}
-                    className="group block h-full"
+              <div className="space-y-12">
+                {/* FEATURED HERO ARTICLE */}
+                <Link href={`/blog/${filteredPosts[0].id}`} className="group block">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2.5rem] group-hover:border-secondary/40 transition-all duration-300 shadow-2xl overflow-hidden flex flex-col lg:flex-row items-stretch"
                   >
+                    {/* Image side (left) */}
+                    <div className="w-full lg:w-1/2 relative min-h-[250px] lg:min-h-[400px] bg-black/20 overflow-hidden border-b lg:border-b-0 lg:border-r border-white/5">
+                      {filteredPosts[0].coverImage ? (
+                        <img 
+                          src={filteredPosts[0].coverImage} 
+                          alt={filteredPosts[0].title} 
+                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                        />
+                      ) : (
+                        <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent flex items-center justify-center">
+                          <BookOpen className="text-white/10" size={64} />
+                        </div>
+                      )}
+                      <div className="absolute top-6 left-6 bg-secondary text-white text-[10px] font-black uppercase tracking-wider px-3 py-1.5 rounded-full shadow-lg">
+                        Featured Article
+                      </div>
+                    </div>
+
+                    {/* Content side (right) */}
+                    <div className="w-full lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center">
+                      <div className="flex items-center gap-3 mb-6 text-xs font-bold">
+                        <span className="text-secondary uppercase tracking-wider flex items-center gap-1.5">
+                          <Tag size={14} />
+                          {filteredPosts[0].category}
+                        </span>
+                        <span className="text-white/30">•</span>
+                        <span className="text-white/50 flex items-center gap-1.5">
+                          <HelpCircle size={14} />
+                          {filteredPosts[0].intent}
+                        </span>
+                      </div>
+
+                      <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-white mb-4 leading-tight group-hover:text-secondary transition-colors font-outfit">
+                        {filteredPosts[0].title}
+                      </h2>
+                      <p className="text-white/70 text-base lg:text-lg leading-relaxed mb-8 font-medium line-clamp-4">
+                        {filteredPosts[0].excerpt}
+                      </p>
+
+                      <div className="pt-6 border-t border-white/10 flex items-center justify-between text-sm font-bold text-white/50 mt-auto">
+                        <span>{filteredPosts[0].date}</span>
+                        <span className="flex items-center gap-2 text-secondary group-hover:text-white transition-colors cursor-pointer group-hover:translate-x-2">
+                          Read Full Article
+                          <ArrowRight size={16} />
+                        </span>
+                      </div>
+                    </div>
+                  </motion.div>
+                </Link>
+
+                {/* REGULAR GRID */}
+                {filteredPosts.length > 1 && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {filteredPosts.slice(1).map((post, index) => (
+                      <Link
+                        href={`/blog/${post.id}`}
+                        key={post.id}
+                        className="group block h-full"
+                      >
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.4, delay: (index % 3) * 0.05 }}
-                      className="h-full bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-[2rem] group-hover:border-secondary/35 transition-all duration-300 flex flex-col justify-between shadow-xl"
+                      className="h-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2rem] group-hover:border-secondary/35 transition-all duration-300 flex flex-col justify-between shadow-xl overflow-hidden"
                     >
-                      <div>
-                        {/* Meta info tags */}
-                        <div className="flex items-center gap-2 mb-4 text-xs font-bold">
-                          <span className="text-secondary uppercase tracking-wider flex items-center gap-1.5">
-                            <Tag size={12} />
-                            {post.category}
-                          </span>
-                          <span className="text-white/30">•</span>
-                          <span className="text-white/40 flex items-center gap-1.5">
-                            <HelpCircle size={12} />
-                            {post.intent}
-                          </span>
+                      {post.coverImage && (
+                        <div className="w-full h-48 bg-black/20 shrink-0 border-b border-white/5 overflow-hidden">
+                          <img src={post.coverImage} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        </div>
+                      )}
+                      
+                      <div className="p-8 flex flex-col justify-between flex-grow">
+                        <div>
+                          {/* Meta info tags */}
+                          <div className="flex items-center gap-2 mb-4 text-xs font-bold">
+                            <span className="text-secondary uppercase tracking-wider flex items-center gap-1.5">
+                              <Tag size={12} />
+                              {post.category}
+                            </span>
+                            <span className="text-white/30">•</span>
+                            <span className="text-white/40 flex items-center gap-1.5">
+                              <HelpCircle size={12} />
+                              {post.intent}
+                            </span>
+                          </div>
+
+                          <h3 className="text-xl font-black text-white mb-3 leading-snug group-hover:text-secondary transition-colors">
+                            {post.title}
+                          </h3>
+                          <p className="text-white/70 text-sm leading-relaxed mb-6 font-medium line-clamp-3">
+                            {post.excerpt}
+                          </p>
                         </div>
 
-                        <h3 className="text-xl font-black text-white mb-3 leading-snug group-hover:text-secondary transition-colors">
-                          {post.title}
-                        </h3>
-                        <p className="text-white/70 text-sm leading-relaxed mb-6 font-medium line-clamp-3">
-                          {post.excerpt}
-                        </p>
-                      </div>
-
-                      <div className="pt-4 border-t border-white/5 flex items-center justify-between text-xs font-bold text-white/40">
+                        <div className="pt-4 border-t border-white/5 flex items-center justify-between text-xs font-bold text-white/40">
                         <span>{post.date}</span>
                         <span className="flex items-center gap-1.5 text-secondary group-hover:text-white transition-colors cursor-pointer group-hover:translate-x-1.5 transition-transform">
                           Read Article
                           <ArrowRight size={14} />
                         </span>
                       </div>
+                      </div>
                     </motion.div>
                   </Link>
                 ))}
+                </div>
+                )}
               </div>
             ) : (
               <div className="text-center py-20 bg-white/5 rounded-[2rem] border border-white/10">

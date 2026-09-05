@@ -18,7 +18,7 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { title, excerpt, content, category, intent, targetLocation } = body;
+    const { title, excerpt, content, category, intent, targetLocation, coverImage } = body;
 
     // Simple validation
     if (!title || !content || !excerpt || !category || !intent) {
@@ -52,6 +52,7 @@ export async function POST(request: Request) {
       category,
       intent,
       targetLocation: targetLocation || "",
+      coverImage: coverImage || null,
       date: new Date().toLocaleDateString("en-US", {
         year: "numeric",
         month: "long",

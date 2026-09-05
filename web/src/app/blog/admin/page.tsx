@@ -29,6 +29,7 @@ interface BlogPost {
   category: string;
   intent: string;
   targetLocation?: string;
+  coverImage?: string;
   date: string;
 }
 
@@ -63,6 +64,8 @@ export default function AdminPage() {
   const [category, setCategory] = useState(CATEGORIES[0]);
   const [intent, setIntent] = useState(INTENTS[0]);
   const [targetLocation, setTargetLocation] = useState("");
+  const [coverImage, setCoverImage] = useState("");
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   // FAQ Form State
   const [faqQuestion, setFaqQuestion] = useState("");
@@ -144,6 +147,33 @@ export default function AdminPage() {
     setIsLoggedIn(false);
   };
 
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      setUploadingImage(true);
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to upload image");
+      }
+
+      const data = await res.json();
+      setCoverImage(data.url);
+    } catch (err: any) {
+      alert(`Image upload error: ${err.message}`);
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
   // Blog publishing handler
   const handlePublishBlog = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -169,6 +199,7 @@ export default function AdminPage() {
           category,
           intent,
           targetLocation,
+          coverImage,
         }),
       });
 
@@ -184,6 +215,7 @@ export default function AdminPage() {
       setCategory(CATEGORIES[0]);
       setIntent(INTENTS[0]);
       setTargetLocation("");
+      setCoverImage("");
       setSuccess(true);
       setActiveBlogTab("write");
       setRefreshTrigger((prev) => prev + 1);
@@ -652,6 +684,34 @@ export default function AdminPage() {
                                 />
                               </div>
 
+                              {/* Cover Image Upload */}
+                              <div className="space-y-2">
+                                <label className="text-white/60 text-xs font-bold uppercase tracking-wider">
+                                  Cover Image (Optional)
+                                </label>
+                                <div className="flex items-center gap-4">
+                                  <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleImageUpload}
+                                    className="block w-full text-sm text-white/60
+                                      file:mr-4 file:py-2.5 file:px-4
+                                      file:rounded-xl file:border-0
+                                      file:text-xs file:font-black
+                                      file:bg-secondary/10 file:text-secondary
+                                      hover:file:bg-secondary/20 transition-all cursor-pointer bg-white/5 border border-white/10 rounded-xl p-1.5"
+                                  />
+                                  {uploadingImage && (
+                                    <span className="text-xs text-secondary animate-pulse shrink-0 font-bold">Uploading...</span>
+                                  )}
+                                </div>
+                                {coverImage && (
+                                  <div className="mt-4 relative rounded-xl overflow-hidden border border-white/10 w-full max-w-md aspect-video">
+                                    <img src={coverImage} alt="Cover Preview" className="w-full h-full object-cover" />
+                                  </div>
+                                )}
+                              </div>
+
                               {/* Category & Intent */}
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
@@ -741,7 +801,7 @@ export default function AdminPage() {
 
                               <button
                                 type="submit"
-                                disabled={loading}
+                                disabled={loading || uploadingImage}
                                 className="w-full bg-secondary hover:bg-secondary-dark disabled:opacity-50 text-white py-4 rounded-xl font-black text-sm transition-all transform hover:scale-[1.01] flex items-center justify-center gap-2 shadow-xl shadow-secondary/15 cursor-pointer"
                               >
                                 <Plus size={16} />
@@ -757,6 +817,11 @@ export default function AdminPage() {
                               <h1 className="text-2xl md:text-4xl font-black text-white leading-tight font-outfit mt-2">
                                 {title || <span className="text-white/20 italic">Untitled Article</span>}
                               </h1>
+                              {coverImage && (
+                                <div className="w-full aspect-[21/9] rounded-2xl overflow-hidden border border-white/10 mt-6 mb-8">
+                                  <img src={coverImage} alt="Cover Preview" className="w-full h-full object-cover" />
+                                </div>
+                              )}
                               {excerpt && (
                                 <p className="text-white/80 text-sm font-bold border-l-2 border-secondary pl-4 italic">
                                   {excerpt}
