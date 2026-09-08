@@ -130,6 +130,29 @@ export async function insertBlog(blog: any): Promise<any> {
 
 export async function deleteBlog(id: string): Promise<boolean> {
   if (isSupabaseConfigured) {
+    try {
+      // 1. Fetch the blog to see if it has a cover image in Supabase storage
+      const blog = await getBlogById(id);
+      if (blog && blog.coverImage && blog.coverImage.includes("/blog-images/")) {
+        const filename = blog.coverImage.split("/blog-images/").pop();
+        if (filename) {
+          const storageUrl = `${SUPABASE_URL}/storage/v1/object/blog-images/${filename}`;
+          // 2. Delete the image file from the storage bucket
+          await fetch(storageUrl, {
+            method: "DELETE",
+            headers: {
+              "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+              "apikey": SUPABASE_ANON_KEY!
+            }
+          });
+        }
+      }
+    } catch (err) {
+      console.error("Failed to delete attached image from storage:", err);
+      // We continue with row deletion even if image deletion fails (e.g., file already gone)
+    }
+
+    // 3. Delete the database row
     await supabaseFetch(`blogs?id=eq.${id}`, {
       method: "DELETE",
     });
