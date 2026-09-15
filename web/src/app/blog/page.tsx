@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   Search,
@@ -13,6 +14,9 @@ import {
   Plus,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import Breadcrumbs from "@/components/seo/Breadcrumbs";
+import JsonLd from "@/components/seo/JsonLd";
+
 
 interface BlogPost {
   id: string;
@@ -72,6 +76,26 @@ const ShimmerCard = () => (
   </div>
 );
 
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://trekgroups.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": "https://trekgroups.com/blog"
+      }
+    ]
+  };
+
 export default function BlogPage() {
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
@@ -122,6 +146,14 @@ export default function BlogPage() {
       </div>
 
       <div className="relative z-10">
+        {/* Breadcrumbs and JSON-LD */}
+        <JsonLd schema={breadcrumbSchema} />
+        <div className="container mx-auto max-w-7xl px-6 relative z-20 mt-32 -mb-24 flex justify-center">
+          <Breadcrumbs items={[
+            { name: "Blog", item: "https://trekgroups.com/blog" }
+          ]} />
+        </div>
+
         <Navbar />
 
         {/* Hero Header */}
@@ -255,11 +287,14 @@ export default function BlogPage() {
                     {/* Image side (left) */}
                     <div className="w-full lg:w-1/2 relative min-h-[250px] lg:min-h-[400px] bg-black/20 overflow-hidden border-b lg:border-b-0 lg:border-r border-white/5">
                       {filteredPosts[0].coverImage ? (
-                        <img 
-                          src={filteredPosts[0].coverImage} 
-                          alt={filteredPosts[0].title} 
-                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
-                        />
+                        <Image
+                            src={filteredPosts[0].coverImage}
+                            alt={filteredPosts[0].title}
+                            fill
+                            priority
+                            className="object-cover group-hover:scale-105 transition-transform duration-700"
+                            sizes="(max-width: 1024px) 100vw, 50vw"
+                          />
                       ) : (
                         <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent flex items-center justify-center">
                           <BookOpen className="text-white/10" size={64} />
@@ -319,8 +354,15 @@ export default function BlogPage() {
                       className="h-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2rem] group-hover:border-secondary/35 transition-all duration-300 flex flex-col justify-between shadow-xl overflow-hidden"
                     >
                       {post.coverImage && (
-                        <div className="w-full h-48 bg-black/20 shrink-0 border-b border-white/5 overflow-hidden">
-                          <img src={post.coverImage} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <div className="relative w-full h-48 bg-black/20 shrink-0 border-b border-white/5 overflow-hidden">
+                          <Image 
+                            src={post.coverImage} 
+                            alt={post.title} 
+                            fill
+                            priority={index < 2}
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            className="object-cover group-hover:scale-105 transition-transform duration-500" 
+                          />
                         </div>
                       )}
                       

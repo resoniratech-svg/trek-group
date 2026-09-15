@@ -121,6 +121,7 @@ export const metadata: Metadata = {
   },
 };
 
+import JsonLd from "@/components/seo/JsonLd";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
 export default function RootLayout({
@@ -134,6 +135,16 @@ export default function RootLayout({
         className={`${inter.variable} ${outfit.variable} antialiased font-sans`}
         suppressHydrationWarning
       >
+        
+        <JsonLd 
+          schema={{
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "TREK Group",
+            "url": "https://trekgroups.com/",
+            "logo": "https://trekgroups.com/treklogo.png"
+          }} 
+        />
         {children}
         <WhatsAppButton />
       </body>

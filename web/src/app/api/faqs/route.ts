@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { NextResponse } from "next/server";
+import { verifyAuth } from "@/lib/auth";
 import { getFaqs, insertFaq } from "@/lib/db";
 
 export async function GET() {
@@ -15,7 +16,11 @@ export async function GET() {
   }
 }
 
-export async function POST(request: Request) {
+export async function POST(request: Request, context: any) {
+  const isAuth = await verifyAuth();
+  if (!isAuth) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
   try {
     const body = await request.json();
     const { question, answer } = body;

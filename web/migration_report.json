@@ -1,0 +1,23 @@
+{
+  "report": [
+    {
+      "title": "sample test",
+      "id": "sample-test",
+      "totalLinks": 0,
+      "blogLinks": 0,
+      "serviceLinks": 0,
+      "targetValidation": "PASS",
+      "integrity": "PASS"
+    },
+    {
+      "title": "fdsa",
+      "id": "fdsa",
+      "totalLinks": 0,
+      "blogLinks": 0,
+      "serviceLinks": 0,
+      "targetValidation": "PASS",
+      "integrity": "PASS"
+    }
+  ],
+  "allInsertedLinks": []
+}

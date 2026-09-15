@@ -99,6 +99,7 @@ export default function CorporateGlobeBackground() {
     <div ref={containerRef} className="fixed inset-0 z-0 pointer-events-none bg-black">
       {/* Cinematic Video Background */}
       <video
+        poster="/aboutus-poster.webp"
         autoPlay
         muted
         loop

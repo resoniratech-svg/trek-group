@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Mail, Phone, MapPin } from "lucide-react";
 
 export default function Footer() {
@@ -10,11 +11,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 mb-16">
           <div className="col-span-1 md:col-span-2 lg:col-span-3">
             <Link href="/" className="flex items-center gap-2 mb-6">
-              <img
-                src="/treklogo.png"
-                alt="Trek Group Logo"
-                className="w-20 h-20 object-contain"
-              />
+              <div className="relative w-20 h-20">
+                <Image
+                  src="/treklogo.png"
+                  alt="Trek Group Logo"
+                  fill
+                  className="object-contain"
+                  sizes="80px"
+                />
+              </div>
               <span className="text-3xl font-black tracking-tighter">
                 TREK<span className="text-secondary">GROUP</span>
               </span>

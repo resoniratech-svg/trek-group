@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronRight, ChevronDown } from "lucide-react";
@@ -53,11 +54,16 @@ export default function Navbar() {
         {/* Logo Section */}
         <div className="flex-1 flex justify-start">
           <Link href="/" className="flex items-center gap-3 group">
-            <img
-              src="/treklogo.png"
-              alt="Trek Group"
-              className="w-18 md:w-24 h-18 md:h-24 object-contain transition-transform group-hover:scale-105"
-            />
+            <div className="relative w-[72px] md:w-24 h-[72px] md:h-24">
+              <Image
+                src="/treklogo.png"
+                alt="Trek Group"
+                fill
+                priority
+                className="object-contain transition-transform group-hover:scale-105"
+                sizes="(max-width: 768px) 64px, 96px"
+              />
+            </div>
             <div className="flex items-center">
               <span className="text-xl md:text-2xl font-black tracking-tighter hidden sm:block">
                 <span className="text-black">TREK</span>

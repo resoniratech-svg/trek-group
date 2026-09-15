@@ -1,7 +1,16 @@
 export const dynamic = "force-dynamic";
 
 import { NextResponse } from "next/server";
+import { verifyAuth } from "@/lib/auth";
 import { getBlogs, insertBlog } from "@/lib/db";
+
+// Simple hardcoded auth based on the frontend admin page
+const ADMIN_CREDENTIALS = "Basic " + Buffer.from("admin:trekadmin123").toString("base64");
+
+function isAuthenticated(request: Request) {
+  const authHeader = request.headers.get("authorization");
+  return authHeader === ADMIN_CREDENTIALS;
+}
 
 export async function GET() {
   try {
@@ -15,10 +24,19 @@ export async function GET() {
   }
 }
 
-export async function POST(request: Request) {
+export async function POST(request: Request, context: any) {
+  const isAuth = await verifyAuth();
+  if (!isAuth) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
   try {
+    
+
     const body = await request.json();
-    const { title, excerpt, content, category, intent, targetLocation, coverImage } = body;
+    const { 
+      title, excerpt, content, category, intent, targetLocation, coverImage,
+      seo_title, meta_description, slug, canonical_url, image_alt, og_image, published_date, updated_date
+    } = body;
 
     // Simple validation
     if (!title || !content || !excerpt || !category || !intent) {
@@ -30,16 +48,16 @@ export async function POST(request: Request) {
 
     const blogs = await getBlogs();
     
-    // Create unique slug ID from title
-    let id = title
+    // Create unique slug ID from title if slug not provided
+    let id = slug || title
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)+/g, "");
     
-    // De-duplicate ID
+    // De-duplicate ID/slug
     let finalId = id;
     let counter = 1;
-    while (blogs.some((blog: any) => blog.id === finalId)) {
+    while (blogs.some((blog: any) => blog.id === finalId || blog.slug === finalId)) {
       finalId = `${id}-${counter}`;
       counter++;
     }
@@ -58,6 +76,14 @@ export async function POST(request: Request) {
         month: "long",
         day: "numeric",
       }),
+      seo_title: seo_title || "",
+      meta_description: meta_description || "",
+      slug: finalId, // Must match finalId
+      canonical_url: canonical_url || "",
+      image_alt: image_alt || "",
+      og_image: og_image || "",
+      published_date: published_date || new Date().toISOString(),
+      updated_date: updated_date || new Date().toISOString(),
     };
 
     const insertedBlog = await insertBlog(newBlog);

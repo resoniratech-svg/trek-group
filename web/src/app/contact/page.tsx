@@ -341,9 +341,8 @@ export default function ContactPage() {
               </div>
               <h3 className="text-[#0EA5E9] text-xs font-black tracking-widest uppercase mb-4 group-hover:text-white transition-colors duration-500">OFFICE HOURS</h3>
               <p className="text-[#0A2540] text-sm font-bold leading-relaxed group-hover:text-white transition-colors duration-500">
-                Office Hours:<br />
-                8:00 AM - 1:00 PM<br />
-                4:00 PM - 10:00 PM
+                Saturday–Thursday: 8:00 AM–1:00 PM & 4:00 PM–10:00 PM<br />
+                Friday: Closed
               </p>
             </div>
 

@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { Briefcase } from "lucide-react";
+import { useState, useEffect, useRef } from 'react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
-import { 
-  Lock, 
+import { Lock, 
   User, 
   LogOut, 
   Plus, 
@@ -18,7 +18,7 @@ import {
   HelpCircle,
   BookOpen,
   HelpCircle as FaqIcon
-} from "lucide-react";
+, Link as LinkIcon, Search, X } from 'lucide-react';
 import { motion, AnimatePresence } from "framer-motion";
 
 interface BlogPost {
@@ -48,6 +48,127 @@ const INTENTS = [
 ];
 const TARGET_LOCATIONS = ["", "Qatar", "Doha", "GCC", "Saudi Arabia", "UAE", "International", "Best setup"];
 
+
+function InternalLinkModal({ isOpen, onClose, onSelect }: any) {
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [anchorText, setAnchorText] = useState("");
+  const [selectedTarget, setSelectedTarget] = useState<any>(null);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setQuery("");
+      setResults([]);
+      setAnchorText("");
+      setSelectedTarget(null);
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    const fetchResults = async () => {
+      if (!query && isOpen) {
+        setLoading(true);
+        const res = await fetch('/api/admin/search-links');
+        if (res.ok) setResults(await res.json());
+        setLoading(false);
+        return;
+      }
+      if (query.length < 2) return;
+      setLoading(true);
+      const res = await fetch(`/api/admin/search-links?q=${encodeURIComponent(query)}`);
+      if (res.ok) setResults(await res.json());
+      setLoading(false);
+    };
+    
+    const debounce = setTimeout(fetchResults, 300);
+    return () => clearTimeout(debounce);
+  }, [query, isOpen]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+      <div className="bg-[#0b0f22] border border-white/10 rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl flex flex-col max-h-[80vh]">
+        <div className="p-4 border-b border-white/10 flex justify-between items-center bg-white/5">
+          <h3 className="text-white font-bold flex items-center gap-2">
+            <LinkIcon size={18} className="text-secondary" />
+            Insert Internal Link
+          </h3>
+          <button onClick={onClose} className="text-white/50 hover:text-white"><X size={20} /></button>
+        </div>
+        
+        <div className="p-4 flex-1 overflow-y-auto">
+          {!selectedTarget ? (
+            <>
+              <div className="relative mb-4">
+                <Search size={16} className="absolute left-3 top-3.5 text-white/40" />
+                <input
+                  type="text"
+                  placeholder="Search blogs or services..."
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:border-secondary transition-all"
+                />
+              </div>
+              
+              {loading && <p className="text-white/50 text-sm text-center py-8">Searching...</p>}
+              
+              {!loading && results.length > 0 && (
+                <div className="space-y-2">
+                  {results.map((r) => (
+                    <button
+                      key={`${r.type}-${r.id}`}
+                      onClick={() => setSelectedTarget(r)}
+                      className="w-full text-left p-3 rounded-xl hover:bg-white/5 border border-transparent hover:border-white/10 transition-all flex flex-col"
+                    >
+                      <span className="text-white font-bold text-sm">{r.title}</span>
+                      <span className="text-white/40 text-xs flex gap-2 mt-1">
+                        <span className="text-secondary font-medium">[{r.type}]</span>
+                        <span>/{r.type === 'BLOG' ? 'blog' : 'services'}/{r.slug}</span>
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </>
+          ) : (
+            <div className="space-y-4">
+              <div className="p-4 bg-white/5 border border-white/10 rounded-xl">
+                <p className="text-white/50 text-xs mb-1 uppercase tracking-wider font-bold">Target</p>
+                <p className="text-white font-medium text-sm">{selectedTarget.title}</p>
+                <button onClick={() => setSelectedTarget(null)} className="text-secondary text-xs mt-2 hover:underline">Change Target</button>
+              </div>
+              
+              <div>
+                <label className="text-white/60 text-xs font-bold uppercase tracking-wider mb-2 block">
+                  Anchor Text
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. Company Formation"
+                  value={anchorText}
+                  onChange={(e) => setAnchorText(e.target.value)}
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-secondary transition-all"
+                  autoFocus
+                />
+              </div>
+              
+              <button
+                onClick={() => onSelect(selectedTarget, anchorText)}
+                disabled={!anchorText.trim()}
+                className="w-full bg-secondary hover:bg-secondary-dark disabled:opacity-50 text-white py-3.5 rounded-xl font-black text-sm transition-all flex items-center justify-center gap-2"
+              >
+                Insert Link
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function AdminPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
@@ -55,13 +176,20 @@ export default function AdminPage() {
   const [loginError, setLoginError] = useState("");
 
   // Portal View Selector (Blogs vs FAQs)
-  const [managementMode, setManagementMode] = useState<"blogs" | "faqs">("blogs");
+  const [managementMode, setManagementMode] = useState<"blogs" | "faqs" | "services">("blogs");
+  const [services, setServices] = useState<any[]>([]);
+  const [serviceTitle, setServiceTitle] = useState("");
+  const [serviceSlug, setServiceSlug] = useState("");
+  const [serviceDescription, setServiceDescription] = useState("");
+  const [serviceSectionsText, setServiceSectionsText] = useState("");
 
   // Blog Form State
   const [title, setTitle] = useState("");
   const [excerpt, setExcerpt] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState(CATEGORIES[0]);
+  const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
+  const contentRef = useRef<HTMLTextAreaElement>(null);
   const [intent, setIntent] = useState(INTENTS[0]);
   const [targetLocation, setTargetLocation] = useState("");
   const [coverImage, setCoverImage] = useState("");
@@ -120,6 +248,13 @@ export default function AdminPage() {
         if (faqsRes.ok) {
           const faqsData = await faqsRes.json();
           setFaqs(faqsData);
+        }
+
+        // Fetch services
+        const servicesRes = await fetch("/api/services", { cache: "no-store" });
+        if (servicesRes.ok) {
+          const servicesData = await servicesRes.json();
+          setServices(servicesData);
         }
       } catch (err) {
         console.error("Failed to fetch dashboard data", err);
@@ -295,6 +430,85 @@ export default function AdminPage() {
   };
 
   // FAQ deletion handler
+  
+  const handlePublishService = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!serviceTitle || !serviceSlug || !serviceDescription) {
+      setFormError("Title, Slug, and Description are required.");
+      return;
+    }
+    setLoading(true);
+    setFormError("");
+    setSuccess(false);
+
+    try {
+      let parsedSections = {};
+      try {
+        if (serviceSectionsText) parsedSections = JSON.parse(serviceSectionsText);
+      } catch(e) {
+        // Fallback if not valid JSON
+        parsedSections = { "Overview": serviceSectionsText };
+      }
+
+      const payload = {
+        id: serviceSlug,
+        slug: serviceSlug,
+        title: serviceTitle,
+        description: serviceDescription,
+        sections: parsedSections,
+        seo_title: serviceTitle,
+        meta_description: serviceDescription
+      };
+
+      const res = await fetch("/api/services", {
+        credentials: "include",
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": "Basic YWRtaW46dHJla2FkbWluMTIz"
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        setSuccess(true);
+        setServiceTitle("");
+        setServiceSlug("");
+        setServiceDescription("");
+        setServiceSectionsText("");
+        
+        // refresh services
+        fetch('/api/services').then(r => r.json()).then(data => setServices(data || []));
+      } else {
+        const errorData = await res.json();
+        setFormError(errorData.error || "Failed to add service");
+      }
+    } catch (err: any) {
+      setFormError(err.message || "Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDeleteService = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this service?")) return;
+    try {
+      const res = await fetch(`/api/services/${id}`, { 
+        method: "DELETE", 
+        credentials: "include", 
+        headers: { "Authorization": "Basic YWRtaW46dHJla2FkbWluMTIz" } 
+      });
+      if (res.ok) {
+        setServices(services.filter((s) => s.id !== id));
+      } else {
+        const errorData = await res.json();
+        alert(`Failed to delete service: ${errorData.error || "Server error"}`);
+      }
+    } catch (err: any) {
+      console.error(err);
+    }
+  };
+
   const handleDeleteFAQ = async (id: string) => {
     if (!confirm("Are you sure you want to delete this FAQ? This action cannot be undone.")) {
       return;
@@ -619,6 +833,22 @@ export default function AdminPage() {
                       <FaqIcon size={14} />
                       Manage FAQ Database ({faqs.length})
                     </button>
+                    <button
+                      onClick={() => {
+                        setManagementMode("services");
+                        setFormError("");
+                        setSuccess(false);
+                      }}
+                      className={`flex items-center justify-center gap-2 px-4 sm:px-6 py-3 rounded-xl text-xs font-black transition-all cursor-pointer ${
+                        managementMode === "services"
+                          ? "bg-secondary text-white shadow-lg"
+                          : "text-white/60 hover:text-white"
+                      }`}
+                    >
+                      <Briefcase size={14} />
+                      Manage Services ({services.length})
+                    </button>
+
                   </div>
 
                   {/* Mode-Based Content rendering */}
@@ -782,19 +1012,28 @@ export default function AdminPage() {
 
                               {/* Body Content */}
                               <div className="space-y-2">
-                                <div className="flex justify-between items-center">
-                                  <label className="text-white/60 text-xs font-bold uppercase tracking-wider">
-                                    Markdown Article Content
-                                  </label>
-                                  <span className="text-[10px] text-white/40 font-bold uppercase">
-                                    Markdown is supported
-                                  </span>
-                                </div>
+                                <div className="flex justify-between items-center mb-2">
+                                    <label className="text-white/60 text-xs font-bold uppercase tracking-wider">
+                                      Markdown Article Content
+                                    </label>
+                                    <button 
+                                      type="button" 
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        setIsLinkModalOpen(true);
+                                      }}
+                                      className="text-xs text-secondary hover:text-white transition-colors flex items-center gap-1 font-bold"
+                                    >
+                                      <LinkIcon size={14} />
+                                      Insert Internal Link
+                                    </button>
+                                  </div>
                                 <textarea
                                   rows={12}
                                   placeholder={`Use # for main headers\nUse ## for secondary section titles\nUse - or * for list items\nUse **text** for bold details\nUse standard Markdown for tables (e.g. | Title | Info |)`}
                                   value={content}
                                   onChange={(e) => setContent(e.target.value)}
+                                    ref={contentRef}
                                   className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-sm text-white placeholder-white/20 focus:outline-none focus:border-secondary transition-all font-mono"
                                 />
                               </div>
@@ -918,8 +1157,99 @@ export default function AdminPage() {
                         </div>
                       </div>
                     </div>
+                  
+                  ) : managementMode === "services" ? (
+                    /* SERVICES MANAGEMENT VIEW */
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                      {/* Compose Service */}
+                      <div className="lg:col-span-2 space-y-6">
+                        <div className="bg-white/5 border border-white/10 rounded-[2rem] shadow-xl p-8 space-y-6">
+                          <div className="border-b border-white/10 pb-4">
+                            <h2 className="text-lg font-black text-white flex items-center gap-2">
+                              <Briefcase size={18} className="text-secondary" />
+                              Publish New Service
+                            </h2>
+                            <p className="text-white/40 text-xs mt-1">
+                              Styling (colors/icons) and SEO metadata are generated automatically from your content.
+                            </p>
+                          </div>
+
+                          <form onSubmit={handlePublishService} className="space-y-6">
+                            {success && (
+                              <div className="p-4 bg-green-500/10 border border-green-500/20 text-green-200 text-sm rounded-xl font-bold flex items-center gap-2">
+                                <CheckCircle size={18} className="text-green-500" />
+                                Service successfully added to the catalog!
+                              </div>
+                            )}
+
+                            {formError && (
+                              <div className="p-4 bg-red-500/10 border border-red-500/20 text-red-200 text-xs rounded-xl font-medium">
+                                {formError}
+                              </div>
+                            )}
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                              <div className="space-y-2">
+                                <label className="text-white/60 text-xs font-bold uppercase tracking-wider">Service Title</label>
+                                <input type="text" placeholder="e.g. Company Formation" value={serviceTitle} onChange={(e) => setServiceTitle(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-secondary transition-all" />
+                              </div>
+                              <div className="space-y-2">
+                                <label className="text-white/60 text-xs font-bold uppercase tracking-wider">URL Slug</label>
+                                <input type="text" placeholder="e.g. company-formation" value={serviceSlug} onChange={(e) => setServiceSlug(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-secondary transition-all" />
+                              </div>
+                            </div>
+
+                            <div className="space-y-2">
+                              <label className="text-white/60 text-xs font-bold uppercase tracking-wider">Short Description</label>
+                              <textarea rows={2} placeholder="Brief summary for service cards..." value={serviceDescription} onChange={(e) => setServiceDescription(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-secondary transition-all" />
+                            </div>
+
+                            <div className="space-y-2">
+                              <label className="text-white/60 text-xs font-bold uppercase tracking-wider">Full Content (Sections)</label>
+                              <textarea rows={6} placeholder="Detailed content for the service page (can be JSON or plain text)..." value={serviceSectionsText} onChange={(e) => setServiceSectionsText(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-secondary transition-all" />
+                            </div>
+
+                            <button type="submit" disabled={loading} className="w-full bg-secondary hover:bg-secondary-dark text-white py-4 rounded-xl font-black text-sm flex items-center justify-center gap-2 shadow-xl cursor-pointer disabled:opacity-50">
+                              <Plus size={16} />
+                              {loading ? "Publishing Service..." : "Publish & Upload Service"}
+                            </button>
+                          </form>
+                        </div>
+                      </div>
+
+                      {/* Right Panel - Current Services List */}
+                      <div className="space-y-6">
+                        <div className="bg-white/5 border border-white/10 p-6 rounded-[2rem] shadow-xl space-y-4">
+                          <h3 className="text-white font-black text-sm uppercase flex items-center justify-between border-b border-white/10 pb-2">
+                            <span>Dynamic Services List</span>
+                            <span className="bg-white/10 text-white text-[10px] px-2 py-0.5 rounded-full">{services.length}</span>
+                          </h3>
+                          <div className="space-y-3 max-h-[500px] overflow-y-auto custom-scrollbar pr-1">
+                            {services.length > 0 ? (
+                              services.map((s) => (
+                                <div key={s.id} className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 flex items-start justify-between gap-3 group">
+                                  <div className="min-w-0">
+                                    <h4 className="text-white text-xs font-black leading-snug group-hover:text-secondary truncate">{s.title}</h4>
+                                    <p className="text-white/40 text-[10px] line-clamp-2 mt-1">{s.description}</p>
+                                  </div>
+                                  <button onClick={(e) => { e.preventDefault(); handleDeleteService(s.id); }} className="p-2 bg-red-500/10 hover:bg-red-500/25 text-red-200 rounded-lg shrink-0" title="Delete Service">
+                                    <Trash2 size={12} />
+                                  </button>
+                                </div>
+                              ))
+                            ) : (
+                              <div className="text-center py-8 text-white/30 text-xs">
+                                <Briefcase className="mx-auto mb-2 opacity-50" size={32} />
+                                No services published yet.
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   ) : (
                     /* FAQS MANAGEMENT VIEW */
+
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                       {/* Compose FAQ */}
                       <div className="lg:col-span-2 space-y-6">

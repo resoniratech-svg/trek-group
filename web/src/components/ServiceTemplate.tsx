@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Breadcrumbs from "@/components/seo/Breadcrumbs";
+import JsonLd from "@/components/seo/JsonLd";
+import { renderInternalLinks } from "@/lib/internalLinks";
 import { 
   CheckCircle2, 
   ArrowRight, 
@@ -45,12 +48,10 @@ const iconMap: Record<string, any> = {
   "ArrowRight": ArrowRight
 };
 
-interface ServiceTemplateProps {
-  id: string;
-}
+interface ServiceTemplateProps { id?: string; initialData?: ServiceData | any; resolvedMap?: Record<string, string>; }
 
-export default function ServiceTemplate({ id }: ServiceTemplateProps) {
-  const service = servicesData[id];
+export default function ServiceTemplate({ id, initialData, resolvedMap = {} }: ServiceTemplateProps) {
+  const service = initialData || (id ? servicesData[id] : null);
   
   if (!service) {
     return (
@@ -121,10 +122,43 @@ export default function ServiceTemplate({ id }: ServiceTemplateProps) {
     }
   };
 
-  const ServiceIcon = service.icon || Building2;
+  const ServiceIcon = typeof service.icon === "string" ? (iconMap[service.icon] || Building2) : (service.icon || Building2);
+
+  const canonicalUrlActive = service.canonical_url || `https://trekgroups.com/services/${service.slug || service.id}`;
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://trekgroups.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Services",
+        "item": "https://trekgroups.com/services"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": service.title,
+        "item": canonicalUrlActive
+      }
+    ]
+  };
 
   return (
-    <main className="min-h-screen bg-transparent relative overflow-x-hidden">
+    <>
+      <JsonLd schema={breadcrumbSchema} />
+      {service.schemaMarkup && (
+        <JsonLd schema={service.schemaMarkup} />
+      )}
+      <main className="min-h-screen bg-transparent relative overflow-x-hidden">
+
       {/* Dynamic/Static Service background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-b from-[#050816] via-[#0b0f24] to-[#050816] opacity-95" />
@@ -153,7 +187,7 @@ export default function ServiceTemplate({ id }: ServiceTemplateProps) {
                   Premium Service
                 </span>
                 <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-white leading-tight">
-                  {service.title.split(" & ").map((word, i) => (
+                  {service.title.split(" & ").map((word: string, i: number) => (
                     <span key={i}>
                       {i > 0 && " & "}
                       <span className={cn(i % 2 === 1 && "text-secondary italic")}>{word}</span>
@@ -161,7 +195,7 @@ export default function ServiceTemplate({ id }: ServiceTemplateProps) {
                   ))}
                 </h1>
                 <p className="text-white/80 text-base md:text-lg leading-relaxed max-w-3xl font-medium">
-                  {service.description}
+                  {renderInternalLinks(service.description || "", resolvedMap)}
                 </p>
               </div>
 
@@ -183,7 +217,7 @@ export default function ServiceTemplate({ id }: ServiceTemplateProps) {
               
               {/* Left Column: Rich Copy Details */}
               <div className="lg:col-span-8 space-y-12 bg-white/5 backdrop-blur-xl border border-white/10 p-8 md:p-12 rounded-[2.5rem] shadow-xl">
-                {service.sections.map((section, idx) => (
+                {service.sections.map((section: any, idx: number) => (
                   <div key={idx} className="space-y-6 border-b border-white/5 last:border-0 pb-10 last:pb-0">
                     {section.title && (
                       <h2 className="text-xl md:text-3xl font-black text-white tracking-tight flex items-center gap-3">
@@ -193,15 +227,15 @@ export default function ServiceTemplate({ id }: ServiceTemplateProps) {
                     )}
                     {section.text && (
                       <p className="text-white/80 text-sm md:text-base leading-relaxed whitespace-pre-line font-medium">
-                        {section.text}
+                        {renderInternalLinks(section.text || "", resolvedMap)}
                       </p>
                     )}
                     {section.points && (
                       <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                        {section.points.map((point, pIdx) => (
+                        {section.points.map((point: any, pIdx: number) => (
                           <li key={pIdx} className="flex items-start gap-3 bg-white/5 border border-white/5 p-4 rounded-2xl hover:border-secondary/25 transition-all duration-300">
                             <CheckCircle2 className="text-secondary shrink-0 mt-0.5" size={18} />
-                            <span className="text-white/90 font-semibold text-sm leading-relaxed">{point}</span>
+                            <span className="text-white/90 font-semibold text-sm leading-relaxed">{renderInternalLinks(point || "", resolvedMap)}</span>
                           </li>
                         ))}
                       </ul>
@@ -379,14 +413,14 @@ export default function ServiceTemplate({ id }: ServiceTemplateProps) {
                       <Mail className="text-secondary shrink-0" size={16} />
                       <div>
                         <p className="text-white">Email Address</p>
-                        <a href="mailto:info@trek-group.com" className="hover:text-secondary">info@trek-group.com</a>
+                        <a href="mailto:info@trekgroups.com" className="hover:text-secondary">info@trekgroups.com</a>
                       </div>
                     </li>
                     <li className="flex gap-3 items-start">
                       <Clock className="text-secondary shrink-0" size={16} />
                       <div>
                         <p className="text-white">Office Hours</p>
-                        <span>Saturday - Thursday: 8:00 AM - 6:00 PM</span>
+                        <span>Saturday–Thursday: 8:00 AM–1:00 PM & 4:00 PM–10:00 PM<br/>Friday: Closed</span>
                       </div>
                     </li>
                     <li className="flex gap-3 items-start">
@@ -408,5 +442,6 @@ export default function ServiceTemplate({ id }: ServiceTemplateProps) {
         <Footer />
       </div>
     </main>
+  </>
   );
 }

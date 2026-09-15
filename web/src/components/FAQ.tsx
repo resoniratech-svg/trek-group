@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Minus, Loader2 } from "lucide-react";
+import { motion } from "framer-motion";
+import { Loader2 } from "lucide-react";
 
 interface FAQItem {
   id?: string;
@@ -13,7 +13,6 @@ interface FAQItem {
 export default function FAQ() {
   const [faqs, setFaqs] = useState<FAQItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   useEffect(() => {
     const fetchFaqs = async () => {
@@ -62,38 +61,18 @@ export default function FAQ() {
             <Loader2 className="animate-spin text-secondary" size={32} />
           </div>
         ) : (
-          <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {faqs.map((faq, index) => (
               <div
                 key={faq.id || index}
-                className="border border-white/10 rounded-2xl overflow-hidden bg-white/5 backdrop-blur-md transition-all duration-300 hover:bg-white group"
+                className="border border-white/10 rounded-2xl overflow-hidden bg-white/5 backdrop-blur-md transition-all duration-300 hover:bg-white group p-6"
               >
-                <button
-                  onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                  className="w-full flex items-center justify-between p-6 text-left"
-                >
-                  <span className="text-sm md:text-base font-bold text-white group-hover:text-black transition-colors leading-tight pr-4">
-                    {faq.question}
-                  </span>
-                  <div className="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center text-secondary shrink-0">
-                    {openIndex === index ? <Minus size={16} /> : <Plus size={16} />}
-                  </div>
-                </button>
-
-                <AnimatePresence>
-                  {openIndex === index && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <div className="p-6 pt-0 text-white/60 group-hover:text-black/70 transition-colors text-sm leading-relaxed whitespace-pre-line">
-                        {faq.answer}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <h3 className="text-sm md:text-base font-bold text-white group-hover:text-black transition-colors leading-tight mb-4">
+                  {faq.question}
+                </h3>
+                <div className="text-white/60 group-hover:text-black/70 transition-colors text-sm leading-relaxed whitespace-pre-line">
+                  {faq.answer}
+                </div>
               </div>
             ))}
           </div>

@@ -1,12 +1,14 @@
 export const dynamic = "force-dynamic";
 
 import { NextResponse } from "next/server";
+import { verifyAuth } from "@/lib/auth";
 import { deleteFaq } from "@/lib/db";
 
-export async function DELETE(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> | { id: string } }
-) {
+export async function DELETE(request: Request, { params }: any) {
+  const isAuth = await verifyAuth();
+  if (!isAuth) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
   try {
     const resolvedParams = params instanceof Promise ? await params : params;
     const { id } = resolvedParams;

@@ -2,11 +2,13 @@ import fs from "fs";
 import path from "path";
 
 const blogsPath = path.join(process.cwd(), "src/data/blogs.json");
+const servicesPath = path.join(process.cwd(), "src/data/services.json");
 const faqsPath = path.join(process.cwd(), "src/data/faqs.json");
 const inquiriesPath = path.join(process.cwd(), "src/data/inquiries.json");
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY;
+const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 const isSupabaseConfigured = !!(SUPABASE_URL && SUPABASE_ANON_KEY);
 const isProduction = process.env.NODE_ENV === "production" || !!process.env.NETLIFY;
@@ -18,7 +20,7 @@ export function getDbStatus() {
   };
 }
 
-// Helper function to call Supabase REST API
+// Helper function to call Supabase REST API (for reads via anon key)
 async function supabaseFetch(endpoint: string, options: RequestInit = {}) {
   const url = `${SUPABASE_URL}/rest/v1/${endpoint}`;
   const headers = {
@@ -46,6 +48,44 @@ async function supabaseFetch(endpoint: string, options: RequestInit = {}) {
   }
 
   // DELETE requests might return empty responses
+  if (options.method === "DELETE" || response.status === 204) {
+    return true;
+  }
+
+  return await response.json();
+}
+
+// Helper function to call Supabase REST API (for writes via service role key)
+async function supabaseAdminFetch(endpoint: string, options: RequestInit = {}) {
+  if (!SUPABASE_SERVICE_ROLE_KEY) {
+    throw new Error("SUPABASE_SERVICE_ROLE_KEY is missing in environment variables. Administrative writes are disabled.");
+  }
+  
+  const url = `${SUPABASE_URL}/rest/v1/${endpoint}`;
+  const headers = {
+    "apikey": SUPABASE_SERVICE_ROLE_KEY,
+    "Authorization": `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+    "Content-Type": "application/json",
+    ...options.headers,
+  };
+
+  const response = await fetch(url, { 
+    ...options, 
+    headers,
+    cache: "no-store"
+  });
+  
+  if (!response.ok) {
+    const errorText = await response.text();
+    let parsedError;
+    try {
+      parsedError = JSON.parse(errorText);
+    } catch {
+      parsedError = { message: errorText };
+    }
+    throw new Error(parsedError.message || parsedError.hint || `Supabase Admin Error: ${response.status}`);
+  }
+
   if (options.method === "DELETE" || response.status === 204) {
     return true;
   }
@@ -109,7 +149,7 @@ export async function getBlogById(id: string): Promise<any | null> {
 export async function insertBlog(blog: any): Promise<any> {
   if (isSupabaseConfigured) {
     // If it fails, throw directly to API handler (NO silent fallback)
-    const data = await supabaseFetch("blogs", {
+    const data = await supabaseAdminFetch("blogs", {
       method: "POST",
       body: JSON.stringify(blog),
       headers: {
@@ -123,7 +163,7 @@ export async function insertBlog(blog: any): Promise<any> {
     }
     const blogs = readJsonFile(blogsPath);
     blogs.unshift(blog);
-    writeJsonFile(blogsPath, blogs);
+    throw new Error("Writes to local JSON files are disabled by Phase 3 rules."); // writeJsonFile(blogsPath, blogs);
     return blog;
   }
 }
@@ -153,7 +193,7 @@ export async function deleteBlog(id: string): Promise<boolean> {
     }
 
     // 3. Delete the database row
-    await supabaseFetch(`blogs?id=eq.${id}`, {
+    await supabaseAdminFetch(`blogs?id=eq.${id}`, {
       method: "DELETE",
     });
     return true;
@@ -164,7 +204,7 @@ export async function deleteBlog(id: string): Promise<boolean> {
     const blogs = readJsonFile(blogsPath);
     const initialLength = blogs.length;
     const filteredBlogs = blogs.filter((b: any) => b.id !== id);
-    writeJsonFile(blogsPath, filteredBlogs);
+    throw new Error("Writes to local JSON files are disabled by Phase 3 rules."); // writeJsonFile(blogsPath, filteredBlogs);
     return filteredBlogs.length !== initialLength;
   }
 }
@@ -182,7 +222,7 @@ export async function getFaqs(): Promise<any[]> {
 
 export async function insertFaq(faq: any): Promise<any> {
   if (isSupabaseConfigured) {
-    const data = await supabaseFetch("faqs", {
+    const data = await supabaseAdminFetch("faqs", {
       method: "POST",
       body: JSON.stringify(faq),
       headers: {
@@ -196,14 +236,14 @@ export async function insertFaq(faq: any): Promise<any> {
     }
     const faqs = readJsonFile(faqsPath);
     faqs.unshift(faq);
-    writeJsonFile(faqsPath, faqs);
+    throw new Error("Writes to local JSON files are disabled by Phase 3 rules."); // writeJsonFile(faqsPath, faqs);
     return faq;
   }
 }
 
 export async function deleteFaq(id: string): Promise<boolean> {
   if (isSupabaseConfigured) {
-    await supabaseFetch(`faqs?id=eq.${id}`, {
+    await supabaseAdminFetch(`faqs?id=eq.${id}`, {
       method: "DELETE",
     });
     return true;
@@ -214,7 +254,7 @@ export async function deleteFaq(id: string): Promise<boolean> {
     const faqs = readJsonFile(faqsPath);
     const initialLength = faqs.length;
     const filteredFaqs = faqs.filter((f: any) => f.id !== id);
-    writeJsonFile(faqsPath, filteredFaqs);
+    throw new Error("Writes to local JSON files are disabled by Phase 3 rules."); // writeJsonFile(faqsPath, filteredFaqs);
     return filteredFaqs.length !== initialLength;
   }
 }
@@ -232,7 +272,7 @@ export async function insertInquiry(inquiry: any): Promise<any> {
 
   if (isSupabaseConfigured) {
     try {
-      const data = await supabaseFetch("inquiries", {
+      const data = await supabaseAdminFetch("inquiries", {
         method: "POST",
         body: JSON.stringify(inquiryWithTime),
         headers: {
@@ -246,7 +286,7 @@ export async function insertInquiry(inquiry: any): Promise<any> {
         if (!isProduction) {
           const inquiries = readJsonFile(inquiriesPath);
           inquiries.unshift(inquiryWithTime);
-          writeJsonFile(inquiriesPath, inquiries);
+          throw new Error("Writes to local JSON files are disabled by Phase 3 rules."); // writeJsonFile(inquiriesPath, inquiries);
         }
       } catch (err) {
         console.error("Failed to write inquiry to local fallback file:", err);
@@ -260,7 +300,157 @@ export async function insertInquiry(inquiry: any): Promise<any> {
     }
     const inquiries = readJsonFile(inquiriesPath);
     inquiries.unshift(inquiryWithTime);
-    writeJsonFile(inquiriesPath, inquiries);
+    throw new Error("Writes to local JSON files are disabled by Phase 3 rules."); // writeJsonFile(inquiriesPath, inquiries);
     return inquiryWithTime;
+  }
+}
+
+// -------------------------------------------------------------
+// SERVICES CRUD Interfaces
+// -------------------------------------------------------------
+export async function getServices(): Promise<any[]> {
+  if (isSupabaseConfigured) {
+    try {
+      return await supabaseFetch("services?select=*&order=created_at.desc");
+    } catch (e) {
+      console.warn('Supabase getServices failed (table might not exist yet). Falling back to local services.json');
+      return readJsonFile(servicesPath);
+    }
+  }
+  return readJsonFile(servicesPath);
+}
+
+export async function getServiceById(id: string): Promise<any | null> {
+  if (isSupabaseConfigured) {
+    try {
+      const data = await supabaseFetch(`services?id=eq.${id}&select=*`);
+      return data && data.length > 0 ? data[0] : null;
+    } catch (error) {
+      console.error(`Supabase getServiceById(${id}) failed, falling back to local data:`, error);
+      const services = readJsonFile(servicesPath);
+      return services.find((s: any) => s.id === id || s.slug === id) || null;
+    }
+  } else {
+    const services = readJsonFile(servicesPath);
+    return services.find((s: any) => s.id === id || s.slug === id) || null;
+  }
+}
+
+export async function insertService(service: any): Promise<any> {
+  if (isSupabaseConfigured) {
+    const data = await supabaseAdminFetch('services', {
+      method: 'POST',
+      body: JSON.stringify(service),
+      headers: {
+        'Prefer': 'return=representation',
+      },
+    });
+    return data && data.length > 0 ? data[0] : service;
+  } else {
+    if (isProduction) {
+      throw new Error('Supabase database variables are missing. Local file writes are disabled in production.');
+    }
+    const services = readJsonFile(servicesPath);
+    
+    // Check for upsert
+    const existingIndex = services.findIndex((s: any) => s.id === service.id);
+    if (existingIndex >= 0) {
+      services[existingIndex] = { ...services[existingIndex], ...service };
+    } else {
+      services.unshift(service);
+    }
+    throw new Error("Writes to local JSON files are disabled by Phase 3 rules."); // writeJsonFile(servicesPath, services);
+    return service;
+  }
+}
+
+export async function updateService(id: string, updates: any): Promise<any> {
+  if (isSupabaseConfigured) {
+    const data = await supabaseAdminFetch(`services?id=eq.${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(updates),
+      headers: {
+        'Prefer': 'return=representation',
+      },
+    });
+    return data && data.length > 0 ? data[0] : null;
+  } else {
+    if (isProduction) {
+      throw new Error('Supabase database variables are missing. Local file writes are disabled in production.');
+    }
+    const services = readJsonFile(servicesPath);
+    const index = services.findIndex((s: any) => s.id === id);
+    if (index >= 0) {
+      services[index] = { ...services[index], ...updates };
+      throw new Error("Writes to local JSON files are disabled by Phase 3 rules."); // writeJsonFile(servicesPath, services);
+      return services[index];
+    }
+    return null;
+  }
+}
+
+
+export async function updateBlog(id: string, updates: any): Promise<any> {
+  if (isSupabaseConfigured) {
+    const data = await supabaseAdminFetch(`blogs?id=eq.${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(updates),
+      headers: {
+        'Prefer': 'return=representation',
+      },
+    });
+    return data && data.length > 0 ? data[0] : null;
+  } else {
+    throw new Error('Writes to local JSON files are disabled by Phase 3 rules.');
+  }
+}
+
+
+export async function getSitemapBlogs(): Promise<any[]> {
+  if (isSupabaseConfigured) {
+    try {
+      return await supabaseFetch("blogs?select=slug,updated_date,published_date,date,created_at&order=created_at.desc");
+    } catch (e) {
+      console.warn("getSitemapBlogs failed", e);
+    }
+  }
+  return [];
+}
+
+export async function getSitemapServices(): Promise<any[]> {
+  if (isSupabaseConfigured) {
+    try {
+      return await supabaseFetch("services?select=slug,updated_date,published_date,created_at&order=created_at.desc");
+    } catch (e) {
+      console.warn("getSitemapServices failed", e);
+    }
+  }
+  return [];
+}
+
+
+export async function deleteService(id: string): Promise<boolean> {
+  if (isSupabaseConfigured) {
+    await supabaseAdminFetch(`services?id=eq.${id}`, {
+      method: "DELETE",
+    });
+    return true;
+  } else {
+    // Local fallback
+    const services = await getServices();
+    const filtered = services.filter((s: any) => s.id !== id);
+    if (services.length === filtered.length) return false;
+    
+    // Save to local file
+    try {
+      const fs = await import("fs/promises");
+      const path = await import("path");
+      const filePath = path.join(process.cwd(), "src", "data", "services.json");
+      await fs.writeFile(filePath, JSON.stringify(filtered, null, 2));
+      return true;
+    } catch (error) {
+      console.error("Failed to delete local service:", error);
+      return false;
+    }
   }
 }
