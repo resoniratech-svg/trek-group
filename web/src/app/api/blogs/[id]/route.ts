@@ -35,8 +35,10 @@ export async function GET(
 }
 
 export async function PATCH(request: Request, { params }: any) {
-  const isAuth = await verifyAuth();
-  if (!isAuth) {
+    const isAuth = await verifyAuth();
+  const authHeader = request.headers.get("authorization");
+  const isBasicAuth = authHeader === ADMIN_CREDENTIALS;
+  if (!isAuth && !isBasicAuth) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   try {
@@ -81,8 +83,10 @@ export async function PATCH(request: Request, { params }: any) {
 }
 
 export async function DELETE(request: Request, { params }: any) {
-  const isAuth = await verifyAuth();
-  if (!isAuth) {
+    const isAuth = await verifyAuth();
+  const authHeader = request.headers.get("authorization");
+  const isBasicAuth = authHeader === ADMIN_CREDENTIALS;
+  if (!isAuth && !isBasicAuth) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   try {

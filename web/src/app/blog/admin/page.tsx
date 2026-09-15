@@ -323,8 +323,10 @@ export default function AdminPage() {
     try {
       setLoading(true);
       const res = await fetch("/api/blogs", {
-        method: "POST",
-        headers: {
+          credentials: "include",
+          method: "POST",
+          headers: {
+            "Authorization": "Basic YWRtaW46dHJla2FkbWluMTIz",
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -371,8 +373,10 @@ export default function AdminPage() {
 
     try {
       const res = await fetch(`/api/blogs/${id}`, {
-        method: "DELETE",
-      });
+          method: "DELETE",
+          credentials: "include",
+          headers: { "Authorization": "Basic YWRtaW46dHJla2FkbWluMTIz" }
+        });
 
       if (res.ok) {
         setRefreshTrigger((prev) => prev + 1);
@@ -400,8 +404,10 @@ export default function AdminPage() {
     try {
       setLoading(true);
       const res = await fetch("/api/faqs", {
-        method: "POST",
-        headers: {
+          credentials: "include",
+          method: "POST",
+          headers: {
+            "Authorization": "Basic YWRtaW46dHJla2FkbWluMTIz",
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -516,8 +522,10 @@ export default function AdminPage() {
 
     try {
       const res = await fetch(`/api/faqs/${id}`, {
-        method: "DELETE",
-      });
+          method: "DELETE",
+          credentials: "include",
+          headers: { "Authorization": "Basic YWRtaW46dHJla2FkbWluMTIz" }
+        });
 
       if (res.ok) {
         setRefreshTrigger((prev) => prev + 1);
