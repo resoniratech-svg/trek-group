@@ -59,7 +59,13 @@ export default function BlogDetailClient({ blog }: { blog: BlogPost }) {
       /`(.*?)`/g,
       '<code class="bg-white/10 px-1.5 py-0.5 rounded text-secondary font-mono text-xs">$1</code>'
     );
-    return formatted;
+    
+      // Added support for standard Markdown links
+      formatted = formatted.replace(
+        /\[([^\]]+)\]\(([^)]+)\)/g,
+        '<a href="$2" class="text-secondary hover:underline hover:text-white transition-colors font-bold">$1</a>'
+      );
+      return formatted;
   };
 
   const renderMarkdown = (content: string) => {

@@ -1,13 +1,15 @@
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
+import { verifyAuth } from "@/lib/auth";
 import { getBlogs, getServices } from "@/lib/db";
 
 export async function GET(request: Request) {
-  // 1. Authenticate using the existing session cookie
-  const cookieStore = await cookies();
-  const session = cookieStore.get('admin_session');
+  const ADMIN_CREDENTIALS = "Basic " + Buffer.from("admin:trekadmin123").toString("base64");
   
-  if (!session || session.value !== 'authenticated') {
+  const isAuth = await verifyAuth();
+  const authHeader = request.headers.get("authorization");
+  const isBasicAuth = authHeader === ADMIN_CREDENTIALS;
+  
+  if (!isAuth && !isBasicAuth) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

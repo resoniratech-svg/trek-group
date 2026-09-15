@@ -69,14 +69,20 @@ function InternalLinkModal({ isOpen, onClose, onSelect }: any) {
     const fetchResults = async () => {
       if (!query && isOpen) {
         setLoading(true);
-        const res = await fetch('/api/admin/search-links');
+        const res = await fetch('/api/admin/search-links', {
+          credentials: 'include',
+          headers: { "Authorization": "Basic YWRtaW46dHJla2FkbWluMTIz" }
+        });
         if (res.ok) setResults(await res.json());
         setLoading(false);
         return;
       }
       if (query.length < 2) return;
       setLoading(true);
-      const res = await fetch(`/api/admin/search-links?q=${encodeURIComponent(query)}`);
+      const res = await fetch(`/api/admin/search-links?q=${encodeURIComponent(query)}`, {
+          credentials: 'include',
+          headers: { "Authorization": "Basic YWRtaW46dHJla2FkbWluMTIz" }
+        });
       if (res.ok) setResults(await res.json());
       setLoading(false);
     };
@@ -1378,7 +1384,34 @@ export default function AdminPage() {
           </div>
         </div>
 
+        
+        <InternalLinkModal 
+          isOpen={isLinkModalOpen}
+          onClose={() => setIsLinkModalOpen(false)}
+          onSelect={(target, anchor) => {
+            const isBlog = target.type === 'BLOG';
+            const basePath = isBlog ? '/blog' : '/services';
+            const shortcode = `[${anchor}](${basePath}/${target.slug})`;
+            
+            const textarea = contentRef.current;
+            if (textarea) {
+              const start = textarea.selectionStart;
+              const end = textarea.selectionEnd;
+              const newContent = content.substring(0, start) + shortcode + content.substring(end);
+              setContent(newContent);
+              
+              setTimeout(() => {
+                textarea.focus();
+                textarea.setSelectionRange(start + shortcode.length, start + shortcode.length);
+              }, 10);
+            } else {
+              setContent(content + shortcode);
+            }
+            setIsLinkModalOpen(false);
+          }}
+        />
         <Footer />
+
       </div>
     </main>
   );
