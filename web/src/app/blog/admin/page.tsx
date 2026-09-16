@@ -1388,7 +1388,7 @@ export default function AdminPage() {
         <InternalLinkModal 
           isOpen={isLinkModalOpen}
           onClose={() => setIsLinkModalOpen(false)}
-          onSelect={(target, anchor) => {
+          onSelect={(target: any, anchor: string) => {
             const isBlog = target.type === 'BLOG';
             const basePath = isBlog ? '/blog' : '/services';
             const shortcode = `[${anchor}](${basePath}/${target.slug})`;
